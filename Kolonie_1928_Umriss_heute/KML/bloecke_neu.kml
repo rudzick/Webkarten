@@ -1,0 +1,85 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<kml xmlns='http://www.opengis.net/kml/2.2'>
+	<Document>
+		<name>Unbenannte Ebene</name>
+		<Placemark>
+			<styleUrl>#poly-A61B4A-4-76</styleUrl>
+			<name>Polygon 1</name>
+			<description><![CDATA[Block IV]]></description>
+			<Polygon>
+				<outerBoundaryIs>
+					<LinearRing>
+						<tessellate>0</tessellate>
+						<coordinates>13.333336114883423,52.484425907135986,0.0 13.333344161510468,52.48401673759431,0.0 13.334175646305084,52.48402817152542,0.0 13.33416223526001,52.48443815766237,0.0 13.333336114883423,52.484425907135986,0.0</coordinates>
+					</LinearRing>
+				</outerBoundaryIs>
+			</Polygon>
+		</Placemark>
+		<Placemark>
+			<styleUrl>#poly-A61B4A-4-76</styleUrl>
+			<name>Polygon 3</name>
+			<description><![CDATA[Block II]]></description>
+			<Polygon>
+				<outerBoundaryIs>
+					<LinearRing>
+						<tessellate>0</tessellate>
+						<coordinates>13.335413485765457,52.483832977579766,0.0 13.33545371890068,52.48176011144977,0.0 13.336910158395767,52.48230651472018,0.0 13.3368980884552,52.48298032106778,0.0 13.336397856473923,52.482973787237555,0.0 13.33634153008461,52.48335111434034,0.0 13.335413485765457,52.483832977579766,0.0</coordinates>
+					</LinearRing>
+				</outerBoundaryIs>
+			</Polygon>
+		</Placemark>
+		<Placemark>
+			<styleUrl>#poly-A61B4A-4-76</styleUrl>
+			<name>Polygon 4</name>
+			<description><![CDATA[Block I]]></description>
+			<Polygon>
+				<outerBoundaryIs>
+					<LinearRing>
+						<tessellate>0</tessellate>
+						<coordinates>13.334231972694397,52.48330129428096,0.0 13.334249407052994,52.48263239326077,0.0 13.33520159125328,52.4826315765255,0.0 13.335192203521729,52.483186952946824,0.0 13.334417045116425,52.483186952946824,0.0 13.334415704011917,52.48330537789443,0.0 13.334231972694397,52.48330129428096,0.0</coordinates>
+					</LinearRing>
+				</outerBoundaryIs>
+			</Polygon>
+		</Placemark>
+		<Placemark>
+			<styleUrl>#poly-A61B4A-4-76</styleUrl>
+			<name>Polygon 5</name>
+			<description><![CDATA[Block III]]></description>
+			<Polygon>
+				<outerBoundaryIs>
+					<LinearRing>
+						<tessellate>0</tessellate>
+						<coordinates>13.336863219738007,52.485123365006814,0.0 13.336290568113327,52.485124998384634,0.0 13.336297273635864,52.483956301052004,0.0 13.336894065141678,52.48395140078817,0.0 13.336863219738007,52.485123365006814,0.0</coordinates>
+					</LinearRing>
+				</outerBoundaryIs>
+			</Polygon>
+		</Placemark>
+		<Placemark>
+			<styleUrl>#icon-1197</styleUrl>
+			<name>Punkt 6</name>
+			<description><![CDATA[Vereinshaus]]></description>
+			<Point>
+				<coordinates>13.336230218410492,52.4826095246698,0.0</coordinates>
+			</Point>
+		</Placemark>
+		<Style id='icon-1197'>
+			<IconStyle>
+				<scale>1.1</scale>
+				<Icon>
+					<href>http://www.gstatic.com/mapspro/images/stock/1197-fac-headquarters.png</href>
+				</Icon>
+			</IconStyle>
+		</Style>
+		<Style id='poly-A61B4A-4-76'>
+			<LineStyle>
+				<color>ff4A1BA6</color>
+				<width>4</width>
+			</LineStyle>
+			<PolyStyle>
+				<color>4C4A1BA6</color>
+				<fill>1</fill>
+				<outline>1</outline>
+			</PolyStyle>
+		</Style>
+	</Document>
+</kml>

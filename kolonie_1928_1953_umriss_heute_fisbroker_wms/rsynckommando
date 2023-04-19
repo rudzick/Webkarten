@@ -1,0 +1,1 @@
+rsync -avu -e "ssh -p 39125" dist/ root@mymapnik.rudzick.it:/var/www/html/Kolonie_1928_1953_Umriss_heute_FISBroker_WMS/

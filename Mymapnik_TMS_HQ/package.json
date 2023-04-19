@@ -1,0 +1,19 @@
+{
+  "name": "mymapnik_tms_hq",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "parcel index.html",
+    "build": "parcel build --public-url . index.html"
+  },
+  "author": "Oliver Rudzick",
+  "license": "ISC",
+  "dependencies": {
+    "ol": "^6.5.0"
+  },
+  "devDependencies": {
+    "parcel": "^2.0.0-beta.1"
+  }
+}

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="de-DE">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>Wildbienenkartierung Am Stadtpark I</title>
+    <!-- The line below is only needed for old environments like Internet Explorer and Android 4.x -->
+    <script src="https://cdn.polyfill.io/v2/polyfill.min.js?features=requestAnimationFrame,Element.prototype.classList,URL"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.min.js"></script>
+    <style>
+      .map {
+          width: 100vw;
+	  max-width: 800px;
+	  height: calc(141.421vw);
+	  max-height: 1131.368px;
+/*          width: 280px;
+	  height: 380px; */
+      }
+    </style>
+  </head>
+  <body>
+    <div id="map" class="map"></div>
+    <div id="info">&nbsp;</div>
+
+     <form class="form">
+      <label>Page size </label>
+      <select id="format">
+        <option value="a0">A0 (slow)</option>
+        <option value="a1">A1</option>
+        <option value="a2">A2</option>
+        <option value="a3">A3</option>
+        <option value="a4" selected>A4</option>
+        <option value="a5">A5 (fast)</option>
+      </select>
+      <label>Resolution </label>
+      <select id="resolution">
+        <option value="72">72 dpi (fast)</option>
+        <option value="150">150 dpi</option>
+        <option value="300">300 dpi (slow)</option>
+      </select>
+    </form>
+    <button id="export-pdf">Export PDF</button>
+    
+    
+    <script src="index.js"></script>
+  </body>
+</html>

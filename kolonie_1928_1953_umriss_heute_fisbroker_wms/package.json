@@ -1,0 +1,17 @@
+{
+  "name": "kolonie_1928_1953_umriss_heute_fisbroker_wms",
+  "version": "1.0.0",
+  "scripts": {
+    "start": "vite",
+    "build": "vite build",
+    "serve": "vite preview"
+  },
+  "devDependencies": {
+    "vite": "^2.6.7"
+  },
+  "dependencies": {
+    "ol": "latest",
+    "ol-layerswitcher": "^3.8.3",
+    "proj4": "^2.7.5"
+  }
+}

@@ -1,0 +1,6 @@
+*~
+.*~
+rsync-kommando
+**/node_modules
+**/dist
+**/.cache

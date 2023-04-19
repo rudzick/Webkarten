@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Luftbild von 1928 mit den heutigen Grenzen unserer Kolonie</title>
+  <link rel="stylesheet" href="https://openlayers.org/en/v5.3.0/css/ol.css" type="text/css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.2.61/jspdf.min.js"></script>
+    <style>
+      #karte {
+        width: 100vw;
+        height:calc(141.421vw);
+      }
+    </style>
+  </head>
+  <body>
+    <div id="karte"></div>
+
+    <form class="form">
+      <label>Page size </label>
+      <select id="format">
+        <option value="a0">A0 (slow)</option>
+        <option value="a1">A1</option>
+        <option value="a2">A2</option>
+        <option value="a3">A3</option>
+        <option value="a4" selected>A4</option>
+        <option value="a5">A5 (fast)</option>
+      </select>
+      <label>Resolution </label>
+      <select id="resolution">
+        <option value="72">72 dpi (fast)</option>
+        <option value="150">150 dpi</option>
+        <option value="300">300 dpi (slow)</option>
+      </select>
+    </form>
+    <button id="export-pdf">Export PDF</button>
+    
+     <script src="./index.js"></script>
+   </body>
+</html>

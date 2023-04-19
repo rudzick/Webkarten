@@ -1,0 +1,33 @@
+{
+  "name": "geldautomaten",
+  "version": "1.0.0",
+  "scripts": {
+    "start": "vite",
+    "build": "vite build",
+    "serve": "vite preview"
+  },
+  "devDependencies": {
+    "vite": "^3.0.9"
+  },
+  "dependencies": {
+    "ol": "latest",
+    "ol-layerswitcher": "^4.1.0"
+  },
+  "babel": {
+    "presets": [
+      [
+        "@babel/preset-env",
+        {
+          "targets": {
+            "esmodules": true
+          }
+        }
+      ],
+      "@babel/preset-react",
+      "@babel/preset-flow"
+    ],
+    "plugins": [
+      "@babel/plugin-proposal-class-properties"
+    ]
+  }
+}

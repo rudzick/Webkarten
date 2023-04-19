@@ -1,0 +1,19 @@
+{
+  "name": "gaslaternen_duesseldorf",
+  "version": "1.0.0",
+  "description": "Mapnik-Layer zur Darstellung der in OSM gemappten Gaslaternen in Düsseldorf",
+  "main": "index.js",
+  "scripts": {
+      "test": "echo \"Error: no test specified\" && exit 1",
+      "start": "parcel index.html",
+      "build": "parcel build --public-url . index.html"
+  },
+  "author": "Oliver Rudzick",
+  "license": "ISC",
+  "dependencies": {
+    "ol": "^6.3.1"
+  },
+  "devDependencies": {
+    "parcel-bundler": "^1.12.4"
+  }
+}

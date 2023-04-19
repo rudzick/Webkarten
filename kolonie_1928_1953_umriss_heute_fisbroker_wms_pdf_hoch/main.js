@@ -1,0 +1,483 @@
+import 'ol/ol.css';
+import 'ol-layerswitcher/src/ol-layerswitcher.css';
+import LayerGroup from 'ol/layer/Group';
+import Map from 'ol/Map';
+import View from 'ol/View';
+import WKT from 'ol/format/WKT';
+import {Tile as TileLayer, Vector as VectorLayer} from 'ol/layer';
+import {transform, transformExtent, get as getProjection} from 'ol/proj';
+import {defaults as defaultControls, Attribution, ScaleLine, FullScreen} from 'ol/control';
+import Projection from 'ol/proj/Projection';
+import TileWMS from 'ol/source/TileWMS';
+import GeoJSON from 'ol/format/GeoJSON.js';
+import VectorSource from 'ol/source/Vector.js';
+import {bbox as bboxStrategy} from 'ol/loadingstrategy.js';
+import {Stroke, Fill, Style} from 'ol/style.js';
+import proj4 from 'proj4';
+import {register} from 'ol/proj/proj4';
+import LayerSwitcher from 'ol-layerswitcher';
+
+// https://github.com/walkermatt/ol-layerswitcher-examples/blob/master/parcel/main.js
+
+// By default OpenLayers does not know about the EPSG:25833 (Europe) projection.
+// https://epsg.io/25833
+proj4.defs("EPSG:25833","+proj=utm +zone=33 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs");
+register(proj4);
+
+var resolution;
+
+var projectionETRS89 = new Projection({
+  code: 'EPSG:25833',
+  // The extent is used to determine zoom level 0. Recommended values for a
+  // projection's validity extent can be found at https://epsg.io/.
+    extent: [-2465144.80, 4102893.55, 776625.76, 9408555.22],
+  units: 'm',
+});
+
+// We also declare EPSG:21781/EPSG:4326 transform functions. These functions
+// are necessary for the ScaleLine control and when calling ol/proj~transform
+// for setting the view's initial center (see below).
+
+var extentBerlin = [-2465144.80, 4102893.55, 776625.76, 9408555.22];
+
+var vectorSource = new VectorSource({
+    format: new GeoJSON(),
+    url: function(extent) {
+        return 'https://mymapnik.rudzick.it/geoserver/wfs?service=WFS&' +
+            'version=1.1.0&request=GetFeature&typename=Kleingartenparzellen:planet_osm_polygon&' +
+            'outputFormat=application/json&srsname=EPSG:25833&' +
+            'bbox=' + extent.join(',') + ',EPSG:25833';
+    },
+    strategy: bboxStrategy
+});
+
+var vector = new VectorLayer({
+//    'title' : 'Heutiger Grundriss unserer Kolonie',
+    source: vectorSource,
+    style: new Style({
+        stroke: new Stroke({
+            color: 'rgba(189, 2, 64, 1.0)',
+            width: resolution/72.0
+        }),
+//	fill: new Fill({
+//	    color: 'rgba(189, 2, 64, 0.3)'
+//	}),   
+    }),
+    renderMode: vector,
+    updateWhileInteracting: true
+});
+
+var berlin1928 = new TileLayer({
+    'title' : 'Luftbildkarte 1928',
+     type: 'base',
+    visible: true,
+    extent: extentBerlin,
+    source: new TileWMS({
+      url: 'https://fbinter.stadt-berlin.de/fb/wms/senstadt/k_luftbild1928',
+      crossOrigin: 'anonymous',
+      attributions:
+        '© <a href="https://fbinter.stadt-berlin.de/fb/berlin/service_intern.jsp?id=k_luftbild1928@senstadt&type=WMS">Geoportal Berlin / Luftbildplan 1928</a>' +
+	    ' &amp; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+	params: {
+	    'SERVICE': 'WMS',
+	    'VERSION': '1.3.0',
+            'LAYERS': '0',
+	    'CRS': 'EPSG:25833',
+            'FORMAT': 'image/png',
+      },
+      serverType: 'mapserver',
+    }),
+});
+
+var berlin1953 = new TileLayer({
+    'title' : 'Luftbilder 1953',
+    type: 'base',
+    visible: false,
+    extent: extentBerlin,
+    source: new TileWMS({
+      url: 'https://fbinter.stadt-berlin.de/fb/wms/senstadt/k_luftbild1953',
+      crossOrigin: 'anonymous',
+      attributions:
+        '© <a href="https://fbinter.stadt-berlin.de/fb/berlin/service_intern.jsp?id=k_luftbild1953@senstadt&type=WMS">Geoportal Berlin / Luftbilder 1953</a>' +
+	    ' &amp; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+	params: {
+	    'SERVICE': 'WMS',
+	    'VERSION': '1.3.0',
+            'LAYERS': '0',
+	    'CRS': 'EPSG:25833',
+            'FORMAT': 'image/png',
+      },
+      serverType: 'mapserver',
+    }),
+});
+
+var berlin2011 = new TileLayer({
+    'title' : 'Digitale farbige Orthophotos 2011',
+    type: 'base',
+    visible: false,
+    extent: extentBerlin,
+    source: new TileWMS({
+      url: 'https://fbinter.stadt-berlin.de/fb/wms/senstadt/k_luftbild2011_20',
+      crossOrigin: 'anonymous',
+      attributions:
+        '© <a href="https://fbinter.stadt-berlin.de/fb/berlin/service_intern.jsp?id=k_luftbild2013_20@senstadt&type=WMS">Geoportal Berlin / Digitale farbige Orthophotos 2011</a>' +
+	    ' &amp; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+	params: {
+	    'SERVICE': 'WMS',
+	    'VERSION': '1.3.0',
+            'LAYERS': '0',
+	    'CRS': 'EPSG:25833',
+            'FORMAT': 'image/png',
+      },
+      serverType: 'mapserver',
+    }),
+});
+
+var berlin2013 = new TileLayer({
+    'title' : 'Digitale farbige Orthophotos 2013',
+    type: 'base',
+    visible: false,
+    extent: extentBerlin,
+    source: new TileWMS({
+      url: 'https://fbinter.stadt-berlin.de/fb/wms/senstadt/k_luftbild2013',
+      crossOrigin: 'anonymous',
+      attributions:
+        '© <a href="https://fbinter.stadt-berlin.de/fb/berlin/service_intern.jsp?id=k_luftbild2013@senstadt&type=WMS">Geoportal Berlin / Digitale farbige Orthophotos 2013</a>' +
+	    ' &amp; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+	params: {
+	    'SERVICE': 'WMS',
+	    'VERSION': '1.3.0',
+            'LAYERS': '0',
+	    'CRS': 'EPSG:25833',
+            'FORMAT': 'image/png',
+      },
+      serverType: 'mapserver',
+    }),
+});
+
+var berlin2014 = new TileLayer({
+    'title' : 'Digitale farbige Orthophotos 2014',
+    type: 'base',
+    visible: false,
+    extent: extentBerlin,
+    source: new TileWMS({
+      url: 'https://fbinter.stadt-berlin.de/fb/wms/senstadt/k_luftbild2014',
+      crossOrigin: 'anonymous',
+      attributions:
+        '© <a href="https://fbinter.stadt-berlin.de/fb/berlin/service_intern.jsp?id=k_luftbild2014@senstadt&type=WMS">Geoportal Berlin / Digitale farbige Orthophotos 2014</a>' +
+	    ' &amp; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+	params: {
+	    'SERVICE': 'WMS',
+	    'VERSION': '1.3.0',
+            'LAYERS': '0',
+	    'CRS': 'EPSG:25833',
+            'FORMAT': 'image/png',
+      },
+      serverType: 'mapserver',
+    }),
+});
+
+var berlin2015 = new TileLayer({
+    'title' : 'Digitale farbige Orthophotos 2015',
+    type: 'base',
+    visible: false,
+    extent: extentBerlin,
+    source: new TileWMS({
+      url: 'https://fbinter.stadt-berlin.de/fb/wms/senstadt/k_luftbild2015_rgb',
+      crossOrigin: 'anonymous',
+      attributions:
+        '© <a href="https://fbinter.stadt-berlin.de/fb/berlin/service_intern.jsp?id=k_luftbild2015_rgb@senstadt&type=WMS">Geoportal Berlin / Digitale farbige Orthophotos 2015</a>' +
+	    ' &amp; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+	params: {
+	    'SERVICE': 'WMS',
+	    'VERSION': '1.3.0',
+            'LAYERS': '0',
+	    'CRS': 'EPSG:25833',
+            'FORMAT': 'image/png',
+      },
+      serverType: 'mapserver',
+    }),
+});
+
+var berlin2016 = new TileLayer({
+    'title' : 'Digitale farbige Orthophotos 2016',
+    type: 'base',
+    visible: false,
+    extent: extentBerlin,
+    source: new TileWMS({
+      url: 'https://fbinter.stadt-berlin.de/fb/wms/senstadt/k_luftbild2016_rgb',
+      crossOrigin: 'anonymous',
+      attributions:
+        '© <a href="https://fbinter.stadt-berlin.de/fb/berlin/service_intern.jsp?id=k_luftbild2016_rgb@senstadt&type=WMS">Geoportal Berlin / Digitale farbige Orthophotos 2016</a>' +
+	    ' &amp; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+	params: {
+	    'SERVICE': 'WMS',
+	    'VERSION': '1.3.0',
+            'LAYERS': '0',
+	    'CRS': 'EPSG:25833',
+            'FORMAT': 'image/png',
+      },
+      serverType: 'mapserver',
+    }),
+});
+
+var berlin2017 = new TileLayer({
+    'title' : 'Digitale farbige Orthophotos 2017',
+    type: 'base',
+    visible: false,
+    extent: extentBerlin,
+    source: new TileWMS({
+      url: 'https://fbinter.stadt-berlin.de/fb/wms/senstadt/k_luftbild2017_rgb',
+      crossOrigin: 'anonymous',
+      attributions:
+        '© <a href="https://fbinter.stadt-berlin.de/fb/berlin/service_intern.jsp?id=k_luftbild2017_rgb@senstadt&type=WMS">Geoportal Berlin / Digitale farbige Orthophotos 2017</a>' +
+	    ' &amp; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+	params: {
+	    'SERVICE': 'WMS',
+	    'VERSION': '1.3.0',
+            'LAYERS': '0',
+	    'CRS': 'EPSG:25833',
+            'FORMAT': 'image/png',
+      },
+      serverType: 'mapserver',
+    }),
+});
+
+var berlin2018 = new TileLayer({
+    'title' : 'Digitale farbige Orthophotos 2018',
+    type: 'base',
+    visible: false,
+    extent: extentBerlin,
+    source: new TileWMS({
+      url: 'https://fbinter.stadt-berlin.de/fb/wms/senstadt/k_luftbild2018_rgb',
+      crossOrigin: 'anonymous',
+      attributions:
+        '© <a href="https://fbinter.stadt-berlin.de/fb/berlin/service_intern.jsp?id=k_luftbild2018_rgb@senstadt&type=WMS">Geoportal Berlin / Digitale farbige Orthophotos 2018</a>' +
+	    ' &amp; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+	params: {
+	    'SERVICE': 'WMS',
+	    'VERSION': '1.3.0',
+            'LAYERS': '0',
+	    'CRS': 'EPSG:25833',
+            'FORMAT': 'image/png',
+      },
+      serverType: 'mapserver',
+    }),
+});
+
+var berlin2019 = new TileLayer({
+    'title' : 'Digitale farbige Orthophotos 2019',
+    type: 'base',
+    visible: false,
+    extent: extentBerlin,
+    source: new TileWMS({
+      url: 'https://fbinter.stadt-berlin.de/fb/wms/senstadt/k_luftbild2019_rgb',
+      crossOrigin: 'anonymous',
+      attributions:
+        '© <a href="https://fbinter.stadt-berlin.de/fb/berlin/service_intern.jsp?id=k_luftbild2019_rgb@senstadt&type=WMS">Geoportal Berlin / Digitale farbige Orthophotos 2019</a>' +
+	    ' &amp; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+	params: {
+	    'SERVICE': 'WMS',
+	    'VERSION': '1.3.0',
+            'LAYERS': '0',
+	    'CRS': 'EPSG:25833',
+            'FORMAT': 'image/png',
+      },
+      serverType: 'mapserver',
+    }),
+});
+
+var berlin2020 = new TileLayer({
+    'title' : 'Digitale farbige Orthophotos 2020',
+    type: 'base',
+    visible: false,
+    extent: extentBerlin,
+    source: new TileWMS({
+      url: 'https://fbinter.stadt-berlin.de/fb/wms/senstadt/k_luftbild2020_rgb',
+      crossOrigin: 'anonymous',
+      attributions:
+        '© <a href="https://fbinter.stadt-berlin.de/fb/berlin/service_intern.jsp?id=k_luftbild2020_rgb@senstadt&type=WMS">Geoportal Berlin / Digitale farbige Orthophotos 2020</a>' +
+	    ' &amp; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+	params: {
+	    'SERVICE': 'WMS',
+	    'VERSION': '1.3.0',
+            'LAYERS': '0',
+	    'CRS': 'EPSG:25833',
+            'FORMAT': 'image/png',
+      },
+      serverType: 'mapserver',
+    }),
+});
+
+var berlin2021 = new TileLayer({
+    'title' : 'Digitale farbige Orthophotos 2021',
+    type: 'base',
+    visible: false,
+    extent: extentBerlin,
+    source: new TileWMS({
+      url: 'https://fbinter.stadt-berlin.de/fb/wms/senstadt/k_luftbild2021_rgb',
+      crossOrigin: 'anonymous',
+      attributions:
+        '© <a href="https://fbinter.stadt-berlin.de/fb/berlin/service_intern.jsp?id=k_luftbild2021_rgb@senstadt&type=WMS">Geoportal Berlin / Digitale farbige Orthophotos 2021</a>' +
+	    ' &amp; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+	params: {
+	    'SERVICE': 'WMS',
+	    'VERSION': '1.3.0',
+            'LAYERS': '0',
+	    'CRS': 'EPSG:25833',
+            'FORMAT': 'image/png',
+      },
+      serverType: 'mapserver',
+    }),
+});
+
+var basisLayers = new LayerGroup({
+    'title': 'Hintergrund',
+    combine: false,
+//     type: 'base',
+    visible: true,
+    layers: [berlin1928,
+	     berlin1953,
+	     berlin2011,
+	     berlin2013,
+	     berlin2014,
+	     berlin2015,
+	     berlin2016,
+	     berlin2017,
+	     berlin2018,
+	     berlin2019,
+	     berlin2020,
+	     berlin2021]
+});
+
+var overlaysOSM = new LayerGroup({
+    'title': 'Heutiger Grundriss unserer Kolonie (OSM)',
+    combine: true,
+    fold: 'closed',
+    layers: [vector]
+});
+
+
+var map = new Map({
+    controls: defaultControls().extend([
+	new ScaleLine({
+	    units: 'metric',
+	}),
+	new FullScreen()
+    ]),
+    layers: [basisLayers,
+	     overlaysOSM
+	    ],
+    target: 'map',
+    view: new View({
+	projection: projectionETRS89,
+        center: transform([13.3353000, 52.4833225], 'EPSG:4326', 'EPSG:25833'),
+//	center: [386956.39, 5816099.66],
+        extent: extentBerlin,
+	zoom: 14,
+  }),
+});
+
+var layerSwitcher = new LayerSwitcher();
+map.addControl(layerSwitcher);
+
+// ab hier Druckausgabe
+
+const format = new WKT();
+const feature = format.readFeature(
+  'POLYGON((10.689697265625 -25.0927734375, 34.595947265625 ' +
+    '-20.1708984375, 38.814697265625 -35.6396484375, 13.502197265625 ' +
+    '-39.1552734375, 10.689697265625 -25.0927734375))'
+);
+feature.getGeometry().transform('EPSG:4326', 'EPSG:3857');
+
+/*
+const map = new Map({
+  layers: [raster, vector],
+  target: 'map',
+  view: new View({
+    center: [0, 0],
+    zoom: 2,
+  }),
+}); */
+
+const dims = {
+  a0: [841, 1189],
+  a1: [594, 841],
+  a2: [420, 594],
+  a3: [297, 420],
+  a4: [210, 297],
+  a5: [148, 210],
+};
+
+const exportButton = document.getElementById('export-pdf');
+
+exportButton.addEventListener(
+  'click',
+  function () {
+    exportButton.disabled = true;
+    document.body.style.cursor = 'progress';
+
+    const format = document.getElementById('format').value;
+//    const resolution = document.getElementById('resolution').value;
+    resolution = document.getElementById('resolution').value;
+    const dim = dims[format];
+    const width = Math.round((dim[0] * resolution) / 25.4);
+    const height = Math.round((dim[1] * resolution) / 25.4);
+    const size = map.getSize();
+    const viewResolution = map.getView().getResolution();
+
+    vector.refresh;
+      
+    map.once('rendercomplete', function () {
+      const mapCanvas = document.createElement('canvas');
+      mapCanvas.width = width;
+      mapCanvas.height = height;
+      const mapContext = mapCanvas.getContext('2d');
+      Array.prototype.forEach.call(
+        document.querySelectorAll('.ol-layer canvas'),
+        function (canvas) {
+          if (canvas.width > 0) {
+            const opacity = canvas.parentNode.style.opacity;
+            mapContext.globalAlpha = opacity === '' ? 1 : Number(opacity);
+            const transform = canvas.style.transform;
+            // Get the transform parameters from the style's transform matrix
+            const matrix = transform
+              .match(/^matrix\(([^\(]*)\)$/)[1]
+              .split(',')
+              .map(Number);
+            // Apply the transform to the export map context
+            CanvasRenderingContext2D.prototype.setTransform.apply(
+              mapContext,
+              matrix
+            );
+            mapContext.drawImage(canvas, 0, 0);
+          }
+        }
+      );
+      const pdf = new jspdf.jsPDF('portrait', undefined, format);
+      pdf.addImage(
+        mapCanvas.toDataURL('image/jpeg'),
+        'JPEG',
+        0,
+        0,
+        dim[0],
+        dim[1]
+      );
+      pdf.save('map.pdf');
+      // Reset original map size
+      map.setSize(size);
+      map.getView().setResolution(viewResolution);
+      exportButton.disabled = false;
+      document.body.style.cursor = 'auto';
+    });
+
+    // Set print size
+    const printSize = [width, height];
+    map.setSize(printSize);
+    const scaling = Math.min(width / size[0], height / size[1]);
+    map.getView().setResolution(viewResolution / scaling);
+  },
+  false
+);
+
