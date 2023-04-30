@@ -1,0 +1,43 @@
+{
+    "version": 8,
+    "sources": {
+	"nesting-sites": {
+	    "type": "vector",
+	    "tiles": [
+		"https://vectortiles.obstbaumkarte.de/osm/{z}/{x}/{y}.pbf"
+	    ],
+	    "minzoom": 0,
+	    "maxzoom": 11
+	}
+    },
+    "glyphs": "fonts/{fontstack}/{range}.pbf.br",
+    "sprite": "http://localhost:5173/sprite/sprite",
+    "layers": [
+	{
+	    "id": "nesting-sites",
+	    "type": "symbol",
+	    "source": "nesting-sites",
+	    "source-layer": "points",
+	    "layout": {
+		"icon-image": "meinnistkasten",
+		"icon-size": 0.05,
+		"text-field": [
+		    "format",
+		    ["get", "species:de"],
+		    { "font-scale": 0.8 },
+		    "\n",
+		    {},
+		    ["get", "species"],
+		    { "font-scale": 0.6 }
+		],
+		"text-font": ["open_sans_semibold"],
+		"text-offset": [0, 0.9],
+		"text-anchor": "top"
+	    },
+	    "paint": {
+		"icon-color" : "#0000ff"
+	    }
+	}
+    ]
+}
+
