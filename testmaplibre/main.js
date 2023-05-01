@@ -15,10 +15,13 @@ import { applyStyle } from 'ol-mapbox-style';
 import VectorTileLayer from 'ol/layer/VectorTile.js'
 
 const nistkastenlayer = new VectorTileLayer({declutter: true});
-applyStyle(nistkastenlayer, 'http://localhost:5173/teststyle_nistkaesten.json');
+applyStyle(nistkastenlayer, 'https://obstbaumkarte.de/testmaplibre/teststyle_nistkaesten.json');
 
 const wetterstationenlayer = new VectorTileLayer({declutter: true});
-applyStyle(wetterstationenlayer, 'http://localhost:5173/teststyle_wetterstationen.json');
+applyStyle(wetterstationenlayer, 'https://obstbaumkarte.de/testmaplibre/teststyle_wetterstationen.json');
+
+const kleingartenparzellenlayer = new VectorTileLayer({declutter: true});
+applyStyle(kleingartenparzellenlayer, 'https://obstbaumkarte.de/testmaplibre/teststyle_kleingartenparzellen.json');
 
 var mapMinZoom = 1;
 var mapMaxZoom = 24;
@@ -103,7 +106,8 @@ var map = new Map({
 	    maxZoom: mapMaxZoom
 	}),
 	nistkastenlayer,
-	wetterstationenlayer
+	wetterstationenlayer,
+	kleingartenparzellenlayer
     ],
     view: new View({
 	projection: 'EPSG:3857',

@@ -10,7 +10,7 @@
 	    "maxzoom": 11  
 	}
     },
-    "sprite": "http://localhost:5173/sprite/sprite",
+    "sprite": "https://obstbaumkarte.de/testmaplibre/sprite/sprite",
     "layers": [
 	{
 	    "id": "wetterstationen",

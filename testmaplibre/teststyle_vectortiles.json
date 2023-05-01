@@ -6,12 +6,20 @@
 	    "tiles": [
 		"https://vectortiles.obstbaumkarte.de/osm/{z}/{x}/{y}.pbf"
 	    ],
-	    "minzoom": 0,
-	    "maxzoom": 11
+	    "minzoom": 11,
+	    "maxzoom": 14
+	},
+	"wetterstationen": {
+	    "type": "vector",
+	    "tiles": [
+		"https://vectortiles.obstbaumkarte.de/osm/{z}/{x}/{y}.pbf"
+	    ],
+	    "minzoom": 11,
+	    "maxzoom": 14  
 	}
     },
     "glyphs": "fonts/{fontstack}/{range}.pbf.br",
-    "sprite": "https://obstbaumkarte.de/testmaplibre/sprite/sprite",
+    "sprite": "http://localhost:5173/sprite/sprite",
     "layers": [
 	{
 	    "id": "nesting-sites",
@@ -36,6 +44,28 @@
 	    },
 	    "paint": {
 		"icon-color" : "#0000ff"
+	    }
+	},
+	{
+	    "id": "wetterstationen",
+	    "type": "symbol",
+	    "source": "wetterstationen",
+	    "source-layer": "wetterstationen",
+	    "layout": {
+		"icon-image": "monitoring_station",
+		"icon-size": 1.0,
+		"text-field": [
+		    "format",
+		    ["get", "website"],
+		    { "font-scale": 0.8 },
+		    "\n",
+		    {},
+		    ["get", "man_made"],
+		    { "font-scale": 0.6 }
+		],
+		"text-font": ["open_sans_semibold"],
+		"text-offset": [0, 0.9],
+		"text-anchor": "top"
 	    }
 	}
     ]
