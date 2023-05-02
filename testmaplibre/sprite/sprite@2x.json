@@ -1,0 +1,16 @@
+{
+  "meinnistkasten": {
+    "height": 1155,
+    "pixelRatio": 2,
+    "width": 997,
+    "x": 0,
+    "y": 0
+  },
+  "monitoring_station": {
+    "height": 32,
+    "pixelRatio": 2,
+    "width": 32,
+    "x": 997,
+    "y": 0
+  }
+}

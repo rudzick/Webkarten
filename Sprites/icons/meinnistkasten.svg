@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="140.77684mm"
+   height="163.06812mm"
+   viewBox="0 0 140.77684 163.06812"
+   version="1.1"
+   id="svg5"
+   inkscape:export-filename="Rastergrafik.svg"
+   inkscape:export-xdpi="96"
+   inkscape:export-ydpi="96"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview7"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:document-units="mm"
+     showgrid="false" />
+  <defs
+     id="defs2" />
+  <g
+     inkscape:label="Ebene 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(-30.58434,-59.795374)">
+    <path
+       style="fill:#000000;fill-opacity:0;stroke:#0000db;stroke-width:10.065;stroke-dasharray:none;stroke-opacity:1"
+       d="M 70.099644,217.11558 36.602341,91.817239 103.48064,65.263206 165.64028,93.539804 140.67925,217.79136 Z"
+       id="path253" />
+    <ellipse
+       style="fill:#000000;fill-opacity:0;stroke:#0000e2;stroke-width:10.99;stroke-dasharray:none;stroke-opacity:1"
+       id="path14816"
+       cx="104.30659"
+       cy="110.68598"
+       rx="15.558699"
+       ry="16.595182" />
+  </g>
+</svg>
