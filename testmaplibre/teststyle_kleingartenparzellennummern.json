@@ -1,0 +1,32 @@
+{
+    "version": 8,
+    "sources": {
+	"kleingartenparzellen": {
+	    "type": "vector",
+	    "tiles": [
+		"https://vectortiles.obstbaumkarte.de/osm/{z}/{x}/{y}.pbf"
+	    ],
+	    "minzoom": 14  
+	}
+    },
+    "layers": [
+	{
+	    "id": "kleingartenparzellennummern",
+	    "type": "symbol",
+	    "source": "kleingartenparzellen",
+	    "source-layer": "kleingartenparzellen",
+	    "layout": {
+		"text-field": [
+		    "format",
+		    ["get", "ref"],
+		    { "font-scale": 0.4 }
+		],
+		"text-font": ["open_sans_semibold"],
+		"text-offset": [0, 0],
+		"text-anchor": "center",
+		"text-color": "#111111"
+	    }
+	}
+    ]
+}
+

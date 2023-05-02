@@ -23,6 +23,9 @@ applyStyle(wetterstationenlayer, 'https://obstbaumkarte.de/testmaplibre/teststyl
 const kleingartenparzellenlayer = new VectorTileLayer({declutter: true});
 applyStyle(kleingartenparzellenlayer, 'https://obstbaumkarte.de/testmaplibre/teststyle_kleingartenparzellen.json');
 
+const kleingartenparzellennummernlayer = new VectorTileLayer({declutter: true});
+applyStyle(kleingartenparzellennummernlayer, 'https://obstbaumkarte.de/testmaplibre/teststyle_kleingartenparzellennummern.json');
+
 var mapMinZoom = 1;
 var mapMaxZoom = 24;
 var mapExtent = getProjection('EPSG:3857').getExtent();
@@ -107,7 +110,8 @@ var map = new Map({
 	}),
 	nistkastenlayer,
 	wetterstationenlayer,
-	kleingartenparzellenlayer
+	kleingartenparzellenlayer,
+	kleingartenparzellennummernlayer
     ],
     view: new View({
 	projection: 'EPSG:3857',
