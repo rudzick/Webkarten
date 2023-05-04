@@ -10,6 +10,7 @@
 	    "maxzoom": 11  
 	}
     },
+    "glyphs": "https://obstbaumkarte.de/fonts.pbf/{fontstack}/{range}.pbf",
     "sprite": "https://obstbaumkarte.de/testmaplibre/sprite/sprite",
     "layers": [
 	{
@@ -29,7 +30,7 @@
 		    ["get", "man_made"],
 		    { "font-scale": 0.6 }
 		],
-		"text-font": ["open_sans_semibold"],
+		"text-font": ["Open Sans Semibold"],
 		"text-offset": [0, 0.9],
 		"text-anchor": "top"
 	    }

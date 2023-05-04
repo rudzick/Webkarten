@@ -6,9 +6,10 @@
 	    "tiles": [
 		"https://vectortiles.obstbaumkarte.de/osm/{z}/{x}/{y}.pbf"
 	    ],
-	    "minzoom": 14  
+	    "minzoom": 22  
 	}
     },
+    "glyphs": "https://obstbaumkarte.de/fonts.pbf/{fontstack}/{range}.pbf",
     "layers": [
 	{
 	    "id": "kleingartenparzellennummern",
@@ -19,9 +20,9 @@
 		"text-field": [
 		    "format",
 		    ["get", "ref"],
-		    { "font-scale": 0.4 }
+		    { "font-scale": 0.1 }
 		],
-		"text-font": ["open_sans_semibold"],
+		"text-font": ["Open Sans Semibold"],
 		"text-offset": [0, 0],
 		"text-anchor": "center",
 		"text-color": "#111111"
