@@ -110,6 +110,116 @@ var berlin1953 = new TileLayer({
     }),
 });
 
+var berlin2002 = new TileLayer({
+    'title' : 'Digitale SW Orthophotos 2002',
+    type: 'base',
+    visible: false,
+    extent: extentBerlin,
+    source: new TileWMS({
+      url: 'https://fbinter.stadt-berlin.de/fb/wms/senstadt/k_luftbild2002',
+      crossOrigin: 'anonymous',
+      attributions:
+        '© <a href="https://fbinter.stadt-berlin.de/fb/berlin/service_intern.jsp?id=k_luftbild2002@senstadt&type=WMS">Geoportal Berlin / Digitale schwarz-weiß Orthophotos 2002</a>' +
+	    ' &amp; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+	params: {
+	    'SERVICE': 'WMS',
+	    'VERSION': '1.3.0',
+            'LAYERS': '0',
+	    'CRS': 'EPSG:25833',
+            'FORMAT': 'image/png',
+      },
+      serverType: 'mapserver',
+    }),
+});
+
+var berlin2006 = new TileLayer({
+    'title' : 'Digitale SW Orthophotos 2006',
+    type: 'base',
+    visible: false,
+    extent: extentBerlin,
+    source: new TileWMS({
+      url: 'https://fbinter.stadt-berlin.de/fb/wms/senstadt/luftbild2006',
+      crossOrigin: 'anonymous',
+      attributions:
+        '© <a href="https://fbinter.stadt-berlin.de/fb/berlin/service_intern.jsp?id=luftbild2006@senstadt&type=WMS">Geoportal Berlin / Digitale schwarz-weiß Orthophotos 2006</a>' +
+	    ' &amp; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+	params: {
+	    'SERVICE': 'WMS',
+	    'VERSION': '1.3.0',
+            'LAYERS': '0',
+	    'CRS': 'EPSG:25833',
+            'FORMAT': 'image/png',
+      },
+      serverType: 'mapserver',
+    }),
+});
+
+var berlin2007 = new TileLayer({
+    'title' : 'Digitale farbige Orthophotos 2007',
+    type: 'base',
+    visible: false,
+    extent: extentBerlin,
+    source: new TileWMS({
+      url: 'https://fbinter.stadt-berlin.de/fb/wms/senstadt/k_luftbild2007',
+      crossOrigin: 'anonymous',
+      attributions:
+        '© <a href="https://fbinter.stadt-berlin.de/fb/berlin/service_intern.jsp?id=k_luftbild2007@senstadt&type=WMS">Geoportal Berlin / Digitale farbige Orthophotos 2007</a>' +
+	    ' &amp; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+	params: {
+	    'SERVICE': 'WMS',
+	    'VERSION': '1.3.0',
+            'LAYERS': '0',
+	    'CRS': 'EPSG:25833',
+            'FORMAT': 'image/png',
+      },
+      serverType: 'mapserver',
+    }),
+});
+
+var berlin2009 = new TileLayer({
+    'title' : 'Digitale farbige Orthophotos 2009',
+    type: 'base',
+    visible: false,
+    extent: extentBerlin,
+    source: new TileWMS({
+      url: 'https://fbinter.stadt-berlin.de/fb/wms/senstadt/k_luftbild2009_20',
+      crossOrigin: 'anonymous',
+      attributions:
+        '© <a href="https://fbinter.stadt-berlin.de/fb/berlin/service_intern.jsp?id=k_luftbild2009_20@senstadt&type=WMS">Geoportal Berlin / Digitale farbige Orthophotos 2009</a>' +
+	    ' &amp; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+	params: {
+	    'SERVICE': 'WMS',
+	    'VERSION': '1.3.0',
+            'LAYERS': '0',
+	    'CRS': 'EPSG:25833',
+            'FORMAT': 'image/png',
+      },
+      serverType: 'mapserver',
+    }),
+});
+
+var berlin2010 = new TileLayer({
+    'title' : 'Digitale farbige Orthophotos 2010',
+    type: 'base',
+    visible: false,
+    extent: extentBerlin,
+    source: new TileWMS({
+      url: 'https://fbinter.stadt-berlin.de/fb/wms/senstadt/k_luftbild2010_rgb',
+      crossOrigin: 'anonymous',
+      attributions:
+        '© <a href="https://fbinter.stadt-berlin.de/fb/berlin/service_intern.jsp?id=k_luftbild2010_rgb@senstadt&type=WMS">Geoportal Berlin / Digitale farbige Orthophotos 2010</a>' +
+	    ' &amp; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+	params: {
+	    'SERVICE': 'WMS',
+	    'VERSION': '1.3.0',
+            'LAYERS': '0',
+	    'CRS': 'EPSG:25833',
+            'FORMAT': 'image/png',
+      },
+      serverType: 'mapserver',
+    }),
+});
+
 var berlin2011 = new TileLayer({
     'title' : 'Digitale farbige Orthophotos 2011',
     type: 'base',
@@ -119,7 +229,7 @@ var berlin2011 = new TileLayer({
       url: 'https://fbinter.stadt-berlin.de/fb/wms/senstadt/k_luftbild2011_20',
       crossOrigin: 'anonymous',
       attributions:
-        '© <a href="https://fbinter.stadt-berlin.de/fb/berlin/service_intern.jsp?id=k_luftbild2013_20@senstadt&type=WMS">Geoportal Berlin / Digitale farbige Orthophotos 2011</a>' +
+        '© <a href="https://fbinter.stadt-berlin.de/fb/berlin/service_intern.jsp?id=k_luftbild2011_20@senstadt&type=WMS">Geoportal Berlin / Digitale farbige Orthophotos 2011</a>' +
 	    ' &amp; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
 	params: {
 	    'SERVICE': 'WMS',
@@ -359,6 +469,11 @@ var basisLayers = new LayerGroup({
     visible: true,
     layers: [berlin1928,
 	     berlin1953,
+	     berlin2002,
+	     berlin2006,
+	     berlin2007,
+	     berlin2009,
+	     berlin2010,
 	     berlin2011,
 	     berlin2013,
 	     berlin2014,
