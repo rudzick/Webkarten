@@ -3,9 +3,6 @@ import Map from 'ol/Map';
 import Projection from 'ol/proj/Projection';
 import TileWMS from 'ol/source/TileWMS';
 import {Tile as TileLayer, Vector as VectorLayer} from 'ol/layer.js';
-import GeoJSON from 'ol/format/GeoJSON.js';
-import VectorSource from 'ol/source/Vector.js';
-import {bbox as bboxStrategy} from 'ol/loadingstrategy.js';
 import {Stroke, Fill, Circle, Icon, Style} from 'ol/style.js';
 import Feature from 'ol/Feature';
 import View from 'ol/View';
@@ -93,77 +90,6 @@ var iconStyle = new Style({
 
 iconFeature.setStyle(iconStyle);
 
-var vectorSource = new VectorSource({
-  features: [iconFeature]
-});
-
-var vectorLayer = new VectorLayer({
-  source: vectorSource
-});
-
-var parzellenSource = new VectorSource({
-    format: new GeoJSON(),
-    url: function(extent) {
-        return 'https://mymapnik.rudzick.it/geoserver/wfs?service=WFS&' +
-            'version=1.1.0&request=GetFeature&typename=Kleingartenparzellen:planet_osm_polygon:OpenUCO_Stationen&' +
-            'outputFormat=application/json&srsname=EPSG:3857&' +
-            'bbox=' + extent.join(',') + ',EPSG:3857';
-    },
-    crossOrigin: "anonymous",
-    strategy: bboxStrategy
-});
-
-var parzellenblock4Source = new VectorSource({
-    format: new GeoJSON(),
-    url: function(extent) {
-        return 'https://mymapnik.rudzick.it/geoserver/wfs?service=WFS&' +
-            'version=1.1.0&request=GetFeature&typename=Kleingartenparzellen:planet_osm_polygon:OpenUCO_Stationen_Block4&' +
-            'outputFormat=application/json&srsname=EPSG:3857&' +
-            'bbox=' + extent.join(',') + ',EPSG:3857';
-    },
-    crossOrigin: "anonymous",
-    strategy: bboxStrategy
-});
-
-var style = new Style({
-    stroke: new Stroke({
-        color: 'rgba(189, 2, 64, 1.0)',
-        width: 2.5
-    })
-});
-
-var dashed_style = new Style({
-    stroke: new Stroke({
-        color: 'rgba(189, 2, 64, 1.0)',
-        width: 1.5,
-//	linedash: [10.5,1.5]
-    })
-});
-
-var parzellen = new VectorLayer({
-    source: parzellenSource,
-    style,
-    renderMode: parzellen,
-    updateWhileInteracting: true,
-    minZoom: mapMinZoom,
-    maxZoom: 21
-});
-
-var parzellenblock4 = new VectorLayer({
-    source: parzellenblock4Source,
-    style: new Style({
-	stroke: new Stroke({
-            color: 'rgba(189, 2, 64, 1.0)',
-            width: 2.0,
-	    lineDash: [2.0,6]
-	})
-    }),
-    renderMode: parzellenblock4,
-    updateWhileInteracting: true,
-    minZoom: mapMinZoom,
-    maxZoom: 21
-});
-
 const osm = new TileLayer({
     'title' : 'OSM',
     type: 'base',
@@ -189,23 +115,23 @@ const obstbaumkarte = new TileLayer({
 	    maxZoom: mapMaxZoom
 });
 
-const berlin2022 = 	new TileLayer({
-    'title' : 'Digitale farbige TrueOrthophotos 2022',
+const berlin2023 = 	new TileLayer({
+    'title' : 'Digitale farbige TrueOrthophotos 2023',
     type: 'base',
     visible: true,
 //    extent: extentBerlin,
     extent: mapExtent,
     source: new TileWMS({
 	projection: 'EPSG:25833',
-	url: 'https://fbinter.stadt-berlin.de/fb/wms/senstadt/k_luftbild2022_true_rgbi',
+	url: 'https://gdi.berlin.de/services/wms/truedop_2023',
 	crossOrigin: 'anonymous',
 	attributions:
-	'© <a href="https://fbinter.stadt-berlin.de/fb/berlin/service_intern.jsp?id=k_luftbild2022_true_rgbi@senstadt&type=WMS">Geoportal Berlin / Digitale farbige TrueOrthophotos 2022</a>' +
+	'© <a href="https://gdi.berlin.de/geonetwork/srv/ger/catalog.search#/metadata/07ec4c16-723f-32ea-9580-411d8fe4f7e7">Geoportal Berlin / Digitale farbige TrueOrthophotos 2023</a>' +
 	    ' &amp; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
 	params: {
 	    'SERVICE': 'WMS',
 	    'VERSION': '1.3.0',
-	    'LAYERS': '0',
+	    'LAYERS': 'truedop_2023',
 	    'CRS': 'EPSG:25833',
 	    'FORMAT': 'image/png',
 	},
@@ -215,7 +141,7 @@ const berlin2022 = 	new TileLayer({
 
 var map = new Map({
   target: 'map',
-    layers: [berlin2022, osm, obstbaumkarte,parzellen,parzellenblock4],
+    layers: [berlin2023, osm, obstbaumkarte],
     view: new View({
 	projection: 'EPSG:3857',
 	center: center,
