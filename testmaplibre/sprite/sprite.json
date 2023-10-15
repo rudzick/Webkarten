@@ -1,4 +1,11 @@
 {
+  "geldautomaten": {
+    "height": 14,
+    "pixelRatio": 1,
+    "width": 14,
+    "x": 514,
+    "y": 0
+  },
   "meinnistkasten": {
     "height": 577,
     "pixelRatio": 1,

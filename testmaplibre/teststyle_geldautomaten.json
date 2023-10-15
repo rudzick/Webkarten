@@ -4,10 +4,10 @@
 	"geldautomaten": {
 	    "type": "vector",
 	    "tiles": [
-		"https://vectortiles.obstbaumkarte.de/osm/{z}/{x}/{y}.pbf"
+		"https://vectortiles.obstbaumkarte.de/atm/{z}/{x}/{y}.pbf"
 	    ],
 	    "minzoom": 0,
-	    "maxzoom": 11  
+	    "maxzoom": 19  
 	}
     },
     "glyphs": "https://obstbaumkarte.de/fonts.pbf/{fontstack}/{range}.pbf",
@@ -28,7 +28,10 @@
 		    "\n",
 		    {},
 		    ["get", "oeffnungszeiten"],
-		    { "font-scale": 0.6 }
+		    { "font-scale": 0.7 },
+		    "\n",
+		    {},
+		    ["get", "rollstuhl"]
 		],
 		"text-font": ["Open Sans Semibold"],
 		"text-offset": [0, 0.9],
