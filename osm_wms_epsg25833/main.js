@@ -49,8 +49,8 @@ var massstab = new ScaleLine({
 
 // default zoom, center and rotation
 var zoom = 17;
-var center = transform([13.3355811, 52.4833225], 'EPSG:4326', 'EPSG:3857')
-//var center = transform([13.3355811, 52.4833225], 'EPSG:4326', 'EPSG:25833')
+//var center = transform([13.3355811, 52.4833225], 'EPSG:4326', 'EPSG:3857')
+var center = transform([13.3355811, 52.4833225], 'EPSG:4326', 'EPSG:25833')
 var rotation = 0;
 var marker = 0;
 
@@ -143,7 +143,8 @@ var map = new Map({
   target: 'map',
     layers: [berlin2023, osm, obstbaumkarte],
     view: new View({
-	projection: 'EPSG:3857',
+//	projection: 'EPSG:3857',
+	projection: 'EPSG:25833',
 	center: center,
 	zoom: zoom,
 	rotation: rotation
