@@ -7,7 +7,7 @@
 		"https://vectortiles.obstbaumkarte.de/osm/{z}/{x}/{y}.pbf"
 	    ],
 	    "minzoom": 0,
-	    "maxzoom": 11
+	    "maxzoom": 21
 	}
     },
     "glyphs": "https://obstbaumkarte.de/fonts.pbf/{fontstack}/{range}.pbf",
