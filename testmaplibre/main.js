@@ -20,6 +20,9 @@ applyStyle(nistkastenlayer, 'https://obstbaumkarte.de/testmaplibre/teststyle_nis
 const wetterstationenlayer = new VectorTileLayer({declutter: true});
 applyStyle(wetterstationenlayer, 'https://obstbaumkarte.de/testmaplibre/teststyle_wetterstationen.json');
 
+const geldautomatenlayer = new VectorTileLayer({declutter: true});
+applyStyle(geldautomatenlayer, 'https://obstbaumkarte.de/testmaplibre/teststyle_geldautomaten.json');
+
 const kleingartenparzellenlayer = new VectorTileLayer({declutter: true});
 applyStyle(kleingartenparzellenlayer, 'https://obstbaumkarte.de/testmaplibre/teststyle_kleingartenparzellen.json');
 
@@ -110,6 +113,7 @@ var map = new Map({
 	}),
 	nistkastenlayer,
 	wetterstationenlayer,
+	geldautomatenlayer,
 	kleingartenparzellenlayer,
 	kleingartenparzellennummernlayer
     ],

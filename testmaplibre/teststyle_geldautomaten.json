@@ -1,0 +1,40 @@
+{
+    "version": 8,
+    "sources": {
+	"geldautomaten": {
+	    "type": "vector",
+	    "tiles": [
+		"https://vectortiles.obstbaumkarte.de/osm/{z}/{x}/{y}.pbf"
+	    ],
+	    "minzoom": 0,
+	    "maxzoom": 11  
+	}
+    },
+    "glyphs": "https://obstbaumkarte.de/fonts.pbf/{fontstack}/{range}.pbf",
+    "sprite": "https://obstbaumkarte.de/testmaplibre/sprite/sprite",
+    "layers": [
+	{
+	    "id": "geldautomaten",
+	    "type": "symbol",
+	    "source": "geldautomaten",
+	    "source-layer": "geldautomaten",
+	    "layout": {
+		"icon-image": "geldautomaten",
+		"icon-size": 1.0,
+		"text-field": [
+		    "format",
+		    ["get", "betreiber"],
+		    { "font-scale": 0.8 },
+		    "\n",
+		    {},
+		    ["get", "oeffnungszeiten"],
+		    { "font-scale": 0.6 }
+		],
+		"text-font": ["Open Sans Semibold"],
+		"text-offset": [0, 0.9],
+		"text-anchor": "top"
+	    }
+	}
+    ]
+}
+
