@@ -1,4 +1,5 @@
 import 'ol/ol.css';
+import MVT from 'ol/format/MVT.js';
 import Map from 'ol/Map';
 import Feature from 'ol/Feature';
 import View from 'ol/View';
@@ -9,7 +10,9 @@ import {Vector as VectorLayer} from 'ol/layer';
 import {transform, transformExtent, get as getProjection} from 'ol/proj';
 import XYZ from 'ol/source/XYZ';
 import VectorSource from 'ol/source/Vector';
-import {Icon, Style} from 'ol/style';
+import {Icon, Style, Circle, Fill, Stroke} from 'ol/style';
+import VectorTileLayer from 'ol/layer/VectorTile.js';
+import VectorTileSource from 'ol/source/VectorTile.js';
 import {defaults as defaultControls, Attribution, ScaleLine, FullScreen} from 'ol/control';
 
 var mapMinZoom = 1;
@@ -64,6 +67,20 @@ var iconStyle = new Style({
   })
 });
 
+const baum = new Style({
+  image: new Circle({
+      radius: 6,
+      fill: new Fill({
+          color: 'rgba(0,255,0,0.01)',
+       }),
+       stroke: new Stroke({
+         color: 'rgba(0,255,0,0.02)',
+         width: 1,
+       }),
+     }),
+     zIndex: Infinity,
+});
+
 // iconFeature.setStyle(iconStyle);
 
 var vectorSource = new VectorSource({
@@ -93,7 +110,14 @@ var map = new Map({
 	    }),
 	    minZoom: 17,
 	    maxZoom: mapMaxZoom
-	})
+	}),
+	new VectorTileLayer({
+	    source: new VectorTileSource({
+		format: new MVT(),
+		url: 'https://vectortiles.obstbaumkarte.de/trees/{z}/{x}/{y}.pbf',
+	    }),
+	    style: baum,
+	}),
     ],
     view: new View({
 	projection: 'EPSG:3857',
@@ -104,6 +128,23 @@ var map = new Map({
     controls: defaultControls({attribution: false}).extend([attribution,massstab,new FullScreen()]),
     //   controls: defaultControls({attribution: true}).extend([attribution,massstab,new FullScreen()]),
 });
+
+map.on('pointermove', showInfo);
+
+const info = document.getElementById('info');
+function showInfo(event) {
+  const features = map.getFeaturesAtPixel(event.pixel);
+  if (features.length == 0) {
+    info.innerText = '';
+    info.style.opacity = 0;
+    return;
+  }
+  const properties = features[0].getProperties();
+  info.innerText = JSON.stringify(properties, null, 2);
+  info.style.opacity = 1;
+}
+
+
 
 if(marker > 0) map.addLayer(vectorLayer);  // setze Marker im Kartenzentrum
 
