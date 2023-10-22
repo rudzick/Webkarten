@@ -43,12 +43,39 @@
         border: 0;
         transition: opacity 100ms ease-in;
       }
+     #allotment_number_field {
+        z-index: 1;
+        position: absolute;
+        left: 35px;
+        margin: 0;
+	top: 9px;
+	width: 30px;
+	height: 20px;
+        background: rgba(0,60,136,0.7);
+        color: white;
+        border: 0;
+        transition: opacity 100ms ease-in;
+      }
+    #allotment_number_button {
+        z-index: 1;
+        position: absolute;
+        left: 73px;
+        margin: 0;
+	top: 10px;
+	height: 20px;
+        background: rgba(0,60,136,0.7);
+        color: white;
+        border: 0;
+        transition: opacity 100ms ease-in;
+      }
     </style>
   </head>
   <body class="body">
     <div id="map" class="map">
       <pre id="info"/>
-    </div>
+      </div>
     <script type="module" src="./main.js"></script>
   </body>
 </html>
+<!-- https://stackoverflow.com/questions/52117406/how-to-place-a-html-element-on-a-map-in-openlayers
+     -->

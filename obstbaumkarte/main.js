@@ -13,7 +13,46 @@ import VectorSource from 'ol/source/Vector';
 import {Icon, Style, Circle, Fill, Stroke} from 'ol/style';
 import VectorTileLayer from 'ol/layer/VectorTile.js';
 import VectorTileSource from 'ol/source/VectorTile.js';
-import {defaults as defaultControls, Attribution, ScaleLine, FullScreen} from 'ol/control';
+import {defaults as defaultControls, Attribution, ScaleLine, FullScreen, Control} from 'ol/control';
+
+const allotment_number_field = document.createElement('input');
+allotment_number_field.type = "input";
+allotment_number_field.id = "allotment_number_field";
+
+class FindAllotmentPlots extends Control {
+  /**
+   * @param {Object} [opt_options] Control options.
+   */
+  constructor(opt_options) {
+      const options = opt_options || {};
+      
+      const allotment_number_button = document.createElement('button');
+      allotment_number_button.type = "button";
+      allotment_number_button.id = "allotment_number_button";
+      allotment_number_button.innerHTML = "finde Parzelle";
+
+      const element = document.createElement('div');
+      // element.className = 'rotate-north ol-unselectable ol-control';
+      element.appendChild(allotment_number_field);
+      element.appendChild(allotment_number_button);
+
+      super({
+	  element: element,
+	  target: options.target,
+      });
+
+      allotment_number_button.addEventListener('click', this.handleFindAllotmentPlots.bind(this), false);
+  }
+
+  handleFindAllotmentPlots() {
+      plot_nr = (document.getElementById("allotment_number_field").value).replace(/\s+/g,"").toLowerCase();
+      console.log(plot_nr);
+      this.getMap().getLayers().getArray().find(layer => layer.get('name') == 'parzellengrenzen').setStyle(styleFunction);
+      updatePermalink();
+  };
+}
+
+var plot_nr = ' ';
 
 var mapMinZoom = 1;
 var mapMaxZoom = 24;
@@ -34,25 +73,35 @@ var rotation = 0;
 var marker = 0;
 
 if (window.location.hash !== '') {
-  // try to restore center, zoom-level and rotation from the URL
-  var hash = window.location.hash.replace('#map=', '');
-  var parts = hash.split('/');
-  if (parts.length === 4) {
-    zoom = parseInt(parts[0], 10);
-    center = [
-      parseFloat(parts[1]),
-      parseFloat(parts[2])
-    ];
-    rotation = parseFloat(parts[3]);
-  } else if (parts.length === 5) {  // wenn 1 dann Marker im Zentrum der Karte
-    zoom = parseInt(parts[0], 10);
-    center = [
-      parseFloat(parts[1]),
-      parseFloat(parts[2])
-    ];
-    rotation = parseFloat(parts[3]);
-    marker = parseInt(parts[4]);     
-  }
+    // try to restore center, zoom-level and rotation from the URL
+    var hash = window.location.hash.replace('#map=', '');
+    var parts = hash.split('/');
+    if (parts.length === 4) {
+	zoom = parseInt(parts[0], 10);
+	center = [
+	    parseFloat(parts[1]),
+	    parseFloat(parts[2])
+	];
+	rotation = parseFloat(parts[3]);
+    } else if (parts.length === 5) {  // wenn 1 dann Marker im Zentrum der Karte
+	zoom = parseInt(parts[0], 10);
+	center = [
+	    parseFloat(parts[1]),
+	    parseFloat(parts[2])
+	];
+	rotation = parseFloat(parts[3]);
+	marker = parseInt(parts[4]);     
+    } else if (parts.length === 6) {  // Link mit Parzellennummer
+	zoom = parseInt(parts[0], 10);
+	center = [
+	    parseFloat(parts[1]),
+	    parseFloat(parts[2])
+	];
+	rotation = parseFloat(parts[3]);
+	marker = parseInt(parts[4]);
+	plot_nr = parts[5];
+	allotment_number_field.value = plot_nr;	
+    }
 }
 
 var iconFeature = new Feature({
@@ -83,6 +132,21 @@ const baum = new Style({
 
 // iconFeature.setStyle(iconStyle);
 
+var plothighlightStyle = new Style({
+    stroke: new Stroke({
+        color: 'rgba(197,27,138,0.9)',
+            width: 2.3
+    }),
+});
+
+var styleFunction = function(feature, resolution) {
+    if (feature.get('layer') == 'parzellengrenzen'
+	&&  feature.get('ref') == plot_nr){
+    return(plothighlightStyle);
+  }
+};
+
+
 var vectorSource = new VectorSource({
   features: [iconFeature]
 });
@@ -91,7 +155,7 @@ var vectorLayer = new VectorLayer({
   source: vectorSource
 });
 
-var map = new Map({
+const map = new Map({
   target: 'map',
     layers: [
 	new TileLayer({
@@ -112,10 +176,21 @@ var map = new Map({
 	    maxZoom: mapMaxZoom
 	}),
 	new VectorTileLayer({
+	    name: 'parzellengrenzen',
 	    source: new VectorTileSource({
-		format: new MVT(),
+		format: new MVT({layerName: 'layer', layers: ['parzellengrenzen']}),
 		url: 'https://vectortiles.obstbaumkarte.de/trees/{z}/{x}/{y}.pbf',
 	    }),
+	    minZoom: 14,
+	    maxZoom: 21,
+	    style: styleFunction,
+	}),
+	new VectorTileLayer({
+	    source: new VectorTileSource({
+		format: new MVT({layerName: 'layer', layers: ['tree']}),
+		url: 'https://vectortiles.obstbaumkarte.de/trees/{z}/{x}/{y}.pbf',
+	    }),
+	    minZoom: 19,
 	    style: baum,
 	}),
     ],
@@ -125,7 +200,7 @@ var map = new Map({
 	zoom: zoom,
 	rotation: rotation
     }),
-    controls: defaultControls({attribution: false}).extend([attribution,massstab,new FullScreen()]),
+    controls: defaultControls({attribution: false}).extend([attribution,massstab,new FullScreen(),new FindAllotmentPlots()]),
     //   controls: defaultControls({attribution: true}).extend([attribution,massstab,new FullScreen()]),
 });
 
@@ -134,7 +209,7 @@ map.on('pointermove', showInfo);
 const info = document.getElementById('info');
 function showInfo(event) {
   const features = map.getFeaturesAtPixel(event.pixel);
-  if (features.length == 0) {
+    if (features.length == 0){
     info.innerText = '';
     info.style.opacity = 0;
     return;
@@ -143,8 +218,6 @@ function showInfo(event) {
   info.innerText = JSON.stringify(properties, null, 2);
   info.style.opacity = 1;
 }
-
-
 
 if(marker > 0) map.addLayer(vectorLayer);  // setze Marker im Kartenzentrum
 
@@ -178,6 +251,9 @@ var updatePermalink = function() {
       Math.round(center[0] * 100) / 100 + '/' +
       Math.round(center[1] * 100) / 100 + '/' +
       view.getRotation();
+   if ( plot_nr != ' ') {
+	hash = hash + '/0/' +  plot_nr;
+   } 
   var state = {
     zoom: view.getZoom(),
     center: view.getCenter(),
