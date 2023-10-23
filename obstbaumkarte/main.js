@@ -16,6 +16,7 @@ import VectorTileSource from 'ol/source/VectorTile.js';
 import {defaults as defaultControls, Attribution, ScaleLine, FullScreen, Control} from 'ol/control';
 
 const allotment_number_field = document.createElement('input');
+allotment_number_field.className = 'ol-control button';
 allotment_number_field.type = "input";
 allotment_number_field.id = "allotment_number_field";
 
@@ -27,12 +28,12 @@ class FindAllotmentPlots extends Control {
       const options = opt_options || {};
       
       const allotment_number_button = document.createElement('button');
+      allotment_number_button.className = 'ol-control button';
       allotment_number_button.type = "button";
       allotment_number_button.id = "allotment_number_button";
       allotment_number_button.innerHTML = "finde Parzelle";
 
       const element = document.createElement('div');
-      // element.className = 'rotate-north ol-unselectable ol-control';
       element.appendChild(allotment_number_field);
       element.appendChild(allotment_number_button);
 
@@ -134,8 +135,9 @@ const baum = new Style({
 
 var plothighlightStyle = new Style({
     stroke: new Stroke({
-        color: 'rgba(197,27,138,0.9)',
-            width: 2.3
+        color: 'rgba(197,27,138,0.7)',
+        width: 1.8,
+	padding: 3.0
     }),
 });
 
