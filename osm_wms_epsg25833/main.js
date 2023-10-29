@@ -3,17 +3,224 @@ import Map from 'ol/Map';
 import Projection from 'ol/proj/Projection';
 import TileWMS from 'ol/source/TileWMS';
 import {Tile as TileLayer, Vector as VectorLayer} from 'ol/layer.js';
-import {Stroke, Fill, Circle, Icon, Style} from 'ol/style.js';
+import {
+    Circle as CircleStyle,
+    Fill,
+    RegularShape,
+    Stroke,
+    Icon,
+    Style,
+    Text,
+} from 'ol/style.js';
+import {Draw, Modify} from 'ol/interaction.js';
+import {LineString, Point} from 'ol/geom.js';
+import {getArea, getLength} from 'ol/sphere.js';
 import Feature from 'ol/Feature';
 import View from 'ol/View';
-import Point from 'ol/geom/Point';
-import OSM from 'ol/source/OSM.js';
-import XYZ from 'ol/source/XYZ';
+import {OSM, XYZ,  Vector as VectorSource} from 'ol/source.js';
 import {defaults as defaultControls, Attribution, ScaleLine, FullScreen} from 'ol/control';
 import {transform, transformExtent, get as getProjection} from 'ol/proj';
 import proj4 from 'proj4';
 import {register} from 'ol/proj/proj4';
 import {getRenderPixel} from 'ol/render.js';
+
+const typeSelect = document.getElementById('type');
+const showSegments = document.getElementById('segments');
+const clearPrevious = document.getElementById('clear');
+
+const style = new Style({
+  fill: new Fill({
+    color: 'rgba(255, 255, 255, 0.2)',
+  }),
+  stroke: new Stroke({
+    color: 'rgba(0, 0, 0, 0.5)',
+    lineDash: [10, 10],
+    width: 2,
+  }),
+  image: new CircleStyle({
+    radius: 5,
+    stroke: new Stroke({
+      color: 'rgba(0, 0, 0, 0.7)',
+    }),
+    fill: new Fill({
+      color: 'rgba(255, 255, 255, 0.2)',
+    }),
+  }),
+});
+
+const labelStyle = new Style({
+  text: new Text({
+    font: '14px Calibri,sans-serif',
+    fill: new Fill({
+      color: 'rgba(255, 255, 255, 1)',
+    }),
+    backgroundFill: new Fill({
+      color: 'rgba(0, 0, 0, 0.7)',
+    }),
+    padding: [3, 3, 3, 3],
+    textBaseline: 'bottom',
+    offsetY: -15,
+  }),
+  image: new RegularShape({
+    radius: 8,
+    points: 3,
+    angle: Math.PI,
+    displacement: [0, 10],
+    fill: new Fill({
+      color: 'rgba(0, 0, 0, 0.7)',
+    }),
+  }),
+});
+
+const tipStyle = new Style({
+  text: new Text({
+    font: '12px Calibri,sans-serif',
+    fill: new Fill({
+      color: 'rgba(255, 255, 255, 1)',
+    }),
+    backgroundFill: new Fill({
+      color: 'rgba(0, 0, 0, 0.4)',
+    }),
+    padding: [2, 2, 2, 2],
+    textAlign: 'left',
+    offsetX: 15,
+  }),
+});
+
+const modifyStyle = new Style({
+  image: new CircleStyle({
+    radius: 5,
+    stroke: new Stroke({
+      color: 'rgba(0, 0, 0, 0.7)',
+    }),
+    fill: new Fill({
+      color: 'rgba(0, 0, 0, 0.4)',
+    }),
+  }),
+  text: new Text({
+    text: 'Ziehen zum Ändern',
+    font: '12px Calibri,sans-serif',
+    fill: new Fill({
+      color: 'rgba(255, 255, 255, 1)',
+    }),
+    backgroundFill: new Fill({
+      color: 'rgba(0, 0, 0, 0.7)',
+    }),
+    padding: [2, 2, 2, 2],
+    textAlign: 'left',
+    offsetX: 15,
+  }),
+});
+
+const segmentStyle = new Style({
+  text: new Text({
+    font: '12px Calibri,sans-serif',
+    fill: new Fill({
+      color: 'rgba(255, 255, 255, 1)',
+    }),
+    backgroundFill: new Fill({
+      color: 'rgba(0, 0, 0, 0.4)',
+    }),
+    padding: [2, 2, 2, 2],
+    textBaseline: 'bottom',
+    offsetY: -12,
+  }),
+  image: new RegularShape({
+    radius: 6,
+    points: 3,
+    angle: Math.PI,
+    displacement: [0, 8],
+    fill: new Fill({
+      color: 'rgba(0, 0, 0, 0.4)',
+    }),
+  }),
+});
+
+const segmentStyles = [segmentStyle];
+
+const formatLength = function (line) {
+    const length = getLength(line, {projection:'EPSG:25833'});
+  let output;
+  if (length > 100) {
+    output = Math.round((length / 1000) * 100) / 100 + ' km';
+  } else {
+    output = Math.round(length * 100) / 100 + ' m';
+  }
+  return output;
+};
+
+const formatArea = function (polygon) {
+    const area = getArea(polygon,{projection:'EPSG:25833'});
+  let output;
+  if (area > 10000) {
+    output = Math.round((area / 1000000) * 100) / 100 + ' km\xB2';
+  } else {
+    output = Math.round(area * 100) / 100 + ' m\xB2';
+  }
+  return output;
+};
+
+const measureSource = new VectorSource();
+
+const modify = new Modify({source: measureSource, style: modifyStyle});
+
+let tipPoint;
+
+function styleFunction(feature, segments, drawType, tip) {
+  const styles = [];
+  const geometry = feature.getGeometry();
+  const type = geometry.getType();
+  let point, label, line;
+  if (!drawType || drawType === type || type === 'Point') {
+    styles.push(style);
+    if (type === 'Polygon') {
+      point = geometry.getInteriorPoint();
+      label = formatArea(geometry);
+      line = new LineString(geometry.getCoordinates()[0]);
+    } else if (type === 'LineString') {
+      point = new Point(geometry.getLastCoordinate());
+      label = formatLength(geometry);
+      line = geometry;
+    }
+  }
+  if (segments && line) {
+    let count = 0;
+    line.forEachSegment(function (a, b) {
+      const segment = new LineString([a, b]);
+      const label = formatLength(segment);
+      if (segmentStyles.length - 1 < count) {
+        segmentStyles.push(segmentStyle.clone());
+      }
+      const segmentPoint = new Point(segment.getCoordinateAt(0.5));
+      segmentStyles[count].setGeometry(segmentPoint);
+      segmentStyles[count].getText().setText(label);
+      styles.push(segmentStyles[count]);
+      count++;
+    });
+  }
+  if (label) {
+    labelStyle.setGeometry(point);
+    labelStyle.getText().setText(label);
+    styles.push(labelStyle);
+  }
+  if (
+    tip &&
+    type === 'Point' &&
+    !modify.getOverlay().getSource().getFeatures().length
+  ) {
+    tipPoint = geometry;
+    tipStyle.getText().setText(tip);
+    styles.push(tipStyle);
+  }
+  return styles;
+}
+
+const measureVector = new VectorLayer({
+  source: measureSource,
+  style: function (feature) {
+    return styleFunction(feature, showSegments.checked);
+  },
+});
 
 // By default OpenLayers does not know about the EPSG:25833 (Europe) projection.
 // https://epsg.io/25833
@@ -139,9 +346,33 @@ const berlin2023 = 	new TileLayer({
     })
 });
 
+const brandenburg2023 = 	new TileLayer({
+    'title' : 'Digitale farbige TrueOrthophotos 2023',
+    type: 'base',
+    visible: true,
+//    extent: extentBerlin,
+    extent: mapExtent,
+    source: new TileWMS({
+	projection: 'EPSG:25833',
+	url: 'https://isk.geobasis-bb.de/mapproxy/dop20c/service/wms',
+	crossOrigin: 'anonymous',
+	attributions:
+	'© GeoBasis-DE/LGB, dl-de/by-2-0</a>' +
+	    ' &amp; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+	params: {
+	    'SERVICE': 'WMS',
+	    'VERSION': '1.3.0',
+	    'LAYERS': 'bebb_dop20c',
+	    'CRS': 'EPSG:25833',
+	    'FORMAT': 'image/png',
+	},
+	serverType: 'mapserver',
+    })
+});
+
 var map = new Map({
   target: 'map',
-    layers: [berlin2023, osm, obstbaumkarte],
+    layers: [brandenburg2023, berlin2023, osm, obstbaumkarte, measureVector],
     view: new View({
 //	projection: 'EPSG:3857',
 	projection: 'EPSG:25833',
@@ -153,7 +384,60 @@ var map = new Map({
     //   controls: defaultControls({attribution: true}).extend([attribution,massstab,new FullScreen()]),
 });
 
+map.addInteraction(modify);
+
 if(marker > 0) map.addLayer(vectorLayer);  // setze Marker im Kartenzentrum
+
+let draw; // global so we can remove it later
+
+function addInteraction() {
+  const drawType = typeSelect.value;
+  const activeTip =
+    'Klicken zum Weiterzeichnen ' +
+    (drawType === 'Polygon' ? 'des Polygons' : 'der Linie');
+  const idleTip = 'Klicken zum Starten der Messung';
+    let tip = idleTip;
+    if (drawType == 'none')  {
+	map.removeInteraction(draw);
+	return;
+    }
+  draw = new Draw({
+    source: measureSource,
+    type: drawType,
+    style: function (feature) {
+      return styleFunction(feature, showSegments.checked, drawType, tip);
+    },
+  });
+  draw.on('drawstart', function () {
+    if (clearPrevious.checked) {
+      measureSource.clear();
+    }
+    modify.setActive(false);
+    tip = activeTip;
+  });
+  draw.on('drawend', function () {
+    modifyStyle.setGeometry(tipPoint);
+    modify.setActive(true);
+    map.once('pointermove', function () {
+      modifyStyle.setGeometry();
+    });
+    tip = idleTip;
+  });
+  modify.setActive(true);
+  map.addInteraction(draw);
+}
+
+typeSelect.onchange = function () {
+  map.removeInteraction(draw);
+  addInteraction();
+};
+
+addInteraction();
+
+showSegments.onchange = function () {
+  measureVector.changed();
+  draw.getOverlay().changed();
+};
 
 function onChangeScaleText() {
   scaleBarText = scaleTextCheckbox.checked;
