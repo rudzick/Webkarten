@@ -1,4 +1,5 @@
 import 'ol/ol.css';
+import 'ol-layerswitcher/dist/ol-layerswitcher.css';
 import Map from 'ol/Map';
 import Projection from 'ol/proj/Projection';
 import TileWMS from 'ol/source/TileWMS';
@@ -23,6 +24,10 @@ import {transform, transformExtent, get as getProjection} from 'ol/proj';
 import proj4 from 'proj4';
 import {register} from 'ol/proj/proj4';
 import {getRenderPixel} from 'ol/render.js';
+import LayerGroup from 'ol/layer/Group';
+import LayerTile from 'ol/layer/Tile';
+import LayerSwitcher from 'ol-layerswitcher';
+import { BaseLayerOptions, GroupLayerOptions } from 'ol-layerswitcher';
 
 const typeSelect = document.getElementById('type');
 const showSegments = document.getElementById('segments');
@@ -297,10 +302,15 @@ var iconStyle = new Style({
 
 iconFeature.setStyle(iconStyle);
 
+const layerSwitcher = new LayerSwitcher({
+  reverse: true,
+  groupSelectStyle: 'group'
+});
+
 const osm = new TileLayer({
     'title' : 'OSM',
-    type: 'base',
     visible: true,
+    combine: true,
     source: new OSM(),
     minZoom: mapMinZoom,
     maxZoom: 17
@@ -308,8 +318,9 @@ const osm = new TileLayer({
 
 const obstbaumkarte = new TileLayer({
     'title' : 'obstbaumkarte',
-    type: 'base',
     visible: true,
+    type: 'overlay',
+    combine: true,
 	    extent: mapExtent,
 	    source: new XYZ({
 		attributions: '<p style="text-align:left;font-family:verdana;"> © ' +
@@ -322,8 +333,8 @@ const obstbaumkarte = new TileLayer({
 	    maxZoom: mapMaxZoom
 });
 
-const berlin2023 = 	new TileLayer({
-    'title' : 'Digitale farbige TrueOrthophotos 2023',
+const berlin2023 = new LayerTile({
+    'title' : 'Berlin 2023',
     type: 'base',
     visible: true,
 //    extent: extentBerlin,
@@ -346,10 +357,10 @@ const berlin2023 = 	new TileLayer({
     })
 });
 
-const brandenburg2023 = 	new TileLayer({
-    'title' : 'Digitale farbige TrueOrthophotos 2023',
+const brandenburg2023 = new TileLayer({
+    'title' : 'Brandenburg/Berlin 2022',
     type: 'base',
-    visible: true,
+    visible: false,
 //    extent: extentBerlin,
     extent: mapExtent,
     source: new TileWMS({
@@ -370,9 +381,20 @@ const brandenburg2023 = 	new TileLayer({
     })
 });
 
+const baseMaps = new LayerGroup({
+    title: 'Luftbilder (True Orthophotos) als Hintergrund',
+    layers: [brandenburg2023, berlin2023,]
+});
+
+const rasterOverlays = new LayerGroup({
+    title: 'OSM-Karten als transparente Overlays',
+    type: 'none',
+    layers: [osm, obstbaumkarte]
+});
+
 var map = new Map({
   target: 'map',
-    layers: [brandenburg2023, berlin2023, osm, obstbaumkarte, measureVector],
+    layers: [baseMaps, rasterOverlays, measureVector],
     view: new View({
 //	projection: 'EPSG:3857',
 	projection: 'EPSG:25833',
@@ -383,6 +405,8 @@ var map = new Map({
     controls: defaultControls({attribution: false}).extend([attribution,massstab,new FullScreen()]),
     //   controls: defaultControls({attribution: true}).extend([attribution,massstab,new FullScreen()]),
 });
+
+map.addControl(layerSwitcher);
 
 map.addInteraction(modify);
 
