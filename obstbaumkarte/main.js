@@ -47,7 +47,7 @@ class FindAllotmentPlots extends Control {
 
   handleFindAllotmentPlots() {
 //      plot_nr = (document.getElementById("allotment_number_field").value).replace(/\s+/g,"").toLowerCase();
-      plot_nr = (document.getElementById("allotment_number_field").value).replace(/[^0-9a-zA-Z]+/g,"").toLowerCase();
+      plot_nr = (document.getElementById("allotment_number_field").value).replace(/[^0-9a-zA-ZZäöüÄÖÜß]+/g,"").toLowerCase();
 //      console.log(plot_nr);
       this.getMap().getLayers().getArray().find(layer => layer.get('name') == 'parzellengrenzen').setStyle(styleFunction);
       updatePermalink();
