@@ -100,7 +100,7 @@ if (window.location.hash !== '') {
 	];
 	rotation = parseFloat(parts[3]);
 	marker = parseInt(parts[4]);
-	geb_nr = parts[5];
+	geb_nr = decodeURI(parts[5]);
 	building_number_field.value = geb_nr;	
     }
 }
