@@ -137,7 +137,7 @@ const baum = new Style({
 var plothighlightStyle = new Style({
     stroke: new Stroke({
         color: 'rgba(197,27,138,0.7)',
-        width: 1.8,
+        width: 2.1,
 	padding: 3.0
     }),
 });
@@ -193,7 +193,7 @@ const map = new Map({
 		format: new MVT({layerName: 'layer', layers: ['tree']}),
 		url: 'https://vectortiles.obstbaumkarte.de/trees/{z}/{x}/{y}.pbf',
 	    }),
-	    minZoom: 19,
+	    minZoom: 18,
 	    style: baum,
 	}),
     ],
