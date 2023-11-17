@@ -7,13 +7,15 @@ import Point from 'ol/geom/Point';
 import OSM from 'ol/source/OSM.js';
 import TileLayer from 'ol/layer/Tile';
 import {Vector as VectorLayer} from 'ol/layer';
-import {transform, transformExtent, get as getProjection} from 'ol/proj';
+import {transform, transformExtent, get as getProjection, fromLonLat} from 'ol/proj';
 import XYZ from 'ol/source/XYZ';
 import VectorSource from 'ol/source/Vector';
 import {Icon, Style, Circle, Fill, Stroke} from 'ol/style';
 import VectorTileLayer from 'ol/layer/VectorTile.js';
 import VectorTileSource from 'ol/source/VectorTile.js';
 import {defaults as defaultControls, Attribution, ScaleLine, FullScreen, Control} from 'ol/control';
+import {circular} from 'ol/geom/Polygon';
+import kompas from 'kompas';
 
 const allotment_number_field = document.createElement('input');
 allotment_number_field.className = 'ol-control button';
@@ -189,6 +191,7 @@ const map = new Map({
 	    style: styleFunction,
 	}),
 	new VectorTileLayer({
+	    name: 'baeume',
 	    source: new VectorTileSource({
 		format: new MVT({layerName: 'layer', layers: ['tree']}),
 		url: 'https://vectortiles.obstbaumkarte.de/trees/{z}/{x}/{y}.pbf',
@@ -210,8 +213,14 @@ const map = new Map({
 map.on('pointermove', showInfo);
 
 const info = document.getElementById('info');
+function layerFilter(layerCandidate) {
+    if (layerCandidate.get('name') == 'baeume') {
+	return(true);
+    }
+    return(false);
+}
 function showInfo(event) {
-  const features = map.getFeaturesAtPixel(event.pixel);
+  const features = map.getFeaturesAtPixel(event.pixel,{layerFilter});
     if (features.length == 0){
     info.innerText = '';
     info.style.opacity = 0;
@@ -278,3 +287,87 @@ window.addEventListener('popstate', function(event) {
   map.getView().setRotation(event.state.rotation);
   shouldUpdate = false;
 });
+
+// Locator-Button
+const locatorSource = new VectorSource();
+const locatorLayer = new VectorLayer({
+    source: locatorSource,
+    visible: false,
+});
+map.addLayer(locatorLayer);
+
+
+navigator.geolocation.watchPosition(
+  function (pos) {
+    const coords = [pos.coords.longitude, pos.coords.latitude];
+    const accuracy = circular(coords, pos.coords.accuracy);
+    locatorSource.clear(true);
+    locatorSource.addFeatures([
+      new Feature(
+        accuracy.transform('EPSG:4326', map.getView().getProjection())
+      ),
+      new Feature(new Point(fromLonLat(coords))),
+    ]);
+  },
+  function (error) {
+    alert(`ERROR: ${error.message}`);
+  },
+  {
+    enableHighAccuracy: true,
+  }
+);
+
+const locate = document.createElement('div');
+locate.className = 'ol-control ol-unselectable locate';
+locate.innerHTML = '<button title="Locate me">◎</button>';
+locate.addEventListener('click', function () {
+    if (!locatorSource.isEmpty()) {
+	locatorLayer.setVisible(true);
+	map.getView().fit(locatorSource.getExtent(), {
+	    maxZoom: 20,
+	    duration: 500,
+	});
+    }
+});
+map.addControl(
+  new Control({
+    element: locate,
+  })
+);
+
+const style = new Style({
+  fill: new Fill({
+    color: 'rgba(0, 0, 255, 0.2)',
+  }),
+  image: new Icon({
+    src: './data/location-heading.svg',
+    imgSize: [27, 55],
+    rotateWithView: true,
+  }),
+});
+locatorLayer.setStyle(style);
+
+function startCompass() {
+  kompas()
+    .watch()
+    .on('heading', function (heading) {
+      style.getImage().setRotation((Math.PI / 180) * heading);
+    });
+}
+
+if (
+  window.DeviceOrientationEvent &&
+  typeof DeviceOrientationEvent.requestPermission === 'function'
+) {
+  locate.addEventListener('click', function () {
+    DeviceOrientationEvent.requestPermission()
+      .then(startCompass)
+      .catch(function (error) {
+        alert(`ERROR: ${error.message}`);
+      });
+  });
+} else if ('ondeviceorientationabsolute' in window) {
+  startCompass();
+} else {
+  alert('No device orientation provided by device');
+}
