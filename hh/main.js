@@ -289,7 +289,8 @@ window.addEventListener('popstate', function(event) {
 
 const locatorSource = new VectorSource();
 const locatorLayer = new VectorLayer({
-  source: locatorSource,
+    source: locatorSource,
+    visible: false,
 });
 map.addLayer(locatorLayer);
 
@@ -318,12 +319,13 @@ const locate = document.createElement('div');
 locate.className = 'ol-control ol-unselectable locate';
 locate.innerHTML = '<button title="Locate me">◎</button>';
 locate.addEventListener('click', function () {
-  if (!locatorSource.isEmpty()) {
-    map.getView().fit(locatorSource.getExtent(), {
-      maxZoom: 20,
-      duration: 500,
-    });
-  }
+    if (!locatorSource.isEmpty()) {
+	locatorLayer.setVisible(true);
+	map.getView().fit(locatorSource.getExtent(), {
+	    maxZoom: 20,
+	    duration: 500,
+	});
+    }
 });
 map.addControl(
   new Control({
