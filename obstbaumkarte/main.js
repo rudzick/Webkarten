@@ -368,6 +368,4 @@ if (
   });
 } else if ('ondeviceorientationabsolute' in window) {
   startCompass();
-} else {
-  alert('No device orientation provided by device');
 }
