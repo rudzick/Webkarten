@@ -292,9 +292,8 @@ window.addEventListener('popstate', function(event) {
 const locatorSource = new VectorSource();
 const locatorLayer = new VectorLayer({
     source: locatorSource,
-    visible: false,
+    name: 'locatorLayer',
 });
-map.addLayer(locatorLayer);
 
 
 navigator.geolocation.watchPosition(
@@ -322,7 +321,9 @@ locate.className = 'ol-control ol-unselectable locate';
 locate.innerHTML = '<button title="Locate me">◎</button>';
 locate.addEventListener('click', function () {
     if (!locatorSource.isEmpty()) {
-	locatorLayer.setVisible(true);
+	if (!map.getLayers().getArray().some(layer => layer.get('name') == 'locatorLayer')) {
+	    map.addLayer(locatorLayer);
+	}
 	map.getView().fit(locatorSource.getExtent(), {
 	    maxZoom: 20,
 	    duration: 500,
