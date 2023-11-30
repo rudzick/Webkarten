@@ -66,18 +66,6 @@ var vectorSource_Block_3 = new VectorSource({
     strategy: bboxStrategy
 });
 
-var vectorSource_Block_4 = new VectorSource({
-    format: new GeoJSON(),
-    url: function(extent) {
-        return 'https://www.kolonie-am-stadtpark.de/geoserver/wfs?service=WFS&' +
-            'version=1.1.0&request=GetFeature&typename=Kleingartenparzellen:planet_osm_polygon:Block_4&' +
-            'outputFormat=application/json&srsname=EPSG:3857&' +
-            'bbox=' + extent.join(',') + ',EPSG:3857';
-    },
-    crossOrigin: "anonymous",
-    strategy: bboxStrategy
-});
-
 var vectorSource_Vereinshaus = new VectorSource({
     format: new GeoJSON(),
     url: function(extent) {
@@ -179,21 +167,6 @@ var style_Block_3 = new Style({
       })
 });
 
-var style_Block_4 = new Style({
-    stroke: new Stroke({
-            color: 'rgba(189, 2, 64, 1.0)',
-            width: 2.0
-        }),
-    fill: blockFill,
-    text: new Text({
-        font: '50px Helvetica',
-        text: '4',
-        fill: new Fill({
-	    color: 'rgba(189, 2, 64, 1.0)'
-	})
-      })
-});
-
 var style_Vereinshaus = new Style({
     stroke: new Stroke({
             color: 'Navy',
@@ -257,15 +230,6 @@ var block_3_layer = new VectorLayer({
     maxZoom: 18
 });
 
-var block_4_layer = new VectorLayer({
-    source: vectorSource_Block_4,
-    style: style_Block_4,
-    renderMode:  'vector',
-    updateWhileInteracting: true,
-    minZoom: 15,
-    maxZoom: 18
-});
-
 var vereinshaus_layer = new VectorLayer({
     source: vectorSource_Vereinshaus,
     style: style_Vereinshaus,
@@ -304,7 +268,7 @@ map = new Map({
 	    minZoom: 17,
 	    maxZoom: mapMaxZoom
 	}),
-	block_1_layer, block_2_layer, block_3_layer, block_4_layer, vereinshaus_layer, weg_zum_vereinshaus_layer
+	block_1_layer, block_2_layer, block_3_layer, vereinshaus_layer, weg_zum_vereinshaus_layer
     ],
     view: new View({
 	projection: 'EPSG:3857',   
