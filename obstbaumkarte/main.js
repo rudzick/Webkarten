@@ -295,41 +295,40 @@ const locatorLayer = new VectorLayer({
     name: 'locatorLayer',
 });
 
-
-navigator.geolocation.watchPosition(
-  function (pos) {
-    const coords = [pos.coords.longitude, pos.coords.latitude];
-    const accuracy = circular(coords, pos.coords.accuracy);
-    locatorSource.clear(true);
-    locatorSource.addFeatures([
-      new Feature(
-        accuracy.transform('EPSG:4326', map.getView().getProjection())
-      ),
-      new Feature(new Point(fromLonLat(coords))),
-    ]);
-  },
-  function (error) {
-    alert(`ERROR: ${error.message}`);
-  },
-  {
-    enableHighAccuracy: true,
-  }
-);
-
 const locate = document.createElement('div');
 locate.className = 'ol-control ol-unselectable locate';
 locate.innerHTML = '<button title="Locate me">◎</button>';
 locate.addEventListener('click', function () {
+    if (!map.getLayers().getArray().some(layer => layer.get('name') == 'locatorLayer')) {
+    	navigator.geolocation.watchPosition(
+	    function (pos) {
+		const coords = [pos.coords.longitude, pos.coords.latitude];
+		const accuracy = circular(coords, pos.coords.accuracy);
+		locatorSource.clear(true);
+		locatorSource.addFeatures([
+		    new Feature(
+			accuracy.transform('EPSG:4326', map.getView().getProjection())
+		    ),
+		    new Feature(new Point(fromLonLat(coords))),
+		]);
+	    },
+	    function (error) {
+		alert(`ERROR: ${error.message}`);
+	    },
+	    {
+		enableHighAccuracy: true,
+	    }
+	);
+	map.addLayer(locatorLayer);
+    }
     if (!locatorSource.isEmpty()) {
-	if (!map.getLayers().getArray().some(layer => layer.get('name') == 'locatorLayer')) {
-	    map.addLayer(locatorLayer);
-	}
 	map.getView().fit(locatorSource.getExtent(), {
 	    maxZoom: 20,
 	    duration: 500,
 	});
     }
 });
+
 map.addControl(
   new Control({
     element: locate,
