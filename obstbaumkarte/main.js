@@ -72,7 +72,7 @@ var massstab = new ScaleLine({
 
 // default zoom, center and rotation
 var zoom = 17;
-var center = transform([13.3355811, 52.4833225], 'EPSG:4326', 'EPSG:3857')
+var center = transform([13.31233, 52.47416], 'EPSG:4326', 'EPSG:3857')
 var rotation = 0;
 var marker = 0;
 
