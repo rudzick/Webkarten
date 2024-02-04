@@ -122,7 +122,21 @@ var iconStyle = new Style({
 
 const baum = new Style({
   image: new Circle({
-      radius: 6,
+      radius: 12,
+      fill: new Fill({
+          color: 'rgba(0,255,0,0.01)',
+       }),
+       stroke: new Stroke({
+         color: 'rgba(0,255,0,0.02)',
+         width: 1,
+       }),
+     }),
+     zIndex: Infinity,
+});
+
+const strauch = new Style({
+  image: new Circle({
+      radius: 10,
       fill: new Fill({
           color: 'rgba(0,255,0,0.01)',
        }),
@@ -199,6 +213,15 @@ const map = new Map({
 	    minZoom: 18,
 	    style: baum,
 	}),
+	new VectorTileLayer({
+	    name: 'straeucher',
+	    source: new VectorTileSource({
+		format: new MVT({layerName: 'layer', layers: ['shrub']}),
+		url: 'https://vectortiles.obstbaumkarte.de/trees/{z}/{x}/{y}.pbf',
+	    }),
+	    minZoom: 20,
+	    style: strauch,
+	}),
     ],
     view: new View({
 	projection: 'EPSG:3857',
@@ -214,7 +237,7 @@ map.on('pointermove', showInfo);
 
 const info = document.getElementById('info');
 function layerFilter(layerCandidate) {
-    if (layerCandidate.get('name') == 'baeume') {
+    if (layerCandidate.get('name') == 'baeume' ||  layerCandidate.get('name') == 'straeucher'  ) {
 	return(true);
     }
     return(false);
