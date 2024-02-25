@@ -70,7 +70,7 @@ var vectorSource_Vereinshaus = new VectorSource({
     format: new GeoJSON(),
     url: function(extent) {
         return 'https://www.kolonie-am-stadtpark.de/geoserver/wfs?service=WFS&' +
-            'version=1.1.0&request=GetFeature&typename=Kleingartenparzellen:planet_osm_polygon:Vereinshaus&' +
+            'version=1.1.0&request=GetFeature&typename=Kleingartenparzellen:Vereinshaus&' +
             'outputFormat=application/json&srsname=EPSG:3857&' +
             'bbox=' + extent.join(',') + ',EPSG:3857';
     },
@@ -82,7 +82,7 @@ var vectorSource_Weg_zum_Vereinshaus = new VectorSource({
     format: new GeoJSON(),
     url: function(extent) {
         return 'https://www.kolonie-am-stadtpark.de/geoserver/wfs?service=WFS&' +
-            'version=1.1.0&request=GetFeature&typename=Kleingartenparzellen:planet_osm_line:Weg_zum_Vereinshaus&' +
+            'version=1.1.0&request=GetFeature&typename=Kleingartenparzellen:Weg_zum_Vereinshaus&' +
             'outputFormat=application/json&srsname=EPSG:3857&' +
             'bbox=' + extent.join(',') + ',EPSG:3857';
     },
