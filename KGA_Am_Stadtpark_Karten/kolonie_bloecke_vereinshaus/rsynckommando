@@ -1,1 +1,0 @@
-rsync -avu -e "ssh -p 43519" dist/ root@kolonie-am-stadtpark.de:/var/www/karten/kolonie_bloecke_vereinshaus/
