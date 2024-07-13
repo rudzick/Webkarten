@@ -13,7 +13,7 @@ import VectorSource from 'ol/source/Vector';
 import {Icon, Style, Circle, Fill, Stroke} from 'ol/style';
 import VectorTileLayer from 'ol/layer/VectorTile.js';
 import VectorTileSource from 'ol/source/VectorTile.js';
-import {defaults as defaultControls, Attribution, ScaleLine, FullScreen, Control} from 'ol/control';
+import {defaults as defaultControls, Attribution, ScaleLine, FullScreen, Control, Rotate} from 'ol/control';
 import {circular} from 'ol/geom/Polygon';
 import kompas from 'kompas';
 
@@ -229,7 +229,7 @@ const map = new Map({
 	zoom: zoom,
 	rotation: rotation
     }),
-    controls: defaultControls({attribution: false}).extend([attribution,massstab,new FullScreen(),new FindAllotmentPlots()]),
+    controls: defaultControls({attribution: false}).extend([attribution,massstab,new FullScreen(), new Rotate(), new FindAllotmentPlots()]),
     //   controls: defaultControls({attribution: true}).extend([attribution,massstab,new FullScreen()]),
 });
 
