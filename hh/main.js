@@ -183,7 +183,7 @@ const map = new Map({
 	    name: 'gebaeude',
 	    source: new VectorTileSource({
 		format: new MVT({layerName: 'layer', layers: ['gebaeude']}),
-		url: 'https://vectortiles.obstbaumkarte.de/hh/{z}/{x}/{y}.pbf',
+		url: 'https://vectortiles.obstbaumkarte.de/xyz/hh/{z}/{x}/{y}.pbf',
 	    }),
 	    minZoom: 13,
 	    maxZoom: 21,
@@ -193,7 +193,7 @@ const map = new Map({
 	    name: 'baeume',
 	    source: new VectorTileSource({
 		format: new MVT({layerName: 'layer', layers: ['tree']}),
-		url: 'https://vectortiles.obstbaumkarte.de/trees/{z}/{x}/{y}.pbf',
+		url: 'https://vectortiles.obstbaumkarte.de/xyz/obstbaumkarte_vectorlayers/{z}/{x}/{y}.pbf',
 	    }),
 	    minZoom: 18,
 	    style: baum,

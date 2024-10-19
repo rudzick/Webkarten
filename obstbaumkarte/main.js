@@ -198,7 +198,7 @@ const map = new Map({
 	    name: 'parzellengrenzen',
 	    source: new VectorTileSource({
 		format: new MVT({layerName: 'layer', layers: ['parzellengrenzen']}),
-		url: 'https://vectortiles.obstbaumkarte.de/trees/{z}/{x}/{y}.pbf',
+		url: 'https://vectortiles.obstbaumkarte.de/xyz/obstbaumkarte_vectorlayers/{z}/{x}/{y}.pbf',
 	    }),
 	    minZoom: 14,
 	    maxZoom: 21,
@@ -208,7 +208,7 @@ const map = new Map({
 	    name: 'baeume',
 	    source: new VectorTileSource({
 		format: new MVT({layerName: 'layer', layers: ['tree']}),
-		url: 'https://vectortiles.obstbaumkarte.de/trees/{z}/{x}/{y}.pbf',
+		url: 'https://vectortiles.obstbaumkarte.de/xyz/obstbaumkarte_vectorlayers/{z}/{x}/{y}.pbf',
 	    }),
 	    minZoom: 18,
 	    style: baum,
@@ -217,7 +217,7 @@ const map = new Map({
 	    name: 'straeucher',
 	    source: new VectorTileSource({
 		format: new MVT({layerName: 'layer', layers: ['shrub']}),
-		url: 'https://vectortiles.obstbaumkarte.de/trees/{z}/{x}/{y}.pbf',
+		url: 'https://vectortiles.obstbaumkarte.de/xyz/obstbaumkarte_vectorlayers/{z}/{x}/{y}.pbf',
 	    }),
 	    minZoom: 20,
 	    style: strauch,
