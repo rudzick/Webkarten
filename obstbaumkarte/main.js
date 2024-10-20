@@ -178,7 +178,10 @@ const map = new Map({
   target: 'map',
     layers: [
 	new TileLayer({
-	    source: new OSM(),
+	    source: new OSM({
+		attributions: '<p style="text-align:left;font-family:verdana;"> © ' +
+		    '<a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors<br />' +
+		    '<a href="https://obstbaumkarte.de/about/">Über diese Karte</a></p>'}),
 	    minZoom: mapMinZoom,
 	    maxZoom: 17
 	}),
