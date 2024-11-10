@@ -183,7 +183,7 @@ const map = new Map({
 		    '<a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors<br />' +
 		    '<a href="https://obstbaumkarte.de/about/">Über diese Karte</a></p>'}),
 	    minZoom: mapMinZoom,
-	    maxZoom: 17
+	    maxZoom: 16
 	}),
 	new TileLayer({
 	    extent: mapExtent,
@@ -194,7 +194,7 @@ const map = new Map({
 		url: 'https://mymapnik.rudzick.it/MeinMapnikWMS/tiles/osm_hq/webmercator_hq/{z}/{x}/{y}.png?origin=nw',
 		tilePixelRatio: 2 // THIS IS IMPORTANT
 	    }),
-	    minZoom: 17,
+	    minZoom: 16,
 	    maxZoom: mapMaxZoom
 	}),
 	new VectorTileLayer({
