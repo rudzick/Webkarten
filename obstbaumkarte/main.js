@@ -50,7 +50,7 @@ class FindAllotmentPlots extends Control {
   handleFindAllotmentPlots() {
 //      plot_nr = (document.getElementById("allotment_number_field").value).replace(/\s+/g,"").toLowerCase();
       plot_nr = (document.getElementById("allotment_number_field").value).replace(/[^0-9a-zA-ZZäöüÄÖÜß]+/g,"").toLowerCase();
-//      console.log(plot_nr);
+  //    console.log(plot_nr);
       this.getMap().getLayers().getArray().find(layer => layer.get('name') == 'parzellengrenzen').setStyle(styleFunction);
       updatePermalink();
   };
@@ -148,6 +148,14 @@ const strauch = new Style({
      zIndex: Infinity,
 });
 
+const hecke = new Style({
+    stroke: new Stroke({
+        color: 'rgba(0,255,0,0.02)',
+	width: 8,
+    }),
+    zIndex: Infinity,
+});
+
 // iconFeature.setStyle(iconStyle);
 
 var plothighlightStyle = new Style({
@@ -159,8 +167,13 @@ var plothighlightStyle = new Style({
 });
 
 var styleFunction = function(feature, resolution) {
-    if (feature.get('layer') == 'parzellengrenzen'
-	&&  feature.get('ref') == plot_nr){
+    var ref = ' ';
+    if(feature.get('ref')) {
+	ref = feature.get('ref').replace(/[^0-9a-zA-ZZäöüÄÖÜß]+/g,"").toLowerCase();
+    }
+   // console.log(plot_nr, ref );
+    if (feature.get('layer') == 'public.plots'
+    && ref == plot_nr){
     return(plothighlightStyle);
   }
 };
@@ -202,8 +215,10 @@ const map = new Map({
 	new VectorTileLayer({
 	    name: 'parzellengrenzen',
 	    source: new VectorTileSource({
-		format: new MVT({layerName: 'layer', layers: ['parzellengrenzen']}),
-		url: 'https://vectortiles.obstbaumkarte.de/xyz/obstbaumkarte_vectorlayers/{z}/{x}/{y}.pbf',
+	//	format: new MVT({layerName: 'layer', layers: ['parzellengrenzen']}),
+	//	url: 'https://vectortiles.obstbaumkarte.de/xyz/obstbaumkarte_vectorlayers/{z}/{x}/{y}.pbf',
+		format: new MVT(),
+		url: 'https://pgtiles.obstbaumkarte.de/public.plots/{z}/{x}/{y}.pbf',
 	    }),
 	    minZoom: 14,
 	    maxZoom: 21,
@@ -212,8 +227,8 @@ const map = new Map({
 	new VectorTileLayer({
 	    name: 'baeume',
 	    source: new VectorTileSource({
-		format: new MVT({layerName: 'layer', layers: ['tree']}),
-		url: 'https://vectortiles.obstbaumkarte.de/xyz/obstbaumkarte_vectorlayers/{z}/{x}/{y}.pbf',
+		format: new MVT(),
+		url: 'https://pgtiles.obstbaumkarte.de/public.trees/{z}/{x}/{y}.pbf',
 	    }),
 	    minZoom: 18,
 	    style: baum,
@@ -221,11 +236,20 @@ const map = new Map({
 	new VectorTileLayer({
 	    name: 'straeucher',
 	    source: new VectorTileSource({
-		format: new MVT({layerName: 'layer', layers: ['shrub']}),
-		url: 'https://vectortiles.obstbaumkarte.de/xyz/obstbaumkarte_vectorlayers/{z}/{x}/{y}.pbf',
+		format: new MVT(),
+		url: 'https://pgtiles.obstbaumkarte.de/public.shrubs/{z}/{x}/{y}.pbf',
 	    }),
 	    minZoom: 20,
 	    style: strauch,
+	}),
+	new VectorTileLayer({
+	    name: 'hecken',
+	    source: new VectorTileSource({
+		format: new MVT(),
+		url: 'https://pgtiles.obstbaumkarte.de/public.hedges/{z}/{x}/{y}.pbf',
+	    }),
+	    minZoom: 18,
+	    style: hecke,
 	}),
     ],
     view: new View({
@@ -242,7 +266,7 @@ map.on('pointermove', showInfo);
 
 const info = document.getElementById('info');
 function layerFilter(layerCandidate) {
-    if (layerCandidate.get('name') == 'baeume' ||  layerCandidate.get('name') == 'straeucher'  ) {
+    if (layerCandidate.get('name') == 'baeume' ||  layerCandidate.get('name') == 'straeucher'  ||  layerCandidate.get('name') == 'hecken'  ) {
 	return(true);
     }
     return(false);
