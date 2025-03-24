@@ -167,7 +167,7 @@ var plothighlightStyle = new Style({
 });
 
 var styleFunction = function(feature, resolution) {
-    var ref = ' ';
+    var ref = '  ';
     if(feature.get('ref')) {
 	ref = feature.get('ref').replace(/[^0-9a-zA-ZZäöüÄÖÜß]+/g,"").toLowerCase();
     }
