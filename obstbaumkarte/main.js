@@ -172,8 +172,9 @@ var styleFunction = function(feature, resolution) {
 	ref = feature.get('ref').replace(/[^0-9a-zA-ZZäöüÄÖÜß]+/g,"").toLowerCase();
     }
    // console.log(plot_nr, ref );
-    if (feature.get('layer') == 'public.plots'
-    && ref == plot_nr){
+    if (feature.get('layer') === 'public.plots'
+	&& ref === plot_nr
+	&& (ref.length)) {
     return(plothighlightStyle);
   }
 };
