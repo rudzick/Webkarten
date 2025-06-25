@@ -310,7 +310,8 @@ navigator.geolocation.watchPosition(
     ]);
   },
   function (error) {
-    alert(`ERROR: ${error.message}`);
+      // alert(`ERROR: ${error.message}`);
+      return true;
   },
   {
     enableHighAccuracy: true,
