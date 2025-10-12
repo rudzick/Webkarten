@@ -1,0 +1,19 @@
+{
+  "name": "obstbaumkarte_sb",
+  "version": "1.0.0",
+  "scripts": {
+    "start": "vite",
+    "build": "vite build",
+    "serve": "vite preview"
+  },
+  "devDependencies": {
+    "vite": "^7.1.9"
+  },
+  "dependencies": {
+    "@geoblocks/ol-maplibre-layer": "^1.0.3",
+    "kompas": "^0.0.1",
+    "maplibre-gl": "^5.9.0",
+    "n": "^10.2.0",
+    "ol": "^10.6.1"
+  }
+}

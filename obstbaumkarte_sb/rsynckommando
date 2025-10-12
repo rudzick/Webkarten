@@ -1,0 +1,2 @@
+rsync -avu -e "ssh -p 39125" map_style.json dist/ root@mymapnik.rudzick.it:/var/www/Obstbaumkarte/sb/
+

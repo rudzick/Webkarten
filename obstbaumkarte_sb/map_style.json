@@ -1,0 +1,81 @@
+{
+  "version": 8,
+  "name": "Shortbread MapLibre Demo",
+  "metadata": { "maputnik:renderer": "mlgljs" },
+  "sources": {
+    "shortbread": {
+	"type": "vector",
+	"tiles": ["https://sbtiles.obstbaumkarte.de/public.addresses,public.aerialways,public.boundaries,public.boundary_labels,public.bridges,public.buildings,public.dam_lines,public.dam_polygons,public.ferries,public.land,public.pier_lines,public.pier_polygons,public.place_labels,public.pois,public.public_transport,public.sites,public.street_labels,public.street_polygons,public.streets,public.streets_labels_points,public.streets_low,public.streets_med,public.streets_polygons_labels,public.water_lines,public.water_lines_labels,public.water_polygons,public.water_polygons_labels/{z}/{x}/{y}.pbf"]
+    }
+  },
+  "glyphs": "/fonts/{fontstack}/{range}",
+  "layers": [
+    {
+      "id": "bg",
+      "type": "background",
+      "paint": { "background-color": "#F2EFE9" }
+    },
+    {
+      "id": "ocean",
+      "type": "fill",
+      "source": "shortbread",
+      "source-layer": "ocean",
+      "paint": { "fill-color": "#AAD3DF" }
+    },
+    {
+      "id": "public.water_polygons",
+      "type": "fill",
+      "source": "shortbread",
+      "source-layer": "public.water_polygons",
+      "paint": { "fill-color": "#AAD3DF" }
+    },
+    {
+      "id": "public.boundaries",
+      "type": "line",
+      "source": "shortbread",
+      "source-layer": "public.boundaries",
+      "paint": { "line-color": "#8D618B" }
+    },
+    {
+      "id": "public.streets",
+      "type": "line",
+      "source": "shortbread",
+      "source-layer": "public.streets",
+      "layout": { "visibility": "visible" },
+      "paint": {
+        "line-color": [
+          "match",
+          ["get", "kind"],
+          "motorway",
+          "#e66e89",
+          ["trunk", "primary", "secondary"],
+          "#f4c37d",
+          "#ccccca"
+        ]
+      }
+    },
+    {
+      "id": "public.places",
+      "type": "symbol",
+      "source": "shortbread",
+      "source-layer": "public.place_labels",
+      "layout": {
+        "text-field": ["get", "name"],
+        "text-font": ["Open Sans Semibold"],
+        "text-size": 16
+      },
+      "paint": {
+        "text-halo-width": 1,
+        "text-halo-color": "rgba(255, 255, 255, 1)"
+      }
+    },
+    {
+      "id": "public.buildings",
+      "type": "fill",
+      "source": "shortbread",
+      "source-layer": "public.buildings",
+      "paint": { "fill-color": "#D9D0C9" }
+    }
+  ],
+  "id": "shortbread-demo-maplibre"
+}
