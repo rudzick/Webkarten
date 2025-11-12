@@ -22,3 +22,8 @@ const map = new maplibregl.Map({
         showZoom: true,
         showCompass: true
     }));
+    map.addControl(new maplibregl.ScaleControl({
+    //	maxWidth: 100,
+    	unit: 'metric'
+    }));
+    
