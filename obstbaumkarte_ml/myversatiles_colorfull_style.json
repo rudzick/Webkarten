@@ -4807,15 +4807,42 @@
 			"minzoom": 12
 		},
 	    {
-	  "id": "public.trees_17",
+	  "id": "public.trees_broadleaved_17",
 	  "type": "symbol",
 	  "source": "baeume",
 	  "source-layer": "public.trees",
+		"filter": ["all", [ "in", "leaf_type", "broadleaved" ],["!in","denotation","agricultural"]],
+	  "minzoom": 16,
+	  "maxzoom": 19,
+	  "layout": {
+	      "icon-image": "laubbaum",
+              "icon-size": 0.17
+	  }
+	    },
+	    {
+	  "id": "public.trees_fruittrees_17",
+	  "type": "symbol",
+	  "source": "baeume",
+	  "source-layer": "public.trees",
+		"filter": ["all", [ "in", "leaf_type", "broadleaved" ],["in","denotation","agricultural"]],
 	  "minzoom": 17,
 	  "maxzoom": 19,
 	  "layout": {
 	      "icon-image": "obstbaum",
               "icon-size": 0.06
+	  }
+	    },
+	    {
+	  "id": "public.trees_coniferes_17",
+	  "type": "symbol",
+	  "source": "baeume",
+	  "source-layer": "public.trees",
+		"filter": [ "in", "leaf_type", "needleleaved" ],
+	  "minzoom": 17,
+	  "maxzoom": 19,
+	  "layout": {
+	      "icon-image": "nadelbaum",
+              "icon-size": 1.1
 	  }
 	    },
 	    {

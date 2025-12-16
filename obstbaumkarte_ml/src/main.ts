@@ -12,8 +12,14 @@ const map = new maplibregl.Map({
 
 	map.on('load', async () => {
 //        	       image = await map.loadImage('https://commons.wikimedia.org/wiki/File:WLE_garden.svg');
-        	       const image = await map.loadImage('WLE_garden.png');
+        	       var image = await map.loadImage('WLE_garden.png');
         map.addImage('obstbaum', image.data);
+        	       image = await map.loadImage('trees_broad_leaved.png');
+        map.addImage('laubbaum', image.data);
+        	       image = await map.loadImage('trees_conifer.png');
+        map.addImage('nadelbaum', image.data);
+        	       image = await map.loadImage('shrub.png');
+        map.addImage('strauch', image.data);
     });
     // Add zoom and rotation controls to the map.
     map.addControl(new maplibregl.NavigationControl({
@@ -31,7 +37,7 @@ const map = new maplibregl.Map({
 
     map.on('mousemove', (e : any) => {const features = map.queryRenderedFeatures(
 			e.point,
-		{ layers: [ 'public.trees','public.trees_17'] }
+		{ layers: [ 'public.trees','public.trees_fruittrees_17','public.trees_broadleaved_17','public.trees_coniferes_17'] }
 	);		
 
         // Limit the number of properties we're displaying for
