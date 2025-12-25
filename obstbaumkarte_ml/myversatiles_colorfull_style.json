@@ -26,6 +26,11 @@
 	    "type": "vector",
 	    "tiles": ["https://pgtiles.obstbaumkarte.de/public.parzellengrenzen_view/{z}/{x}/{y}.pbf"],
 	    "minzoom": 16
+	},
+	"parzellennummern": {
+	    "type": "vector",
+	    "tiles": ["https://pgtiles.obstbaumkarte.de/public.allotment_plot_numbers/{z}/{x}/{y}.pbf"],
+	    "minzoom": 16
 	}
     },  
 "layers": [
@@ -4885,18 +4890,15 @@
 	  }
     },
     {
-	  "id": "public.parzellengrenzen_labels",
+	  "id": "public.allotment_plot_numbers",
 	  "type": "symbol",
-	  "source": "parzellen",
-	  "source-layer": "public.parzellengrenzen_view",
+	  "source": "parzellennummern",
+	  "source-layer": "public.allotment_plot_numbers",
 	"minzoom": 16,
 	"layout": {
               "text-field": ["get", "ref"],
               "text-font": ["Open Sans"],
-            "text-size": { "stops": [ [ 16, 5 ], [ 18, 11 ],[ 22, 20 ] ] },
-	    "symbol-placement": "point",
-	    "text-padding":  { "stops": [ [ 16, 4 ], [ 18, 16 ],[ 20, 64 ] ] },
-	    "text-anchor": "center"
+            "text-size": { "stops": [ [ 16, 3 ], [ 18, 11 ],[ 22, 20 ] ] }
 	},
 	"paint": {
               "text-halo-width": 1,
