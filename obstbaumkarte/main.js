@@ -172,7 +172,7 @@ var styleFunction = function(feature, resolution) {
 	ref = feature.get('ref').replace(/[^0-9a-zA-ZZäöüÄÖÜß]+/g,"").toLowerCase();
     }
    // console.log(plot_nr, ref );
-    if (feature.get('layer') === 'public.plots'
+    if (feature.get('layer') === 'public.parzellengrenzen_view'
 	&& ref === plot_nr
 	&& (ref.length)) {
     return(plothighlightStyle);
@@ -219,7 +219,8 @@ const map = new Map({
 	//	format: new MVT({layerName: 'layer', layers: ['parzellengrenzen']}),
 	//	url: 'https://vectortiles.obstbaumkarte.de/xyz/obstbaumkarte_vectorlayers/{z}/{x}/{y}.pbf',
 		format: new MVT(),
-		url: 'https://pgtiles.obstbaumkarte.de/public.plots/{z}/{x}/{y}.pbf',
+//		url: 'https://pgtiles.obstbaumkarte.de/public.plots/{z}/{x}/{y}.pbf',
+		url: 'https://pgtiles.obstbaumkarte.de/public.parzellengrenzen_view/{z}/{x}/{y}.pbf',
 	    }),
 	    minZoom: 14,
 	    maxZoom: 21,
