@@ -15,7 +15,7 @@
 	"versatiles-shortbread": {
 	    "type": "vector",
 	    "attribution": "© <a href=\"https://www.openstreetmap.org/copyright\">OpenStreetMap</a> contributors",
-	    "tiles": ["https://sbtiles.obstbaumkarte.de/public.addresses,public.aerialways,public.boundaries,public.boundary_labels,public.bridges,public.buildings,public.dam_lines,public.dam_polygons,public.ferries,public.land,public.pier_lines,public.pier_polygons,public.place_labels,public.pois,public.public_transport,public.sites,public.street_labels,public.street_polygons,public.streets,public.streets_labels_points,public.streets_low,public.streets_med,public.streets_polygons_labels,public.water_lines,public.water_lines_labels,public.water_polygons,public.water_polygons_labels/{z}/{x}/{y}.pbf"]
+	    "url": "https://sbtiles.obstbaumkarte.de/table.public.streets_med.geom,table.public.streets_labels_points.geom,table.public.streets_low.geom,table.public.water_lines_labels.geom,table.public.street_polygons.geom,table.public.ferries.geom,table.public.boundaries.geom,table.public.water_polygons_labels.geom,table.public.street_labels.geom,table.public.water_lines.geom,table.public.pier_polygons.geom,table.public.dam_lines.geom,table.public.land.geom,table.public.public_transport.geom,table.public.addresses.geom,table.public.boundary_labels.geom,table.public.streets_polygons_labels.geom,table.public.aerialways.geom,table.public.sites.geom,table.public.pois.geom,table.public.buildings.geom,table.public.streets.geom,table.public.bridges.geom,table.public.place_labels.geom,table.public.water_polygons.geom,table.public.dam_polygons.geom,table.public.pier_lines.geom"
 	},
 	"baeume": {
 	    "type": "vector",
@@ -43,18 +43,9 @@
 		},
 		{
 			"source": "versatiles-shortbread",
-			"id": "water-ocean",
-			"type": "fill",
-			"source-layer": "ocean",
-			"paint": {
-				"fill-color": "rgb(190,221,243)"
-			}
-		},
-		{
-			"source": "versatiles-shortbread",
 			"id": "land-glacier",
 			"type": "fill",
-			"source-layer": "public.water_polygons",
+			"source-layer": "table.public.water_polygons.geom",
 			"filter": [ "all", [ "==", "kind", "glacier" ] ],
 			"paint": {
 				"fill-color": "rgb(255,255,255)"
@@ -64,7 +55,7 @@
 			"source": "versatiles-shortbread",
 			"id": "land-commercial",
 			"type": "fill",
-			"source-layer": "public.land",
+			"source-layer": "table.public.land.geom",
 			"filter": [ "all", [ "in", "kind", "commercial", "retail" ] ],
 			"paint": {
 				"fill-color": "rgba(247,222,237,0.251)",
@@ -75,7 +66,7 @@
 			"source": "versatiles-shortbread",
 			"id": "land-industrial",
 			"type": "fill",
-			"source-layer": "public.land",
+			"source-layer": "table.public.land.geom",
 			"filter": [ "all", [ "in", "kind", "industrial", "quarry", "railway" ] ],
 			"paint": {
 				"fill-color": "rgba(255,244,194,0.333)",
@@ -86,7 +77,7 @@
 			"source": "versatiles-shortbread",
 			"id": "land-residential",
 			"type": "fill",
-			"source-layer": "public.land",
+			"source-layer": "table.public.land.geom",
 			"filter": [ "all", [ "in", "kind", "garages", "residential" ] ],
 			"paint": {
 				"fill-color": "rgba(234,230,225,0.2)",
@@ -97,7 +88,7 @@
 			"source": "versatiles-shortbread",
 			"id": "land-agriculture",
 			"type": "fill",
-			"source-layer": "public.land",
+			"source-layer": "table.public.land.geom",
 			"filter": [ "all", [ "in", "kind", "brownfield", "farmland", "farmyard", "greenfield", "greenhouse_horticulture", "orchard", "plant_nursery", "vineyard" ] ],
 			"paint": {
 				"fill-color": "rgb(240,231,209)",
@@ -108,7 +99,7 @@
 			"source": "versatiles-shortbread",
 			"id": "land-waste",
 			"type": "fill",
-			"source-layer": "public.land",
+			"source-layer": "table.public.land.geom",
 			"filter": [ "all", [ "in", "kind", "landfill" ] ],
 			"paint": {
 				"fill-color": "rgb(219,214,189)",
@@ -119,7 +110,7 @@
 			"source": "versatiles-shortbread",
 			"id": "land-park",
 			"type": "fill",
-			"source-layer": "public.land",
+			"source-layer": "table.public.land.geom",
 			"filter": [ "all", [ "in", "kind", "park", "village_green", "recreation_ground" ] ],
 			"paint": {
 				"fill-color": "rgb(217,217,165)",
@@ -130,7 +121,7 @@
 			"source": "versatiles-shortbread",
 			"id": "land-garden",
 			"type": "fill",
-			"source-layer": "public.land",
+			"source-layer": "table.public.land.geom",
 			"filter": [ "all", [ "in", "kind", "allotments", "garden" ] ],
 			"paint": {
 				"fill-color": "rgb(217,217,165)",
@@ -141,7 +132,7 @@
 			"source": "versatiles-shortbread",
 			"id": "land-burial",
 			"type": "fill",
-			"source-layer": "public.land",
+			"source-layer": "table.public.land.geom",
 			"filter": [ "all", [ "in", "kind", "cemetery", "grave_yard" ] ],
 			"paint": {
 				"fill-color": "rgb(221,219,202)",
@@ -152,7 +143,7 @@
 			"source": "versatiles-shortbread",
 			"id": "land-leisure",
 			"type": "fill",
-			"source-layer": "public.land",
+			"source-layer": "table.public.land.geom",
 			"filter": [ "all", [ "in", "kind", "miniature_golf", "playground", "golf_course" ] ],
 			"paint": {
 				"fill-color": "rgb(231,237,222)"
@@ -162,7 +153,7 @@
 			"source": "versatiles-shortbread",
 			"id": "land-rock",
 			"type": "fill",
-			"source-layer": "public.land",
+			"source-layer": "table.public.land.geom",
 			"filter": [ "all", [ "in", "kind", "bare_rock", "scree", "shingle" ] ],
 			"paint": {
 				"fill-color": "rgb(224,228,229)"
@@ -172,7 +163,7 @@
 			"source": "versatiles-shortbread",
 			"id": "land-forest",
 			"type": "fill",
-			"source-layer": "public.land",
+			"source-layer": "table.public.land.geom",
 			"filter": [ "all", [ "in", "kind", "forest" ] ],
 			"paint": {
 				"fill-color": "rgb(102,170,68)",
@@ -183,7 +174,7 @@
 			"source": "versatiles-shortbread",
 			"id": "land-grass",
 			"type": "fill",
-			"source-layer": "public.land",
+			"source-layer": "table.public.land.geom",
 			"filter": [ "all", [ "in", "kind", "grass", "grassland", "meadow", "wet_meadow" ] ],
 			"paint": {
 				"fill-color": "rgb(216,232,200)",
@@ -194,7 +185,7 @@
 			"source": "versatiles-shortbread",
 			"id": "land-vegetation",
 			"type": "fill",
-			"source-layer": "public.land",
+			"source-layer": "table.public.land.geom",
 			"filter": [ "all", [ "in", "kind", "heath", "scrub" ] ],
 			"paint": {
 				"fill-color": "rgb(217,217,165)",
@@ -205,7 +196,7 @@
 			"source": "versatiles-shortbread",
 			"id": "land-sand",
 			"type": "fill",
-			"source-layer": "public.land",
+			"source-layer": "table.public.land.geom",
 			"filter": [ "all", [ "in", "kind", "beach", "sand" ] ],
 			"paint": {
 				"fill-color": "rgb(250,250,237)"
@@ -215,7 +206,7 @@
 			"source": "versatiles-shortbread",
 			"id": "land-wetland",
 			"type": "fill",
-			"source-layer": "public.land",
+			"source-layer": "table.public.land.geom",
 			"filter": [ "all", [ "in", "kind", "bog", "marsh", "string_bog", "swamp" ] ],
 			"paint": {
 				"fill-color": "rgb(211,230,219)"
@@ -225,7 +216,7 @@
 			"source": "versatiles-shortbread",
 			"id": "water-river",
 			"type": "line",
-			"source-layer": "public.water_lines",
+			"source-layer": "table.public.water_lines.geom",
 			"filter": [ "all", [ "in", "kind", "river" ], [ "!=", "tunnel", true ], [ "!=", "bridge", true ] ],
 			"paint": {
 				"line-color": "rgb(190,221,243)",
@@ -240,7 +231,7 @@
 			"source": "versatiles-shortbread",
 			"id": "water-canal",
 			"type": "line",
-			"source-layer": "public.water_lines",
+			"source-layer": "table.public.water_lines.geom",
 			"filter": [ "all", [ "in", "kind", "canal" ], [ "!=", "tunnel", true ], [ "!=", "bridge", true ] ],
 			"paint": {
 				"line-color": "rgb(190,221,243)",
@@ -255,7 +246,7 @@
 			"source": "versatiles-shortbread",
 			"id": "water-stream",
 			"type": "line",
-			"source-layer": "public.water_lines",
+			"source-layer": "table.public.water_lines.geom",
 			"filter": [ "all", [ "in", "kind", "stream" ], [ "!=", "tunnel", true ], [ "!=", "bridge", true ] ],
 			"paint": {
 				"line-color": "rgb(190,221,243)",
@@ -270,7 +261,7 @@
 			"source": "versatiles-shortbread",
 			"id": "water-ditch",
 			"type": "line",
-			"source-layer": "public.water_lines",
+			"source-layer": "table.public.water_lines.geom",
 			"filter": [ "all", [ "in", "kind", "ditch" ], [ "!=", "tunnel", true ], [ "!=", "bridge", true ] ],
 			"paint": {
 				"line-color": "rgb(190,221,243)",
@@ -285,7 +276,7 @@
 			"source": "versatiles-shortbread",
 			"id": "water-area",
 			"type": "fill",
-			"source-layer": "public.water_polygons",
+			"source-layer": "table.public.water_polygons.geom",
 			"filter": [ "==", "kind", "water" ],
 			"paint": {
 				"fill-color": "rgb(190,221,243)",
@@ -296,7 +287,7 @@
 			"source": "versatiles-shortbread",
 			"id": "water-area-river",
 			"type": "fill",
-			"source-layer": "public.water_polygons",
+			"source-layer": "table.public.water_polygons.geom",
 			"filter": [ "==", "kind", "river" ],
 			"paint": {
 				"fill-color": "rgb(190,221,243)",
@@ -307,7 +298,7 @@
 			"source": "versatiles-shortbread",
 			"id": "water-area-small",
 			"type": "fill",
-			"source-layer": "public.water_polygons",
+			"source-layer": "table.public.water_polygons.geom",
 			"filter": [ "in", "kind", "reservoir", "basin", "dock" ],
 			"paint": {
 				"fill-color": "rgb(190,221,243)",
@@ -318,7 +309,7 @@
 			"source": "versatiles-shortbread",
 			"id": "water-dam-area",
 			"type": "fill",
-			"source-layer": "public.dam_polygons",
+			"source-layer": "table.public.dam_polygons.geom",
 			"filter": [ "==", "kind", "dam" ],
 			"paint": {
 				"fill-color": "rgb(249,244,238)",
@@ -329,7 +320,7 @@
 			"source": "versatiles-shortbread",
 			"id": "water-dam",
 			"type": "line",
-			"source-layer": "public.dam_lines",
+			"source-layer": "table.public.dam_lines.geom",
 			"filter": [ "==", "kind", "dam" ],
 			"paint": {
 				"line-color": "rgb(190,221,243)"
@@ -343,7 +334,7 @@
 			"source": "versatiles-shortbread",
 			"id": "water-pier-area",
 			"type": "fill",
-			"source-layer": "public.pier_polygons",
+			"source-layer": "table.public.pier_polygons.geom",
 			"filter": [ "in", "kind", "pier", "breakwater", "groyne" ],
 			"paint": {
 				"fill-color": "rgb(249,244,238)",
@@ -354,7 +345,7 @@
 			"source": "versatiles-shortbread",
 			"id": "water-pier",
 			"type": "line",
-			"source-layer": "public.pier_lines",
+			"source-layer": "table.public.pier_lines.geom",
 			"filter": [ "in", "kind", "pier", "breakwater", "groyne" ],
 			"paint": {
 				"line-color": "rgb(249,244,238)"
@@ -368,7 +359,7 @@
 			"source": "versatiles-shortbread",
 			"id": "site-dangerarea",
 			"type": "fill",
-			"source-layer": "public.sites",
+			"source-layer": "table.public.sites.geom",
 			"filter": [ "in", "kind", "danger_area" ],
 			"paint": {
 				"fill-color": "rgb(255,0,0)",
@@ -381,7 +372,7 @@
 			"source": "versatiles-shortbread",
 			"id": "site-university",
 			"type": "fill",
-			"source-layer": "public.sites",
+			"source-layer": "table.public.sites.geom",
 			"filter": [ "in", "kind", "university" ],
 			"paint": {
 				"fill-color": "rgb(255,255,128)",
@@ -392,7 +383,7 @@
 			"source": "versatiles-shortbread",
 			"id": "site-college",
 			"type": "fill",
-			"source-layer": "public.sites",
+			"source-layer": "table.public.sites.geom",
 			"filter": [ "in", "kind", "college" ],
 			"paint": {
 				"fill-color": "rgb(255,255,128)",
@@ -403,7 +394,7 @@
 			"source": "versatiles-shortbread",
 			"id": "site-school",
 			"type": "fill",
-			"source-layer": "public.sites",
+			"source-layer": "table.public.sites.geom",
 			"filter": [ "in", "kind", "school" ],
 			"paint": {
 				"fill-color": "rgb(255,255,128)",
@@ -414,7 +405,7 @@
 			"source": "versatiles-shortbread",
 			"id": "site-hospital",
 			"type": "fill",
-			"source-layer": "public.sites",
+			"source-layer": "table.public.sites.geom",
 			"filter": [ "in", "kind", "hospital" ],
 			"paint": {
 				"fill-color": "rgb(255,102,102)",
@@ -425,7 +416,7 @@
 			"source": "versatiles-shortbread",
 			"id": "site-prison",
 			"type": "fill",
-			"source-layer": "public.sites",
+			"source-layer": "table.public.sites.geom",
 			"filter": [ "in", "kind", "prison" ],
 			"paint": {
 				"fill-color": "rgb(253,242,252)",
@@ -437,7 +428,7 @@
 			"source": "versatiles-shortbread",
 			"id": "site-parking",
 			"type": "fill",
-			"source-layer": "public.sites",
+			"source-layer": "table.public.sites.geom",
 			"filter": [ "in", "kind", "parking" ],
 			"paint": {
 				"fill-color": "rgb(235,232,230)"
@@ -447,7 +438,7 @@
 			"source": "versatiles-shortbread",
 			"id": "site-bicycleparking",
 			"type": "fill",
-			"source-layer": "public.sites",
+			"source-layer": "table.public.sites.geom",
 			"filter": [ "in", "kind", "bicycle_parking" ],
 			"paint": {
 				"fill-color": "rgb(235,232,230)"
@@ -457,7 +448,7 @@
 			"source": "versatiles-shortbread",
 			"id": "site-construction",
 			"type": "fill",
-			"source-layer": "public.sites",
+			"source-layer": "table.public.sites.geom",
 			"filter": [ "in", "kind", "construction" ],
 			"paint": {
 				"fill-color": "rgb(169,169,169)",
@@ -469,7 +460,7 @@
 			"source": "versatiles-shortbread",
 			"id": "airport-area",
 			"type": "fill",
-			"source-layer": "public.street_polygons",
+			"source-layer": "table.public.street_polygons.geom",
 			"filter": [ "in", "kind", "runway", "taxiway" ],
 			"paint": {
 				"fill-color": "rgb(255,255,255)",
@@ -480,7 +471,7 @@
 			"source": "versatiles-shortbread",
 			"id": "airport-taxiway:outline",
 			"type": "line",
-			"source-layer": "public.streets",
+			"source-layer": "table.public.streets.geom",
 			"filter": [ "==", "kind", "taxiway" ],
 			"paint": {
 				"line-color": "rgb(207,205,202)",
@@ -494,7 +485,7 @@
 			"source": "versatiles-shortbread",
 			"id": "airport-runway:outline",
 			"type": "line",
-			"source-layer": "public.streets",
+			"source-layer": "table.public.streets.geom",
 			"filter": [ "==", "kind", "runway" ],
 			"paint": {
 				"line-color": "rgb(207,205,202)",
@@ -508,7 +499,7 @@
 			"source": "versatiles-shortbread",
 			"id": "airport-taxiway",
 			"type": "line",
-			"source-layer": "public.streets",
+			"source-layer": "table.public.streets.geom",
 			"filter": [ "==", "kind", "taxiway" ],
 			"paint": {
 				"line-color": "rgb(255,255,255)",
@@ -523,7 +514,7 @@
 			"source": "versatiles-shortbread",
 			"id": "airport-runway",
 			"type": "line",
-			"source-layer": "public.streets",
+			"source-layer": "table.public.streets.geom",
 			"filter": [ "==", "kind", "runway" ],
 			"paint": {
 				"line-color": "rgb(255,255,255)",
@@ -538,7 +529,7 @@
 			"source": "versatiles-shortbread",
 			"id": "building:outline",
 			"type": "fill",
-			"source-layer": "public.buildings",
+			"source-layer": "table.public.buildings.geom",
 			"paint": {
 				"fill-color": "rgb(223,219,215)",
 				"fill-opacity": { "stops": [ [ 14, 0 ], [ 15, 1 ] ] }
@@ -548,7 +539,7 @@
 			"source": "versatiles-shortbread",
 			"id": "building",
 			"type": "fill",
-			"source-layer": "public.buildings",
+			"source-layer": "table.public.buildings.geom",
 			"paint": {
 				"fill-color": "rgb(242,234,226)",
 				"fill-opacity": { "stops": [ [ 14, 0 ], [ 15, 1 ] ] },
@@ -559,7 +550,7 @@
 			"source": "versatiles-shortbread",
 			"id": "tunnel-street-pedestrian-zone",
 			"type": "fill",
-			"source-layer": "public.street_polygons",
+			"source-layer": "table.public.street_polygons.geom",
 			"filter": [ "all", [ "==", "tunnel", true ], [ "==", "kind", "pedestrian" ] ],
 			"paint": {
 				"fill-color": "rgb(247,247,247)",
@@ -570,7 +561,7 @@
 			"source": "versatiles-shortbread",
 			"id": "tunnel-way-footway:outline",
 			"type": "line",
-			"source-layer": "public.streets",
+			"source-layer": "table.public.streets.geom",
 			"filter": [ "all", [ "==", "tunnel", true ], [ "in", "kind", "footway" ] ],
 			"layout": {
 				"line-cap": "round"
@@ -585,7 +576,7 @@
 			"source": "versatiles-shortbread",
 			"id": "tunnel-way-steps:outline",
 			"type": "line",
-			"source-layer": "public.streets",
+			"source-layer": "table.public.streets.geom",
 			"filter": [ "all", [ "==", "tunnel", true ], [ "in", "kind", "steps" ] ],
 			"layout": {
 				"line-cap": "round"
@@ -600,7 +591,7 @@
 			"source": "versatiles-shortbread",
 			"id": "tunnel-way-path:outline",
 			"type": "line",
-			"source-layer": "public.streets",
+			"source-layer": "table.public.streets.geom",
 			"filter": [ "all", [ "==", "tunnel", true ], [ "in", "kind", "path" ] ],
 			"layout": {
 				"line-cap": "round"
@@ -615,7 +606,7 @@
 			"source": "versatiles-shortbread",
 			"id": "tunnel-way-cycleway:outline",
 			"type": "line",
-			"source-layer": "public.streets",
+			"source-layer": "table.public.streets.geom",
 			"filter": [ "all", [ "==", "tunnel", true ], [ "in", "kind", "cycleway" ] ],
 			"layout": {
 				"line-cap": "round"
@@ -630,7 +621,7 @@
 			"source": "versatiles-shortbread",
 			"id": "tunnel-street-track:outline",
 			"type": "line",
-			"source-layer": "public.streets",
+			"source-layer": "table.public.streets.geom",
 			"filter": [ "all", [ "==", "kind", "track" ], [ "==", "tunnel", true ] ],
 			"paint": {
 				"line-color": "rgb(222,222,222)",
@@ -646,7 +637,7 @@
 			"source": "versatiles-shortbread",
 			"id": "tunnel-street-pedestrian:outline",
 			"type": "line",
-			"source-layer": "public.streets",
+			"source-layer": "table.public.streets.geom",
 			"filter": [ "all", [ "==", "kind", "pedestrian" ], [ "==", "tunnel", true ] ],
 			"paint": {
 				"line-color": "rgb(222,222,222)",
@@ -662,7 +653,7 @@
 			"source": "versatiles-shortbread",
 			"id": "tunnel-street-service:outline",
 			"type": "line",
-			"source-layer": "public.streets",
+			"source-layer": "table.public.streets.geom",
 			"filter": [ "all", [ "==", "kind", "service" ], [ "==", "tunnel", true ] ],
 			"paint": {
 				"line-color": "rgb(221,220,218)",
@@ -678,7 +669,7 @@
 			"source": "versatiles-shortbread",
 			"id": "tunnel-street-livingstreet:outline",
 			"type": "line",
-			"source-layer": "public.streets",
+			"source-layer": "table.public.streets.geom",
 			"filter": [ "all", [ "==", "kind", "living_street" ], [ "==", "tunnel", true ] ],
 			"paint": {
 				"line-color": "rgb(222,222,222)",
@@ -694,7 +685,7 @@
 			"source": "versatiles-shortbread",
 			"id": "tunnel-street-residential:outline",
 			"type": "line",
-			"source-layer": "public.streets",
+			"source-layer": "table.public.streets.geom",
 			"filter": [ "all", [ "==", "kind", "residential" ], [ "==", "tunnel", true ] ],
 			"paint": {
 				"line-color": "rgb(222,222,222)",
@@ -710,7 +701,7 @@
 			"source": "versatiles-shortbread",
 			"id": "tunnel-street-unclassified:outline",
 			"type": "line",
-			"source-layer": "public.streets",
+			"source-layer": "table.public.streets.geom",
 			"filter": [ "all", [ "==", "kind", "unclassified" ], [ "==", "tunnel", true ] ],
 			"paint": {
 				"line-color": "rgb(222,222,222)",
@@ -726,7 +717,7 @@
 			"source": "versatiles-shortbread",
 			"id": "tunnel-street-tertiary-link:outline",
 			"type": "line",
-			"source-layer": "public.streets",
+			"source-layer": "table.public.streets.geom",
 			"filter": [ "all", [ "==", "tunnel", true ], [ "in", "kind", "tertiary" ], [ "==", "link", true ] ],
 			"paint": {
 				"line-color": "rgb(222,222,222)",
@@ -742,7 +733,7 @@
 			"source": "versatiles-shortbread",
 			"id": "tunnel-street-secondary-link:outline",
 			"type": "line",
-			"source-layer": "public.streets",
+			"source-layer": "table.public.streets.geom",
 			"filter": [ "all", [ "==", "tunnel", true ], [ "in", "kind", "secondary" ], [ "==", "link", true ] ],
 			"paint": {
 				"line-color": "rgb(234,176,126)",
@@ -759,7 +750,7 @@
 			"source": "versatiles-shortbread",
 			"id": "tunnel-street-primary-link:outline",
 			"type": "line",
-			"source-layer": "public.streets",
+			"source-layer": "table.public.streets.geom",
 			"filter": [ "all", [ "==", "tunnel", true ], [ "in", "kind", "primary" ], [ "==", "link", true ] ],
 			"paint": {
 				"line-color": "rgb(234,176,126)",
@@ -776,7 +767,7 @@
 			"source": "versatiles-shortbread",
 			"id": "tunnel-street-trunk-link:outline",
 			"type": "line",
-			"source-layer": "public.streets",
+			"source-layer": "table.public.streets.geom",
 			"filter": [ "all", [ "==", "tunnel", true ], [ "in", "kind", "trunk" ], [ "==", "link", true ] ],
 			"paint": {
 				"line-color": "rgb(234,176,126)",
@@ -793,7 +784,7 @@
 			"source": "versatiles-shortbread",
 			"id": "tunnel-street-motorway-link:outline",
 			"type": "line",
-			"source-layer": "public.streets",
+			"source-layer": "table.public.streets.geom",
 			"filter": [ "all", [ "==", "tunnel", true ], [ "in", "kind", "motorway" ], [ "==", "link", true ] ],
 			"paint": {
 				"line-color": "rgb(234,176,126)",
@@ -810,7 +801,7 @@
 			"source": "versatiles-shortbread",
 			"id": "tunnel-street-tertiary:outline",
 			"type": "line",
-			"source-layer": "public.streets",
+			"source-layer": "table.public.streets.geom",
 			"filter": [ "all", [ "==", "tunnel", true ], [ "in", "kind", "tertiary" ], [ "!=", "link", true ] ],
 			"paint": {
 				"line-color": "rgb(222,222,222)",
@@ -826,7 +817,7 @@
 			"source": "versatiles-shortbread",
 			"id": "tunnel-street-secondary:outline",
 			"type": "line",
-			"source-layer": "public.streets",
+			"source-layer": "table.public.streets.geom",
 			"filter": [ "all", [ "==", "tunnel", true ], [ "in", "kind", "secondary" ], [ "!=", "link", true ] ],
 			"paint": {
 				"line-color": "rgb(234,176,126)",
@@ -843,7 +834,7 @@
 			"source": "versatiles-shortbread",
 			"id": "tunnel-street-primary:outline",
 			"type": "line",
-			"source-layer": "public.streets",
+			"source-layer": "table.public.streets.geom",
 			"filter": [ "all", [ "==", "tunnel", true ], [ "in", "kind", "primary" ], [ "!=", "link", true ] ],
 			"paint": {
 				"line-color": "rgb(234,176,126)",
@@ -859,7 +850,7 @@
 			"source": "versatiles-shortbread",
 			"id": "tunnel-street-trunk:outline",
 			"type": "line",
-			"source-layer": "public.streets",
+			"source-layer": "table.public.streets.geom",
 			"filter": [ "all", [ "==", "tunnel", true ], [ "in", "kind", "trunk" ], [ "!=", "link", true ] ],
 			"paint": {
 				"line-color": "rgb(234,176,126)",
@@ -875,7 +866,7 @@
 			"source": "versatiles-shortbread",
 			"id": "tunnel-street-motorway:outline",
 			"type": "line",
-			"source-layer": "public.streets",
+			"source-layer": "table.public.streets.geom",
 			"filter": [ "all", [ "==", "tunnel", true ], [ "in", "kind", "motorway" ], [ "!=", "link", true ] ],
 			"paint": {
 				"line-color": "rgb(234,176,126)",
@@ -891,7 +882,7 @@
 			"source": "versatiles-shortbread",
 			"id": "tunnel-way-footway",
 			"type": "line",
-			"source-layer": "public.streets",
+			"source-layer": "table.public.streets.geom",
 			"filter": [ "all", [ "==", "tunnel", true ], [ "in", "kind", "footway" ] ],
 			"layout": {
 				"line-cap": "round"
@@ -907,7 +898,7 @@
 			"source": "versatiles-shortbread",
 			"id": "tunnel-way-steps",
 			"type": "line",
-			"source-layer": "public.streets",
+			"source-layer": "table.public.streets.geom",
 			"filter": [ "all", [ "==", "tunnel", true ], [ "in", "kind", "steps" ] ],
 			"layout": {
 				"line-cap": "round"
@@ -923,7 +914,7 @@
 			"source": "versatiles-shortbread",
 			"id": "tunnel-way-path",
 			"type": "line",
-			"source-layer": "public.streets",
+			"source-layer": "table.public.streets.geom",
 			"filter": [ "all", [ "==", "tunnel", true ], [ "in", "kind", "path" ] ],
 			"layout": {
 				"line-cap": "round"
@@ -939,7 +930,7 @@
 			"source": "versatiles-shortbread",
 			"id": "tunnel-way-cycleway",
 			"type": "line",
-			"source-layer": "public.streets",
+			"source-layer": "table.public.streets.geom",
 			"filter": [ "all", [ "==", "tunnel", true ], [ "in", "kind", "cycleway" ] ],
 			"layout": {
 				"line-cap": "round"
@@ -955,7 +946,7 @@
 			"source": "versatiles-shortbread",
 			"id": "tunnel-street-track",
 			"type": "line",
-			"source-layer": "public.streets",
+			"source-layer": "table.public.streets.geom",
 			"filter": [ "all", [ "==", "kind", "track" ], [ "==", "tunnel", true ] ],
 			"paint": {
 				"line-color": "rgb(247,247,247)",
@@ -971,7 +962,7 @@
 			"source": "versatiles-shortbread",
 			"id": "tunnel-street-pedestrian",
 			"type": "line",
-			"source-layer": "public.streets",
+			"source-layer": "table.public.streets.geom",
 			"filter": [ "all", [ "==", "kind", "pedestrian" ], [ "==", "tunnel", true ] ],
 			"paint": {
 				"line-color": "rgb(247,247,247)",
@@ -987,7 +978,7 @@
 			"source": "versatiles-shortbread",
 			"id": "tunnel-street-service",
 			"type": "line",
-			"source-layer": "public.streets",
+			"source-layer": "table.public.streets.geom",
 			"filter": [ "all", [ "==", "kind", "service" ], [ "==", "tunnel", true ] ],
 			"paint": {
 				"line-color": "rgb(247,247,247)",
@@ -1003,7 +994,7 @@
 			"source": "versatiles-shortbread",
 			"id": "tunnel-street-livingstreet",
 			"type": "line",
-			"source-layer": "public.streets",
+			"source-layer": "table.public.streets.geom",
 			"filter": [ "all", [ "==", "kind", "living_street" ], [ "==", "tunnel", true ] ],
 			"paint": {
 				"line-color": "rgb(247,247,247)",
@@ -1019,7 +1010,7 @@
 			"source": "versatiles-shortbread",
 			"id": "tunnel-street-residential",
 			"type": "line",
-			"source-layer": "public.streets",
+			"source-layer": "table.public.streets.geom",
 			"filter": [ "all", [ "==", "kind", "residential" ], [ "==", "tunnel", true ] ],
 			"paint": {
 				"line-color": "rgb(247,247,247)",
@@ -1035,7 +1026,7 @@
 			"source": "versatiles-shortbread",
 			"id": "tunnel-street-unclassified",
 			"type": "line",
-			"source-layer": "public.streets",
+			"source-layer": "table.public.streets.geom",
 			"filter": [ "all", [ "==", "kind", "unclassified" ], [ "==", "tunnel", true ] ],
 			"paint": {
 				"line-color": "rgb(247,247,247)",
@@ -1051,7 +1042,7 @@
 			"source": "versatiles-shortbread",
 			"id": "tunnel-street-track-bicycle",
 			"type": "line",
-			"source-layer": "public.streets",
+			"source-layer": "table.public.streets.geom",
 			"filter": [ "all", [ "==", "kind", "track" ], [ "==", "bicycle", "designated" ], [ "==", "tunnel", true ] ],
 			"paint": {
 				"line-color": "rgb(247,247,247)"
@@ -1065,7 +1056,7 @@
 			"source": "versatiles-shortbread",
 			"id": "tunnel-street-pedestrian-bicycle",
 			"type": "line",
-			"source-layer": "public.streets",
+			"source-layer": "table.public.streets.geom",
 			"filter": [ "all", [ "==", "kind", "pedestrian" ], [ "==", "bicycle", "designated" ], [ "==", "tunnel", true ] ],
 			"paint": {
 				"line-color": "rgb(239,249,255)",
@@ -1081,7 +1072,7 @@
 			"source": "versatiles-shortbread",
 			"id": "tunnel-street-service-bicycle",
 			"type": "line",
-			"source-layer": "public.streets",
+			"source-layer": "table.public.streets.geom",
 			"filter": [ "all", [ "==", "kind", "service" ], [ "==", "bicycle", "designated" ], [ "==", "tunnel", true ] ],
 			"paint": {
 				"line-color": "rgb(247,247,247)"
@@ -1095,7 +1086,7 @@
 			"source": "versatiles-shortbread",
 			"id": "tunnel-street-livingstreet-bicycle",
 			"type": "line",
-			"source-layer": "public.streets",
+			"source-layer": "table.public.streets.geom",
 			"filter": [ "all", [ "==", "kind", "living_street" ], [ "==", "bicycle", "designated" ], [ "==", "tunnel", true ] ],
 			"paint": {
 				"line-color": "rgb(239,249,255)",
@@ -1111,7 +1102,7 @@
 			"source": "versatiles-shortbread",
 			"id": "tunnel-street-residential-bicycle",
 			"type": "line",
-			"source-layer": "public.streets",
+			"source-layer": "table.public.streets.geom",
 			"filter": [ "all", [ "==", "kind", "residential" ], [ "==", "bicycle", "designated" ], [ "==", "tunnel", true ] ],
 			"paint": {
 				"line-color": "rgb(239,249,255)",
@@ -1127,7 +1118,7 @@
 			"source": "versatiles-shortbread",
 			"id": "tunnel-street-unclassified-bicycle",
 			"type": "line",
-			"source-layer": "public.streets",
+			"source-layer": "table.public.streets.geom",
 			"filter": [ "all", [ "==", "kind", "unclassified" ], [ "==", "bicycle", "designated" ], [ "==", "tunnel", true ] ],
 			"paint": {
 				"line-color": "rgb(239,249,255)",
@@ -1143,7 +1134,7 @@
 			"source": "versatiles-shortbread",
 			"id": "tunnel-street-tertiary-link",
 			"type": "line",
-			"source-layer": "public.streets",
+			"source-layer": "table.public.streets.geom",
 			"filter": [ "all", [ "==", "tunnel", true ], [ "in", "kind", "tertiary" ], [ "==", "link", true ] ],
 			"paint": {
 				"line-color": "rgb(247,247,247)",
@@ -1159,7 +1150,7 @@
 			"source": "versatiles-shortbread",
 			"id": "tunnel-street-secondary-link",
 			"type": "line",
-			"source-layer": "public.streets",
+			"source-layer": "table.public.streets.geom",
 			"filter": [ "all", [ "==", "tunnel", true ], [ "in", "kind", "secondary" ], [ "==", "link", true ] ],
 			"paint": {
 				"line-color": "rgb(255,240,179)",
@@ -1175,7 +1166,7 @@
 			"source": "versatiles-shortbread",
 			"id": "tunnel-street-primary-link",
 			"type": "line",
-			"source-layer": "public.streets",
+			"source-layer": "table.public.streets.geom",
 			"filter": [ "all", [ "==", "tunnel", true ], [ "in", "kind", "primary" ], [ "==", "link", true ] ],
 			"paint": {
 				"line-color": "rgb(255,240,179)",
@@ -1191,7 +1182,7 @@
 			"source": "versatiles-shortbread",
 			"id": "tunnel-street-trunk-link",
 			"type": "line",
-			"source-layer": "public.streets",
+			"source-layer": "table.public.streets.geom",
 			"filter": [ "all", [ "==", "tunnel", true ], [ "in", "kind", "trunk" ], [ "==", "link", true ] ],
 			"paint": {
 				"line-color": "rgb(255,240,179)",
@@ -1207,7 +1198,7 @@
 			"source": "versatiles-shortbread",
 			"id": "tunnel-street-motorway-link",
 			"type": "line",
-			"source-layer": "public.streets",
+			"source-layer": "table.public.streets.geom",
 			"filter": [ "all", [ "==", "tunnel", true ], [ "in", "kind", "motorway" ], [ "==", "link", true ] ],
 			"paint": {
 				"line-color": "rgb(255,209,148)",
@@ -1223,7 +1214,7 @@
 			"source": "versatiles-shortbread",
 			"id": "tunnel-street-tertiary",
 			"type": "line",
-			"source-layer": "public.streets",
+			"source-layer": "table.public.streets.geom",
 			"filter": [ "all", [ "==", "tunnel", true ], [ "in", "kind", "tertiary" ], [ "!=", "link", true ] ],
 			"paint": {
 				"line-color": "rgb(247,247,247)",
@@ -1239,7 +1230,7 @@
 			"source": "versatiles-shortbread",
 			"id": "tunnel-street-secondary",
 			"type": "line",
-			"source-layer": "public.streets",
+			"source-layer": "table.public.streets.geom",
 			"filter": [ "all", [ "==", "tunnel", true ], [ "in", "kind", "secondary" ], [ "!=", "link", true ] ],
 			"paint": {
 				"line-color": "rgb(255,240,179)",
@@ -1255,7 +1246,7 @@
 			"source": "versatiles-shortbread",
 			"id": "tunnel-street-primary",
 			"type": "line",
-			"source-layer": "public.streets",
+			"source-layer": "table.public.streets.geom",
 			"filter": [ "all", [ "==", "tunnel", true ], [ "in", "kind", "primary" ], [ "!=", "link", true ] ],
 			"paint": {
 				"line-color": "rgb(255,240,179)",
@@ -1271,7 +1262,7 @@
 			"source": "versatiles-shortbread",
 			"id": "tunnel-street-trunk",
 			"type": "line",
-			"source-layer": "public.streets",
+			"source-layer": "table.public.streets.geom",
 			"filter": [ "all", [ "==", "tunnel", true ], [ "in", "kind", "trunk" ], [ "!=", "link", true ] ],
 			"paint": {
 				"line-color": "rgb(255,240,179)",
@@ -1287,7 +1278,7 @@
 			"source": "versatiles-shortbread",
 			"id": "tunnel-street-motorway",
 			"type": "line",
-			"source-layer": "public.streets",
+			"source-layer": "table.public.streets.geom",
 			"filter": [ "all", [ "==", "tunnel", true ], [ "in", "kind", "motorway" ], [ "!=", "link", true ] ],
 			"paint": {
 				"line-color": "rgb(255,209,148)",
@@ -1303,7 +1294,7 @@
 			"source": "versatiles-shortbread",
 			"id": "tunnel-transport-tram:outline",
 			"type": "line",
-			"source-layer": "public.streets",
+			"source-layer": "table.public.streets.geom",
 			"filter": [ "all", [ "in", "kind", "tram" ], [ "!has", "service" ], [ "==", "tunnel", true ] ],
 			"minzoom": 15,
 			"paint": {
@@ -1316,7 +1307,7 @@
 			"source": "versatiles-shortbread",
 			"id": "tunnel-transport-narrowgauge:outline",
 			"type": "line",
-			"source-layer": "public.streets",
+			"source-layer": "table.public.streets.geom",
 			"filter": [ "all", [ "in", "kind", "narrow_gauge" ], [ "!has", "service" ], [ "==", "tunnel", true ] ],
 			"minzoom": 15,
 			"paint": {
@@ -1329,7 +1320,7 @@
 			"source": "versatiles-shortbread",
 			"id": "tunnel-transport-subway:outline",
 			"type": "line",
-			"source-layer": "public.streets",
+			"source-layer": "table.public.streets.geom",
 			"filter": [ "all", [ "in", "kind", "subway" ], [ "!has", "service" ], [ "==", "tunnel", true ] ],
 			"paint": {
 				"line-color": "rgb(166,184,199)",
@@ -1341,7 +1332,7 @@
 			"source": "versatiles-shortbread",
 			"id": "tunnel-transport-lightrail:outline",
 			"type": "line",
-			"source-layer": "public.streets",
+			"source-layer": "table.public.streets.geom",
 			"filter": [ "all", [ "in", "kind", "light_rail" ], [ "!has", "service" ], [ "==", "tunnel", true ] ],
 			"paint": {
 				"line-color": "rgb(177,187,196)",
@@ -1354,7 +1345,7 @@
 			"source": "versatiles-shortbread",
 			"id": "tunnel-transport-lightrail-service:outline",
 			"type": "line",
-			"source-layer": "public.streets",
+			"source-layer": "table.public.streets.geom",
 			"filter": [ "all", [ "in", "kind", "light_rail" ], [ "has", "service" ], [ "==", "tunnel", true ] ],
 			"paint": {
 				"line-color": "rgb(177,187,196)",
@@ -1366,7 +1357,7 @@
 			"source": "versatiles-shortbread",
 			"id": "tunnel-transport-rail:outline",
 			"type": "line",
-			"source-layer": "public.streets",
+			"source-layer": "table.public.streets.geom",
 			"filter": [ "all", [ "in", "kind", "rail" ], [ "!has", "service" ], [ "==", "tunnel", true ] ],
 			"paint": {
 				"line-color": "rgb(177,187,196)",
@@ -1379,7 +1370,7 @@
 			"source": "versatiles-shortbread",
 			"id": "tunnel-transport-rail-service:outline",
 			"type": "line",
-			"source-layer": "public.streets",
+			"source-layer": "table.public.streets.geom",
 			"filter": [ "all", [ "in", "kind", "rail" ], [ "has", "service" ], [ "==", "tunnel", true ] ],
 			"paint": {
 				"line-color": "rgb(177,187,196)",
@@ -1391,7 +1382,7 @@
 			"source": "versatiles-shortbread",
 			"id": "tunnel-transport-monorail:outline",
 			"type": "line",
-			"source-layer": "public.streets",
+			"source-layer": "table.public.streets.geom",
 			"filter": [ "all", [ "in", "kind", "monorail" ], [ "==", "tunnel", true ] ],
 			"minzoom": 15,
 			"paint": {
@@ -1404,7 +1395,7 @@
 			"source": "versatiles-shortbread",
 			"id": "tunnel-transport-funicular:outline",
 			"type": "line",
-			"source-layer": "public.streets",
+			"source-layer": "table.public.streets.geom",
 			"filter": [ "all", [ "in", "kind", "funicular" ], [ "==", "tunnel", true ] ],
 			"minzoom": 15,
 			"paint": {
@@ -1417,7 +1408,7 @@
 			"source": "versatiles-shortbread",
 			"id": "tunnel-transport-tram",
 			"type": "line",
-			"source-layer": "public.streets",
+			"source-layer": "table.public.streets.geom",
 			"filter": [ "all", [ "in", "kind", "tram" ], [ "!has", "service" ], [ "==", "tunnel", true ] ],
 			"minzoom": 13,
 			"paint": {
@@ -1429,7 +1420,7 @@
 			"source": "versatiles-shortbread",
 			"id": "tunnel-transport-narrowgauge",
 			"type": "line",
-			"source-layer": "public.streets",
+			"source-layer": "table.public.streets.geom",
 			"filter": [ "all", [ "in", "kind", "narrow_gauge" ], [ "!has", "service" ], [ "==", "tunnel", true ] ],
 			"minzoom": 13,
 			"paint": {
@@ -1441,7 +1432,7 @@
 			"source": "versatiles-shortbread",
 			"id": "tunnel-transport-subway",
 			"type": "line",
-			"source-layer": "public.streets",
+			"source-layer": "table.public.streets.geom",
 			"filter": [ "all", [ "in", "kind", "subway" ], [ "!has", "service" ], [ "==", "tunnel", true ] ],
 			"paint": {
 				"line-color": "rgb(188,202,213)",
@@ -1454,7 +1445,7 @@
 			"source": "versatiles-shortbread",
 			"id": "tunnel-transport-lightrail",
 			"type": "line",
-			"source-layer": "public.streets",
+			"source-layer": "table.public.streets.geom",
 			"filter": [ "all", [ "in", "kind", "light_rail" ], [ "!has", "service" ], [ "==", "tunnel", true ] ],
 			"paint": {
 				"line-color": "rgb(197,204,211)",
@@ -1468,7 +1459,7 @@
 			"source": "versatiles-shortbread",
 			"id": "tunnel-transport-lightrail-service",
 			"type": "line",
-			"source-layer": "public.streets",
+			"source-layer": "table.public.streets.geom",
 			"filter": [ "all", [ "in", "kind", "light_rail" ], [ "has", "service" ], [ "==", "tunnel", true ] ],
 			"paint": {
 				"line-color": "rgb(197,204,211)",
@@ -1481,7 +1472,7 @@
 			"source": "versatiles-shortbread",
 			"id": "tunnel-transport-rail",
 			"type": "line",
-			"source-layer": "public.streets",
+			"source-layer": "table.public.streets.geom",
 			"filter": [ "all", [ "in", "kind", "rail" ], [ "!has", "service" ], [ "==", "tunnel", true ] ],
 			"paint": {
 				"line-color": "rgb(197,204,211)",
@@ -1495,7 +1486,7 @@
 			"source": "versatiles-shortbread",
 			"id": "tunnel-transport-rail-service",
 			"type": "line",
-			"source-layer": "public.streets",
+			"source-layer": "table.public.streets.geom",
 			"filter": [ "all", [ "in", "kind", "rail" ], [ "has", "service" ], [ "==", "tunnel", true ] ],
 			"paint": {
 				"line-color": "rgb(197,204,211)",
@@ -1508,7 +1499,7 @@
 			"source": "versatiles-shortbread",
 			"id": "tunnel-transport-monorail",
 			"type": "line",
-			"source-layer": "public.streets",
+			"source-layer": "table.public.streets.geom",
 			"filter": [ "all", [ "in", "kind", "monorail" ], [ "==", "tunnel", true ] ],
 			"minzoom": 13,
 			"paint": {
@@ -1520,7 +1511,7 @@
 			"source": "versatiles-shortbread",
 			"id": "tunnel-transport-funicular",
 			"type": "line",
-			"source-layer": "public.streets",
+			"source-layer": "table.public.streets.geom",
 			"filter": [ "all", [ "in", "kind", "funicular" ], [ "==", "tunnel", true ] ],
 			"minzoom": 13,
 			"paint": {
@@ -1532,7 +1523,7 @@
 			"source": "versatiles-shortbread",
 			"id": "bridge",
 			"type": "fill",
-			"source-layer": "public.bridges",
+			"source-layer": "table.public.bridges.geom",
 			"paint": {
 				"fill-color": "rgb(244,239,233)",
 				"fill-antialias": true,
@@ -1543,7 +1534,7 @@
 			"source": "versatiles-shortbread",
 			"id": "street-pedestrian-zone",
 			"type": "fill",
-			"source-layer": "public.street_polygons",
+			"source-layer": "table.public.street_polygons.geom",
 			"filter": [ "all", [ "!=", "bridge", true ], [ "!=", "tunnel", true ], [ "==", "kind", "pedestrian" ] ],
 			"paint": {
 				"fill-color": "rgba(251,235,255,0.25)",
@@ -1554,7 +1545,7 @@
 			"source": "versatiles-shortbread",
 			"id": "way-footway:outline",
 			"type": "line",
-			"source-layer": "public.streets",
+			"source-layer": "table.public.streets.geom",
 			"filter": [ "all", [ "!=", "bridge", true ], [ "!=", "tunnel", true ], [ "in", "kind", "footway" ] ],
 			"layout": {
 				"line-cap": "round"
@@ -1569,7 +1560,7 @@
 			"source": "versatiles-shortbread",
 			"id": "way-steps:outline",
 			"type": "line",
-			"source-layer": "public.streets",
+			"source-layer": "table.public.streets.geom",
 			"filter": [ "all", [ "!=", "bridge", true ], [ "!=", "tunnel", true ], [ "in", "kind", "steps" ] ],
 			"layout": {
 				"line-cap": "round"
@@ -1584,7 +1575,7 @@
 			"source": "versatiles-shortbread",
 			"id": "way-path:outline",
 			"type": "line",
-			"source-layer": "public.streets",
+			"source-layer": "table.public.streets.geom",
 			"filter": [ "all", [ "!=", "bridge", true ], [ "!=", "tunnel", true ], [ "in", "kind", "path" ] ],
 			"layout": {
 				"line-cap": "round"
@@ -1599,7 +1590,7 @@
 			"source": "versatiles-shortbread",
 			"id": "way-cycleway:outline",
 			"type": "line",
-			"source-layer": "public.streets",
+			"source-layer": "table.public.streets.geom",
 			"filter": [ "all", [ "!=", "bridge", true ], [ "!=", "tunnel", true ], [ "in", "kind", "cycleway" ] ],
 			"layout": {
 				"line-cap": "round"
@@ -1614,7 +1605,7 @@
 			"source": "versatiles-shortbread",
 			"id": "street-track:outline",
 			"type": "line",
-			"source-layer": "public.streets",
+			"source-layer": "table.public.streets.geom",
 			"filter": [ "all", [ "==", "kind", "track" ], [ "!=", "bridge", true ], [ "!=", "tunnel", true ] ],
 			"paint": {
 				"line-color": "rgb(207,205,202)",
@@ -1630,7 +1621,7 @@
 			"source": "versatiles-shortbread",
 			"id": "street-pedestrian:outline",
 			"type": "line",
-			"source-layer": "public.streets",
+			"source-layer": "table.public.streets.geom",
 			"filter": [ "all", [ "==", "kind", "pedestrian" ], [ "!=", "bridge", true ], [ "!=", "tunnel", true ] ],
 			"paint": {
 				"line-color": "rgb(207,205,202)",
@@ -1646,7 +1637,7 @@
 			"source": "versatiles-shortbread",
 			"id": "street-service:outline",
 			"type": "line",
-			"source-layer": "public.streets",
+			"source-layer": "table.public.streets.geom",
 			"filter": [ "all", [ "==", "kind", "service" ], [ "!=", "bridge", true ], [ "!=", "tunnel", true ] ],
 			"paint": {
 				"line-color": "rgb(221,220,218)",
@@ -1662,7 +1653,7 @@
 			"source": "versatiles-shortbread",
 			"id": "street-livingstreet:outline",
 			"type": "line",
-			"source-layer": "public.streets",
+			"source-layer": "table.public.streets.geom",
 			"filter": [ "all", [ "==", "kind", "living_street" ], [ "!=", "bridge", true ], [ "!=", "tunnel", true ] ],
 			"paint": {
 				"line-color": "rgb(207,205,202)",
@@ -1678,7 +1669,7 @@
 			"source": "versatiles-shortbread",
 			"id": "street-residential:outline",
 			"type": "line",
-			"source-layer": "public.streets",
+			"source-layer": "table.public.streets.geom",
 			"filter": [ "all", [ "==", "kind", "residential" ], [ "!=", "bridge", true ], [ "!=", "tunnel", true ] ],
 			"paint": {
 				"line-color": "rgb(207,205,202)",
@@ -1694,7 +1685,7 @@
 			"source": "versatiles-shortbread",
 			"id": "street-unclassified:outline",
 			"type": "line",
-			"source-layer": "public.streets",
+			"source-layer": "table.public.streets.geom",
 			"filter": [ "all", [ "==", "kind", "unclassified" ], [ "!=", "bridge", true ], [ "!=", "tunnel", true ] ],
 			"paint": {
 				"line-color": "rgb(207,205,202)",
@@ -1710,7 +1701,7 @@
 			"source": "versatiles-shortbread",
 			"id": "street-tertiary-link:outline",
 			"type": "line",
-			"source-layer": "public.streets",
+			"source-layer": "table.public.streets.geom",
 			"filter": [ "all", [ "!=", "bridge", true ], [ "!=", "tunnel", true ], [ "in", "kind", "tertiary" ], [ "==", "link", true ] ],
 			"paint": {
 				"line-color": "rgb(207,205,202)",
@@ -1726,7 +1717,7 @@
 			"source": "versatiles-shortbread",
 			"id": "street-secondary-link:outline",
 			"type": "line",
-			"source-layer": "public.streets",
+			"source-layer": "table.public.streets.geom",
 			"filter": [ "all", [ "!=", "bridge", true ], [ "!=", "tunnel", true ], [ "in", "kind", "secondary" ], [ "==", "link", true ] ],
 			"paint": {
 				"line-color": "rgb(233,172,119)",
@@ -1742,7 +1733,7 @@
 			"source": "versatiles-shortbread",
 			"id": "street-primary-link:outline",
 			"type": "line",
-			"source-layer": "public.streets",
+			"source-layer": "table.public.streets.geom",
 			"filter": [ "all", [ "!=", "bridge", true ], [ "!=", "tunnel", true ], [ "in", "kind", "primary" ], [ "==", "link", true ] ],
 			"paint": {
 				"line-color": "rgb(233,172,119)",
@@ -1758,7 +1749,7 @@
 			"source": "versatiles-shortbread",
 			"id": "street-trunk-link:outline",
 			"type": "line",
-			"source-layer": "public.streets",
+			"source-layer": "table.public.streets.geom",
 			"filter": [ "all", [ "!=", "bridge", true ], [ "!=", "tunnel", true ], [ "in", "kind", "trunk" ], [ "==", "link", true ] ],
 			"paint": {
 				"line-color": "rgb(233,172,119)",
@@ -1774,7 +1765,7 @@
 			"source": "versatiles-shortbread",
 			"id": "street-motorway-link:outline",
 			"type": "line",
-			"source-layer": "public.streets",
+			"source-layer": "table.public.streets.geom",
 			"filter": [ "all", [ "!=", "bridge", true ], [ "!=", "tunnel", true ], [ "in", "kind", "motorway" ], [ "==", "link", true ] ],
 			"paint": {
 				"line-color": "rgb(233,172,119)",
@@ -1790,7 +1781,7 @@
 			"source": "versatiles-shortbread",
 			"id": "street-tertiary:outline",
 			"type": "line",
-			"source-layer": "public.streets",
+			"source-layer": "table.public.streets.geom",
 			"filter": [ "all", [ "!=", "bridge", true ], [ "!=", "tunnel", true ], [ "in", "kind", "tertiary" ], [ "!=", "link", true ] ],
 			"paint": {
 				"line-color": "rgb(207,205,202)",
@@ -1806,7 +1797,7 @@
 			"source": "versatiles-shortbread",
 			"id": "street-secondary:outline",
 			"type": "line",
-			"source-layer": "public.streets",
+			"source-layer": "table.public.streets.geom",
 			"filter": [ "all", [ "!=", "bridge", true ], [ "!=", "tunnel", true ], [ "in", "kind", "secondary" ], [ "!=", "link", true ] ],
 			"paint": {
 				"line-color": "rgb(233,172,119)",
@@ -1822,7 +1813,7 @@
 			"source": "versatiles-shortbread",
 			"id": "street-primary:outline",
 			"type": "line",
-			"source-layer": "public.streets",
+			"source-layer": "table.public.streets.geom",
 			"filter": [ "all", [ "!=", "bridge", true ], [ "!=", "tunnel", true ], [ "in", "kind", "primary" ], [ "!=", "link", true ] ],
 			"paint": {
 				"line-color": "rgb(233,172,119)",
@@ -1837,7 +1828,7 @@
 			"source": "versatiles-shortbread",
 			"id": "street-trunk:outline",
 			"type": "line",
-			"source-layer": "public.streets",
+			"source-layer": "table.public.streets.geom",
 			"filter": [ "all", [ "!=", "bridge", true ], [ "!=", "tunnel", true ], [ "in", "kind", "trunk" ], [ "!=", "link", true ] ],
 			"paint": {
 				"line-color": "rgb(233,172,119)",
@@ -1852,7 +1843,7 @@
 			"source": "versatiles-shortbread",
 			"id": "street-motorway:outline",
 			"type": "line",
-			"source-layer": "public.streets",
+			"source-layer": "table.public.streets.geom",
 			"filter": [ "all", [ "!=", "bridge", true ], [ "!=", "tunnel", true ], [ "in", "kind", "motorway" ], [ "!=", "link", true ] ],
 			"paint": {
 				"line-color": "rgb(233,172,119)",
@@ -1867,7 +1858,7 @@
 			"source": "versatiles-shortbread",
 			"id": "way-footway",
 			"type": "line",
-			"source-layer": "public.streets",
+			"source-layer": "table.public.streets.geom",
 			"filter": [ "all", [ "!=", "bridge", true ], [ "!=", "tunnel", true ], [ "in", "kind", "footway" ] ],
 			"layout": {
 				"line-cap": "round"
@@ -1882,7 +1873,7 @@
 			"source": "versatiles-shortbread",
 			"id": "way-steps",
 			"type": "line",
-			"source-layer": "public.streets",
+			"source-layer": "table.public.streets.geom",
 			"filter": [ "all", [ "!=", "bridge", true ], [ "!=", "tunnel", true ], [ "in", "kind", "steps" ] ],
 			"layout": {
 				"line-cap": "round"
@@ -1897,7 +1888,7 @@
 			"source": "versatiles-shortbread",
 			"id": "way-path",
 			"type": "line",
-			"source-layer": "public.streets",
+			"source-layer": "table.public.streets.geom",
 			"filter": [ "all", [ "!=", "bridge", true ], [ "!=", "tunnel", true ], [ "in", "kind", "path" ] ],
 			"layout": {
 				"line-cap": "round"
@@ -1912,7 +1903,7 @@
 			"source": "versatiles-shortbread",
 			"id": "way-cycleway",
 			"type": "line",
-			"source-layer": "public.streets",
+			"source-layer": "table.public.streets.geom",
 			"filter": [ "all", [ "!=", "bridge", true ], [ "!=", "tunnel", true ], [ "in", "kind", "cycleway" ] ],
 			"layout": {
 				"line-cap": "round"
@@ -1927,7 +1918,7 @@
 			"source": "versatiles-shortbread",
 			"id": "street-track",
 			"type": "line",
-			"source-layer": "public.streets",
+			"source-layer": "table.public.streets.geom",
 			"filter": [ "all", [ "==", "kind", "track" ], [ "!=", "bridge", true ], [ "!=", "tunnel", true ] ],
 			"paint": {
 				"line-color": "rgb(255,255,255)",
@@ -1943,7 +1934,7 @@
 			"source": "versatiles-shortbread",
 			"id": "street-pedestrian",
 			"type": "line",
-			"source-layer": "public.streets",
+			"source-layer": "table.public.streets.geom",
 			"filter": [ "all", [ "==", "kind", "pedestrian" ], [ "!=", "bridge", true ], [ "!=", "tunnel", true ] ],
 			"paint": {
 				"line-color": "rgb(251,235,255)",
@@ -1959,7 +1950,7 @@
 			"source": "versatiles-shortbread",
 			"id": "street-service",
 			"type": "line",
-			"source-layer": "public.streets",
+			"source-layer": "table.public.streets.geom",
 			"filter": [ "all", [ "==", "kind", "service" ], [ "!=", "bridge", true ], [ "!=", "tunnel", true ] ],
 			"paint": {
 				"line-color": "rgb(247,247,247)",
@@ -1975,7 +1966,7 @@
 			"source": "versatiles-shortbread",
 			"id": "street-livingstreet",
 			"type": "line",
-			"source-layer": "public.streets",
+			"source-layer": "table.public.streets.geom",
 			"filter": [ "all", [ "==", "kind", "living_street" ], [ "!=", "bridge", true ], [ "!=", "tunnel", true ] ],
 			"paint": {
 				"line-color": "rgb(255,255,255)",
@@ -1991,7 +1982,7 @@
 			"source": "versatiles-shortbread",
 			"id": "street-residential",
 			"type": "line",
-			"source-layer": "public.streets",
+			"source-layer": "table.public.streets.geom",
 			"filter": [ "all", [ "==", "kind", "residential" ], [ "!=", "bridge", true ], [ "!=", "tunnel", true ] ],
 			"paint": {
 				"line-color": "rgb(255,255,255)",
@@ -2007,7 +1998,7 @@
 			"source": "versatiles-shortbread",
 			"id": "street-unclassified",
 			"type": "line",
-			"source-layer": "public.streets",
+			"source-layer": "table.public.streets.geom",
 			"filter": [ "all", [ "==", "kind", "unclassified" ], [ "!=", "bridge", true ], [ "!=", "tunnel", true ] ],
 			"paint": {
 				"line-color": "rgb(255,255,255)",
@@ -2023,7 +2014,7 @@
 			"source": "versatiles-shortbread",
 			"id": "street-track-bicycle",
 			"type": "line",
-			"source-layer": "public.streets",
+			"source-layer": "table.public.streets.geom",
 			"filter": [ "all", [ "==", "kind", "track" ], [ "==", "bicycle", "designated" ], [ "!=", "bridge", true ], [ "!=", "tunnel", true ] ],
 			"paint": {
 				"line-color": "rgb(255,255,255)"
@@ -2037,7 +2028,7 @@
 			"source": "versatiles-shortbread",
 			"id": "street-pedestrian-bicycle",
 			"type": "line",
-			"source-layer": "public.streets",
+			"source-layer": "table.public.streets.geom",
 			"filter": [ "all", [ "==", "kind", "pedestrian" ], [ "==", "bicycle", "designated" ], [ "!=", "bridge", true ], [ "!=", "tunnel", true ] ],
 			"paint": {
 				"line-color": "rgb(239,249,255)",
@@ -2053,7 +2044,7 @@
 			"source": "versatiles-shortbread",
 			"id": "street-service-bicycle",
 			"type": "line",
-			"source-layer": "public.streets",
+			"source-layer": "table.public.streets.geom",
 			"filter": [ "all", [ "==", "kind", "service" ], [ "==", "bicycle", "designated" ], [ "!=", "bridge", true ], [ "!=", "tunnel", true ] ],
 			"paint": {
 				"line-color": "rgb(255,255,255)"
@@ -2067,7 +2058,7 @@
 			"source": "versatiles-shortbread",
 			"id": "street-livingstreet-bicycle",
 			"type": "line",
-			"source-layer": "public.streets",
+			"source-layer": "table.public.streets.geom",
 			"filter": [ "all", [ "==", "kind", "living_street" ], [ "==", "bicycle", "designated" ], [ "!=", "bridge", true ], [ "!=", "tunnel", true ] ],
 			"paint": {
 				"line-color": "rgb(239,249,255)",
@@ -2083,7 +2074,7 @@
 			"source": "versatiles-shortbread",
 			"id": "street-residential-bicycle",
 			"type": "line",
-			"source-layer": "public.streets",
+			"source-layer": "table.public.streets.geom",
 			"filter": [ "all", [ "==", "kind", "residential" ], [ "==", "bicycle", "designated" ], [ "!=", "bridge", true ], [ "!=", "tunnel", true ] ],
 			"paint": {
 				"line-color": "rgb(239,249,255)",
@@ -2099,7 +2090,7 @@
 			"source": "versatiles-shortbread",
 			"id": "street-unclassified-bicycle",
 			"type": "line",
-			"source-layer": "public.streets",
+			"source-layer": "table.public.streets.geom",
 			"filter": [ "all", [ "==", "kind", "unclassified" ], [ "==", "bicycle", "designated" ], [ "!=", "bridge", true ], [ "!=", "tunnel", true ] ],
 			"paint": {
 				"line-color": "rgb(239,249,255)",
@@ -2115,7 +2106,7 @@
 			"source": "versatiles-shortbread",
 			"id": "street-tertiary-link",
 			"type": "line",
-			"source-layer": "public.streets",
+			"source-layer": "table.public.streets.geom",
 			"filter": [ "all", [ "!=", "bridge", true ], [ "!=", "tunnel", true ], [ "in", "kind", "tertiary" ], [ "==", "link", true ] ],
 			"paint": {
 				"line-color": "rgb(255,255,255)",
@@ -2131,7 +2122,7 @@
 			"source": "versatiles-shortbread",
 			"id": "street-secondary-link",
 			"type": "line",
-			"source-layer": "public.streets",
+			"source-layer": "table.public.streets.geom",
 			"filter": [ "all", [ "!=", "bridge", true ], [ "!=", "tunnel", true ], [ "in", "kind", "secondary" ], [ "==", "link", true ] ],
 			"paint": {
 				"line-color": "rgb(255,238,170)",
@@ -2147,7 +2138,7 @@
 			"source": "versatiles-shortbread",
 			"id": "street-primary-link",
 			"type": "line",
-			"source-layer": "public.streets",
+			"source-layer": "table.public.streets.geom",
 			"filter": [ "all", [ "!=", "bridge", true ], [ "!=", "tunnel", true ], [ "in", "kind", "primary" ], [ "==", "link", true ] ],
 			"paint": {
 				"line-color": "rgb(255,238,170)",
@@ -2163,7 +2154,7 @@
 			"source": "versatiles-shortbread",
 			"id": "street-trunk-link",
 			"type": "line",
-			"source-layer": "public.streets",
+			"source-layer": "table.public.streets.geom",
 			"filter": [ "all", [ "!=", "bridge", true ], [ "!=", "tunnel", true ], [ "in", "kind", "trunk" ], [ "==", "link", true ] ],
 			"paint": {
 				"line-color": "rgb(255,238,170)",
@@ -2179,7 +2170,7 @@
 			"source": "versatiles-shortbread",
 			"id": "street-motorway-link",
 			"type": "line",
-			"source-layer": "public.streets",
+			"source-layer": "table.public.streets.geom",
 			"filter": [ "all", [ "!=", "bridge", true ], [ "!=", "tunnel", true ], [ "in", "kind", "motorway" ], [ "==", "link", true ] ],
 			"paint": {
 				"line-color": "rgb(255,204,136)",
@@ -2195,7 +2186,7 @@
 			"source": "versatiles-shortbread",
 			"id": "street-tertiary",
 			"type": "line",
-			"source-layer": "public.streets",
+			"source-layer": "table.public.streets.geom",
 			"filter": [ "all", [ "!=", "bridge", true ], [ "!=", "tunnel", true ], [ "in", "kind", "tertiary" ], [ "!=", "link", true ] ],
 			"paint": {
 				"line-color": "rgb(255,255,255)",
@@ -2211,7 +2202,7 @@
 			"source": "versatiles-shortbread",
 			"id": "street-secondary",
 			"type": "line",
-			"source-layer": "public.streets",
+			"source-layer": "table.public.streets.geom",
 			"filter": [ "all", [ "!=", "bridge", true ], [ "!=", "tunnel", true ], [ "in", "kind", "secondary" ], [ "!=", "link", true ] ],
 			"paint": {
 				"line-color": "rgb(255,238,170)",
@@ -2227,7 +2218,7 @@
 			"source": "versatiles-shortbread",
 			"id": "street-primary",
 			"type": "line",
-			"source-layer": "public.streets",
+			"source-layer": "table.public.streets.geom",
 			"filter": [ "all", [ "!=", "bridge", true ], [ "!=", "tunnel", true ], [ "in", "kind", "primary" ], [ "!=", "link", true ] ],
 			"paint": {
 				"line-color": "rgb(255,238,170)",
@@ -2243,7 +2234,7 @@
 			"source": "versatiles-shortbread",
 			"id": "street-trunk",
 			"type": "line",
-			"source-layer": "public.streets",
+			"source-layer": "table.public.streets.geom",
 			"filter": [ "all", [ "!=", "bridge", true ], [ "!=", "tunnel", true ], [ "in", "kind", "trunk" ], [ "!=", "link", true ] ],
 			"paint": {
 				"line-color": "rgb(255,238,170)",
@@ -2259,7 +2250,7 @@
 			"source": "versatiles-shortbread",
 			"id": "street-motorway",
 			"type": "line",
-			"source-layer": "public.streets",
+			"source-layer": "table.public.streets.geom",
 			"filter": [ "all", [ "!=", "bridge", true ], [ "!=", "tunnel", true ], [ "in", "kind", "motorway" ], [ "!=", "link", true ] ],
 			"paint": {
 				"line-color": "rgb(255,204,136)",
@@ -2275,7 +2266,7 @@
 			"source": "versatiles-shortbread",
 			"id": "transport-tram:outline",
 			"type": "line",
-			"source-layer": "public.streets",
+			"source-layer": "table.public.streets.geom",
 			"filter": [ "all", [ "in", "kind", "tram" ], [ "!has", "service" ], [ "!=", "bridge", true ], [ "!=", "tunnel", true ] ],
 			"minzoom": 15,
 			"paint": {
@@ -2288,7 +2279,7 @@
 			"source": "versatiles-shortbread",
 			"id": "transport-narrowgauge:outline",
 			"type": "line",
-			"source-layer": "public.streets",
+			"source-layer": "table.public.streets.geom",
 			"filter": [ "all", [ "in", "kind", "narrow_gauge" ], [ "!has", "service" ], [ "!=", "bridge", true ], [ "!=", "tunnel", true ] ],
 			"minzoom": 15,
 			"paint": {
@@ -2301,7 +2292,7 @@
 			"source": "versatiles-shortbread",
 			"id": "transport-subway:outline",
 			"type": "line",
-			"source-layer": "public.streets",
+			"source-layer": "table.public.streets.geom",
 			"filter": [ "all", [ "in", "kind", "subway" ], [ "!has", "service" ], [ "!=", "bridge", true ], [ "!=", "tunnel", true ] ],
 			"paint": {
 				"line-color": "rgb(166,184,199)",
@@ -2313,7 +2304,7 @@
 			"source": "versatiles-shortbread",
 			"id": "transport-lightrail:outline",
 			"type": "line",
-			"source-layer": "public.streets",
+			"source-layer": "table.public.streets.geom",
 			"filter": [ "all", [ "in", "kind", "light_rail" ], [ "!has", "service" ], [ "!=", "bridge", true ], [ "!=", "tunnel", true ] ],
 			"paint": {
 				"line-color": "rgb(177,187,196)",
@@ -2326,7 +2317,7 @@
 			"source": "versatiles-shortbread",
 			"id": "transport-lightrail-service:outline",
 			"type": "line",
-			"source-layer": "public.streets",
+			"source-layer": "table.public.streets.geom",
 			"filter": [ "all", [ "in", "kind", "light_rail" ], [ "has", "service" ], [ "!=", "bridge", true ], [ "!=", "tunnel", true ] ],
 			"paint": {
 				"line-color": "rgb(177,187,196)",
@@ -2338,7 +2329,7 @@
 			"source": "versatiles-shortbread",
 			"id": "transport-rail:outline",
 			"type": "line",
-			"source-layer": "public.streets",
+			"source-layer": "table.public.streets.geom",
 			"filter": [ "all", [ "in", "kind", "rail" ], [ "!has", "service" ], [ "!=", "bridge", true ], [ "!=", "tunnel", true ] ],
 			"paint": {
 				"line-color": "rgb(177,187,196)",
@@ -2351,7 +2342,7 @@
 			"source": "versatiles-shortbread",
 			"id": "transport-rail-service:outline",
 			"type": "line",
-			"source-layer": "public.streets",
+			"source-layer": "table.public.streets.geom",
 			"filter": [ "all", [ "in", "kind", "rail" ], [ "has", "service" ], [ "!=", "bridge", true ], [ "!=", "tunnel", true ] ],
 			"paint": {
 				"line-color": "rgb(177,187,196)",
@@ -2363,7 +2354,7 @@
 			"source": "versatiles-shortbread",
 			"id": "transport-monorail:outline",
 			"type": "line",
-			"source-layer": "public.streets",
+			"source-layer": "table.public.streets.geom",
 			"filter": [ "all", [ "in", "kind", "monorail" ], [ "!=", "bridge", true ], [ "!=", "tunnel", true ] ],
 			"minzoom": 15,
 			"paint": {
@@ -2376,7 +2367,7 @@
 			"source": "versatiles-shortbread",
 			"id": "transport-funicular:outline",
 			"type": "line",
-			"source-layer": "public.streets",
+			"source-layer": "table.public.streets.geom",
 			"filter": [ "all", [ "in", "kind", "funicular" ], [ "!=", "bridge", true ], [ "!=", "tunnel", true ] ],
 			"minzoom": 15,
 			"paint": {
@@ -2389,7 +2380,7 @@
 			"source": "versatiles-shortbread",
 			"id": "transport-tram",
 			"type": "line",
-			"source-layer": "public.streets",
+			"source-layer": "table.public.streets.geom",
 			"filter": [ "all", [ "in", "kind", "tram" ], [ "!has", "service" ], [ "!=", "bridge", true ], [ "!=", "tunnel", true ] ],
 			"minzoom": 13,
 			"paint": {
@@ -2401,7 +2392,7 @@
 			"source": "versatiles-shortbread",
 			"id": "transport-narrowgauge",
 			"type": "line",
-			"source-layer": "public.streets",
+			"source-layer": "table.public.streets.geom",
 			"filter": [ "all", [ "in", "kind", "narrow_gauge" ], [ "!has", "service" ], [ "!=", "bridge", true ], [ "!=", "tunnel", true ] ],
 			"minzoom": 13,
 			"paint": {
@@ -2413,7 +2404,7 @@
 			"source": "versatiles-shortbread",
 			"id": "transport-subway",
 			"type": "line",
-			"source-layer": "public.streets",
+			"source-layer": "table.public.streets.geom",
 			"filter": [ "all", [ "in", "kind", "subway" ], [ "!has", "service" ], [ "!=", "bridge", true ], [ "!=", "tunnel", true ] ],
 			"paint": {
 				"line-color": "rgb(188,202,213)",
@@ -2426,7 +2417,7 @@
 			"source": "versatiles-shortbread",
 			"id": "transport-lightrail",
 			"type": "line",
-			"source-layer": "public.streets",
+			"source-layer": "table.public.streets.geom",
 			"filter": [ "all", [ "in", "kind", "light_rail" ], [ "!has", "service" ], [ "!=", "bridge", true ], [ "!=", "tunnel", true ] ],
 			"paint": {
 				"line-color": "rgb(197,204,211)",
@@ -2440,7 +2431,7 @@
 			"source": "versatiles-shortbread",
 			"id": "transport-lightrail-service",
 			"type": "line",
-			"source-layer": "public.streets",
+			"source-layer": "table.public.streets.geom",
 			"filter": [ "all", [ "in", "kind", "light_rail" ], [ "has", "service" ], [ "!=", "bridge", true ], [ "!=", "tunnel", true ] ],
 			"paint": {
 				"line-color": "rgb(197,204,211)",
@@ -2453,7 +2444,7 @@
 			"source": "versatiles-shortbread",
 			"id": "transport-rail",
 			"type": "line",
-			"source-layer": "public.streets",
+			"source-layer": "table.public.streets.geom",
 			"filter": [ "all", [ "in", "kind", "rail" ], [ "!has", "service" ], [ "!=", "bridge", true ], [ "!=", "tunnel", true ] ],
 			"paint": {
 				"line-color": "rgb(197,204,211)",
@@ -2467,7 +2458,7 @@
 			"source": "versatiles-shortbread",
 			"id": "transport-rail-service",
 			"type": "line",
-			"source-layer": "public.streets",
+			"source-layer": "table.public.streets.geom",
 			"filter": [ "all", [ "in", "kind", "rail" ], [ "has", "service" ], [ "!=", "bridge", true ], [ "!=", "tunnel", true ] ],
 			"paint": {
 				"line-color": "rgb(197,204,211)",
@@ -2480,7 +2471,7 @@
 			"source": "versatiles-shortbread",
 			"id": "transport-monorail",
 			"type": "line",
-			"source-layer": "public.streets",
+			"source-layer": "table.public.streets.geom",
 			"filter": [ "all", [ "in", "kind", "monorail" ], [ "!=", "bridge", true ], [ "!=", "tunnel", true ] ],
 			"minzoom": 13,
 			"paint": {
@@ -2492,7 +2483,7 @@
 			"source": "versatiles-shortbread",
 			"id": "transport-funicular",
 			"type": "line",
-			"source-layer": "public.streets",
+			"source-layer": "table.public.streets.geom",
 			"filter": [ "all", [ "in", "kind", "funicular" ], [ "!=", "bridge", true ], [ "!=", "tunnel", true ] ],
 			"minzoom": 13,
 			"paint": {
@@ -2504,7 +2495,7 @@
 			"source": "versatiles-shortbread",
 			"id": "transport-ferry",
 			"type": "line",
-			"source-layer": "public.ferries",
+			"source-layer": "table.public.ferries.geom",
 			"minzoom": 10,
 			"paint": {
 				"line-color": "rgb(171,199,219)",
@@ -2517,7 +2508,7 @@
 			"source": "versatiles-shortbread",
 			"id": "bridge-way-footway:bridge",
 			"type": "line",
-			"source-layer": "public.streets",
+			"source-layer": "table.public.streets.geom",
 			"filter": [ "all", [ "==", "bridge", true ], [ "in", "kind", "footway" ] ],
 			"layout": {
 				"line-cap": "butt",
@@ -2534,7 +2525,7 @@
 			"source": "versatiles-shortbread",
 			"id": "bridge-way-steps:bridge",
 			"type": "line",
-			"source-layer": "public.streets",
+			"source-layer": "table.public.streets.geom",
 			"filter": [ "all", [ "==", "bridge", true ], [ "in", "kind", "steps" ] ],
 			"layout": {
 				"line-cap": "butt",
@@ -2551,7 +2542,7 @@
 			"source": "versatiles-shortbread",
 			"id": "bridge-way-path:bridge",
 			"type": "line",
-			"source-layer": "public.streets",
+			"source-layer": "table.public.streets.geom",
 			"filter": [ "all", [ "==", "bridge", true ], [ "in", "kind", "path" ] ],
 			"layout": {
 				"line-cap": "butt",
@@ -2568,7 +2559,7 @@
 			"source": "versatiles-shortbread",
 			"id": "bridge-way-cycleway:bridge",
 			"type": "line",
-			"source-layer": "public.streets",
+			"source-layer": "table.public.streets.geom",
 			"filter": [ "all", [ "==", "bridge", true ], [ "in", "kind", "cycleway" ] ],
 			"layout": {
 				"line-cap": "butt",
@@ -2585,7 +2576,7 @@
 			"source": "versatiles-shortbread",
 			"id": "bridge-street-track:bridge",
 			"type": "line",
-			"source-layer": "public.streets",
+			"source-layer": "table.public.streets.geom",
 			"filter": [ "all", [ "==", "kind", "track" ], [ "==", "bridge", true ] ],
 			"layout": {
 				"line-cap": "butt",
@@ -2601,7 +2592,7 @@
 			"source": "versatiles-shortbread",
 			"id": "bridge-street-pedestrian:bridge",
 			"type": "line",
-			"source-layer": "public.streets",
+			"source-layer": "table.public.streets.geom",
 			"filter": [ "all", [ "==", "kind", "pedestrian" ], [ "==", "bridge", true ] ],
 			"layout": {
 				"line-cap": "butt",
@@ -2617,7 +2608,7 @@
 			"source": "versatiles-shortbread",
 			"id": "bridge-street-service:bridge",
 			"type": "line",
-			"source-layer": "public.streets",
+			"source-layer": "table.public.streets.geom",
 			"filter": [ "all", [ "==", "kind", "service" ], [ "==", "bridge", true ] ],
 			"layout": {
 				"line-cap": "butt",
@@ -2633,7 +2624,7 @@
 			"source": "versatiles-shortbread",
 			"id": "bridge-street-livingstreet:bridge",
 			"type": "line",
-			"source-layer": "public.streets",
+			"source-layer": "table.public.streets.geom",
 			"filter": [ "all", [ "==", "kind", "living_street" ], [ "==", "bridge", true ] ],
 			"layout": {
 				"line-cap": "butt",
@@ -2649,7 +2640,7 @@
 			"source": "versatiles-shortbread",
 			"id": "bridge-street-residential:bridge",
 			"type": "line",
-			"source-layer": "public.streets",
+			"source-layer": "table.public.streets.geom",
 			"filter": [ "all", [ "==", "kind", "residential" ], [ "==", "bridge", true ] ],
 			"layout": {
 				"line-cap": "butt",
@@ -2665,7 +2656,7 @@
 			"source": "versatiles-shortbread",
 			"id": "bridge-street-unclassified:bridge",
 			"type": "line",
-			"source-layer": "public.streets",
+			"source-layer": "table.public.streets.geom",
 			"filter": [ "all", [ "==", "kind", "unclassified" ], [ "==", "bridge", true ] ],
 			"layout": {
 				"line-cap": "butt",
@@ -2681,7 +2672,7 @@
 			"source": "versatiles-shortbread",
 			"id": "bridge-street-tertiary-link:bridge",
 			"type": "line",
-			"source-layer": "public.streets",
+			"source-layer": "table.public.streets.geom",
 			"filter": [ "all", [ "==", "bridge", true ], [ "in", "kind", "tertiary" ], [ "==", "link", true ] ],
 			"layout": {
 				"line-cap": "butt",
@@ -2697,7 +2688,7 @@
 			"source": "versatiles-shortbread",
 			"id": "bridge-street-secondary-link:bridge",
 			"type": "line",
-			"source-layer": "public.streets",
+			"source-layer": "table.public.streets.geom",
 			"filter": [ "all", [ "==", "bridge", true ], [ "in", "kind", "secondary" ], [ "==", "link", true ] ],
 			"layout": {
 				"line-cap": "butt",
@@ -2714,7 +2705,7 @@
 			"source": "versatiles-shortbread",
 			"id": "bridge-street-primary-link:bridge",
 			"type": "line",
-			"source-layer": "public.streets",
+			"source-layer": "table.public.streets.geom",
 			"filter": [ "all", [ "==", "bridge", true ], [ "in", "kind", "primary" ], [ "==", "link", true ] ],
 			"layout": {
 				"line-cap": "butt",
@@ -2731,7 +2722,7 @@
 			"source": "versatiles-shortbread",
 			"id": "bridge-street-trunk-link:bridge",
 			"type": "line",
-			"source-layer": "public.streets",
+			"source-layer": "table.public.streets.geom",
 			"filter": [ "all", [ "==", "bridge", true ], [ "in", "kind", "trunk" ], [ "==", "link", true ] ],
 			"layout": {
 				"line-cap": "butt",
@@ -2748,7 +2739,7 @@
 			"source": "versatiles-shortbread",
 			"id": "bridge-street-motorway-link:bridge",
 			"type": "line",
-			"source-layer": "public.streets",
+			"source-layer": "table.public.streets.geom",
 			"filter": [ "all", [ "==", "bridge", true ], [ "in", "kind", "motorway" ], [ "==", "link", true ] ],
 			"layout": {
 				"line-cap": "butt",
@@ -2765,7 +2756,7 @@
 			"source": "versatiles-shortbread",
 			"id": "bridge-street-tertiary:bridge",
 			"type": "line",
-			"source-layer": "public.streets",
+			"source-layer": "table.public.streets.geom",
 			"filter": [ "all", [ "==", "bridge", true ], [ "in", "kind", "tertiary" ], [ "!=", "link", true ] ],
 			"layout": {
 				"line-cap": "butt",
@@ -2781,7 +2772,7 @@
 			"source": "versatiles-shortbread",
 			"id": "bridge-street-secondary:bridge",
 			"type": "line",
-			"source-layer": "public.streets",
+			"source-layer": "table.public.streets.geom",
 			"filter": [ "all", [ "==", "bridge", true ], [ "in", "kind", "secondary" ], [ "!=", "link", true ] ],
 			"layout": {
 				"line-cap": "butt",
@@ -2797,7 +2788,7 @@
 			"source": "versatiles-shortbread",
 			"id": "bridge-street-primary:bridge",
 			"type": "line",
-			"source-layer": "public.streets",
+			"source-layer": "table.public.streets.geom",
 			"filter": [ "all", [ "==", "bridge", true ], [ "in", "kind", "primary" ], [ "!=", "link", true ] ],
 			"layout": {
 				"line-cap": "butt",
@@ -2813,7 +2804,7 @@
 			"source": "versatiles-shortbread",
 			"id": "bridge-street-trunk:bridge",
 			"type": "line",
-			"source-layer": "public.streets",
+			"source-layer": "table.public.streets.geom",
 			"filter": [ "all", [ "==", "bridge", true ], [ "in", "kind", "trunk" ], [ "!=", "link", true ] ],
 			"layout": {
 				"line-cap": "butt",
@@ -2829,7 +2820,7 @@
 			"source": "versatiles-shortbread",
 			"id": "bridge-street-motorway:bridge",
 			"type": "line",
-			"source-layer": "public.streets",
+			"source-layer": "table.public.streets.geom",
 			"filter": [ "all", [ "==", "bridge", true ], [ "in", "kind", "motorway" ], [ "!=", "link", true ] ],
 			"layout": {
 				"line-cap": "butt",
@@ -2845,7 +2836,7 @@
 			"source": "versatiles-shortbread",
 			"id": "bridge-street-pedestrian-zone",
 			"type": "fill",
-			"source-layer": "public.street_polygons",
+			"source-layer": "table.public.street_polygons.geom",
 			"filter": [ "all", [ "==", "bridge", true ], [ "==", "kind", "pedestrian" ] ],
 			"paint": {
 				"fill-color": "rgb(255,255,255)",
@@ -2856,7 +2847,7 @@
 			"source": "versatiles-shortbread",
 			"id": "bridge-way-footway:outline",
 			"type": "line",
-			"source-layer": "public.streets",
+			"source-layer": "table.public.streets.geom",
 			"filter": [ "all", [ "==", "bridge", true ], [ "in", "kind", "footway" ] ],
 			"layout": {
 				"line-cap": "butt"
@@ -2871,7 +2862,7 @@
 			"source": "versatiles-shortbread",
 			"id": "bridge-way-steps:outline",
 			"type": "line",
-			"source-layer": "public.streets",
+			"source-layer": "table.public.streets.geom",
 			"filter": [ "all", [ "==", "bridge", true ], [ "in", "kind", "steps" ] ],
 			"layout": {
 				"line-cap": "butt"
@@ -2886,7 +2877,7 @@
 			"source": "versatiles-shortbread",
 			"id": "bridge-way-path:outline",
 			"type": "line",
-			"source-layer": "public.streets",
+			"source-layer": "table.public.streets.geom",
 			"filter": [ "all", [ "==", "bridge", true ], [ "in", "kind", "path" ] ],
 			"layout": {
 				"line-cap": "butt"
@@ -2901,7 +2892,7 @@
 			"source": "versatiles-shortbread",
 			"id": "bridge-way-cycleway:outline",
 			"type": "line",
-			"source-layer": "public.streets",
+			"source-layer": "table.public.streets.geom",
 			"filter": [ "all", [ "==", "bridge", true ], [ "in", "kind", "cycleway" ] ],
 			"layout": {
 				"line-cap": "butt"
@@ -2916,7 +2907,7 @@
 			"source": "versatiles-shortbread",
 			"id": "bridge-street-track:outline",
 			"type": "line",
-			"source-layer": "public.streets",
+			"source-layer": "table.public.streets.geom",
 			"filter": [ "all", [ "==", "kind", "track" ], [ "==", "bridge", true ] ],
 			"paint": {
 				"line-color": "rgb(217,217,217)",
@@ -2932,7 +2923,7 @@
 			"source": "versatiles-shortbread",
 			"id": "bridge-street-pedestrian:outline",
 			"type": "line",
-			"source-layer": "public.streets",
+			"source-layer": "table.public.streets.geom",
 			"filter": [ "all", [ "==", "kind", "pedestrian" ], [ "==", "bridge", true ] ],
 			"paint": {
 				"line-color": "rgb(217,217,217)",
@@ -2948,7 +2939,7 @@
 			"source": "versatiles-shortbread",
 			"id": "bridge-street-service:outline",
 			"type": "line",
-			"source-layer": "public.streets",
+			"source-layer": "table.public.streets.geom",
 			"filter": [ "all", [ "==", "kind", "service" ], [ "==", "bridge", true ] ],
 			"paint": {
 				"line-color": "rgb(221,220,218)",
@@ -2964,7 +2955,7 @@
 			"source": "versatiles-shortbread",
 			"id": "bridge-street-livingstreet:outline",
 			"type": "line",
-			"source-layer": "public.streets",
+			"source-layer": "table.public.streets.geom",
 			"filter": [ "all", [ "==", "kind", "living_street" ], [ "==", "bridge", true ] ],
 			"paint": {
 				"line-color": "rgb(217,217,217)",
@@ -2980,7 +2971,7 @@
 			"source": "versatiles-shortbread",
 			"id": "bridge-street-residential:outline",
 			"type": "line",
-			"source-layer": "public.streets",
+			"source-layer": "table.public.streets.geom",
 			"filter": [ "all", [ "==", "kind", "residential" ], [ "==", "bridge", true ] ],
 			"paint": {
 				"line-color": "rgb(217,217,217)",
@@ -2996,7 +2987,7 @@
 			"source": "versatiles-shortbread",
 			"id": "bridge-street-unclassified:outline",
 			"type": "line",
-			"source-layer": "public.streets",
+			"source-layer": "table.public.streets.geom",
 			"filter": [ "all", [ "==", "kind", "unclassified" ], [ "==", "bridge", true ] ],
 			"paint": {
 				"line-color": "rgb(217,217,217)",
@@ -3012,7 +3003,7 @@
 			"source": "versatiles-shortbread",
 			"id": "bridge-street-tertiary-link:outline",
 			"type": "line",
-			"source-layer": "public.streets",
+			"source-layer": "table.public.streets.geom",
 			"filter": [ "all", [ "==", "bridge", true ], [ "in", "kind", "tertiary" ], [ "==", "link", true ] ],
 			"paint": {
 				"line-color": "rgb(217,217,217)",
@@ -3028,7 +3019,7 @@
 			"source": "versatiles-shortbread",
 			"id": "bridge-street-secondary-link:outline",
 			"type": "line",
-			"source-layer": "public.streets",
+			"source-layer": "table.public.streets.geom",
 			"filter": [ "all", [ "==", "bridge", true ], [ "in", "kind", "secondary" ], [ "==", "link", true ] ],
 			"paint": {
 				"line-color": "rgb(233,172,119)",
@@ -3044,7 +3035,7 @@
 			"source": "versatiles-shortbread",
 			"id": "bridge-street-primary-link:outline",
 			"type": "line",
-			"source-layer": "public.streets",
+			"source-layer": "table.public.streets.geom",
 			"filter": [ "all", [ "==", "bridge", true ], [ "in", "kind", "primary" ], [ "==", "link", true ] ],
 			"paint": {
 				"line-color": "rgb(233,172,119)",
@@ -3060,7 +3051,7 @@
 			"source": "versatiles-shortbread",
 			"id": "bridge-street-trunk-link:outline",
 			"type": "line",
-			"source-layer": "public.streets",
+			"source-layer": "table.public.streets.geom",
 			"filter": [ "all", [ "==", "bridge", true ], [ "in", "kind", "trunk" ], [ "==", "link", true ] ],
 			"paint": {
 				"line-color": "rgb(233,172,119)",
@@ -3076,7 +3067,7 @@
 			"source": "versatiles-shortbread",
 			"id": "bridge-street-motorway-link:outline",
 			"type": "line",
-			"source-layer": "public.streets",
+			"source-layer": "table.public.streets.geom",
 			"filter": [ "all", [ "==", "bridge", true ], [ "in", "kind", "motorway" ], [ "==", "link", true ] ],
 			"paint": {
 				"line-color": "rgb(233,172,119)",
@@ -3092,7 +3083,7 @@
 			"source": "versatiles-shortbread",
 			"id": "bridge-street-tertiary:outline",
 			"type": "line",
-			"source-layer": "public.streets",
+			"source-layer": "table.public.streets.geom",
 			"filter": [ "all", [ "==", "bridge", true ], [ "in", "kind", "tertiary" ], [ "!=", "link", true ] ],
 			"paint": {
 				"line-color": "rgb(217,217,217)",
@@ -3108,7 +3099,7 @@
 			"source": "versatiles-shortbread",
 			"id": "bridge-street-secondary:outline",
 			"type": "line",
-			"source-layer": "public.streets",
+			"source-layer": "table.public.streets.geom",
 			"filter": [ "all", [ "==", "bridge", true ], [ "in", "kind", "secondary" ], [ "!=", "link", true ] ],
 			"paint": {
 				"line-color": "rgb(233,172,119)",
@@ -3124,7 +3115,7 @@
 			"source": "versatiles-shortbread",
 			"id": "bridge-street-primary:outline",
 			"type": "line",
-			"source-layer": "public.streets",
+			"source-layer": "table.public.streets.geom",
 			"filter": [ "all", [ "==", "bridge", true ], [ "in", "kind", "primary" ], [ "!=", "link", true ] ],
 			"paint": {
 				"line-color": "rgb(233,172,119)",
@@ -3139,7 +3130,7 @@
 			"source": "versatiles-shortbread",
 			"id": "bridge-street-trunk:outline",
 			"type": "line",
-			"source-layer": "public.streets",
+			"source-layer": "table.public.streets.geom",
 			"filter": [ "all", [ "==", "bridge", true ], [ "in", "kind", "trunk" ], [ "!=", "link", true ] ],
 			"paint": {
 				"line-color": "rgb(233,172,119)",
@@ -3154,7 +3145,7 @@
 			"source": "versatiles-shortbread",
 			"id": "bridge-street-motorway:outline",
 			"type": "line",
-			"source-layer": "public.streets",
+			"source-layer": "table.public.streets.geom",
 			"filter": [ "all", [ "==", "bridge", true ], [ "in", "kind", "motorway" ], [ "!=", "link", true ] ],
 			"paint": {
 				"line-color": "rgb(233,172,119)",
@@ -3169,7 +3160,7 @@
 			"source": "versatiles-shortbread",
 			"id": "bridge-way-footway",
 			"type": "line",
-			"source-layer": "public.streets",
+			"source-layer": "table.public.streets.geom",
 			"filter": [ "all", [ "==", "bridge", true ], [ "in", "kind", "footway" ] ],
 			"layout": {
 				"line-cap": "butt"
@@ -3184,7 +3175,7 @@
 			"source": "versatiles-shortbread",
 			"id": "bridge-way-steps",
 			"type": "line",
-			"source-layer": "public.streets",
+			"source-layer": "table.public.streets.geom",
 			"filter": [ "all", [ "==", "bridge", true ], [ "in", "kind", "steps" ] ],
 			"layout": {
 				"line-cap": "butt"
@@ -3199,7 +3190,7 @@
 			"source": "versatiles-shortbread",
 			"id": "bridge-way-path",
 			"type": "line",
-			"source-layer": "public.streets",
+			"source-layer": "table.public.streets.geom",
 			"filter": [ "all", [ "==", "bridge", true ], [ "in", "kind", "path" ] ],
 			"layout": {
 				"line-cap": "butt"
@@ -3214,7 +3205,7 @@
 			"source": "versatiles-shortbread",
 			"id": "bridge-way-cycleway",
 			"type": "line",
-			"source-layer": "public.streets",
+			"source-layer": "table.public.streets.geom",
 			"filter": [ "all", [ "==", "bridge", true ], [ "in", "kind", "cycleway" ] ],
 			"layout": {
 				"line-cap": "butt"
@@ -3229,7 +3220,7 @@
 			"source": "versatiles-shortbread",
 			"id": "bridge-street-track",
 			"type": "line",
-			"source-layer": "public.streets",
+			"source-layer": "table.public.streets.geom",
 			"filter": [ "all", [ "==", "kind", "track" ], [ "==", "bridge", true ] ],
 			"paint": {
 				"line-color": "rgb(255,255,255)",
@@ -3245,7 +3236,7 @@
 			"source": "versatiles-shortbread",
 			"id": "bridge-street-pedestrian",
 			"type": "line",
-			"source-layer": "public.streets",
+			"source-layer": "table.public.streets.geom",
 			"filter": [ "all", [ "==", "kind", "pedestrian" ], [ "==", "bridge", true ] ],
 			"paint": {
 				"line-color": "rgb(255,255,255)",
@@ -3261,7 +3252,7 @@
 			"source": "versatiles-shortbread",
 			"id": "bridge-street-service",
 			"type": "line",
-			"source-layer": "public.streets",
+			"source-layer": "table.public.streets.geom",
 			"filter": [ "all", [ "==", "kind", "service" ], [ "==", "bridge", true ] ],
 			"paint": {
 				"line-color": "rgb(247,247,247)",
@@ -3277,7 +3268,7 @@
 			"source": "versatiles-shortbread",
 			"id": "bridge-street-livingstreet",
 			"type": "line",
-			"source-layer": "public.streets",
+			"source-layer": "table.public.streets.geom",
 			"filter": [ "all", [ "==", "kind", "living_street" ], [ "==", "bridge", true ] ],
 			"paint": {
 				"line-color": "rgb(255,255,255)",
@@ -3293,7 +3284,7 @@
 			"source": "versatiles-shortbread",
 			"id": "bridge-street-residential",
 			"type": "line",
-			"source-layer": "public.streets",
+			"source-layer": "table.public.streets.geom",
 			"filter": [ "all", [ "==", "kind", "residential" ], [ "==", "bridge", true ] ],
 			"paint": {
 				"line-color": "rgb(255,255,255)",
@@ -3309,7 +3300,7 @@
 			"source": "versatiles-shortbread",
 			"id": "bridge-street-unclassified",
 			"type": "line",
-			"source-layer": "public.streets",
+			"source-layer": "table.public.streets.geom",
 			"filter": [ "all", [ "==", "kind", "unclassified" ], [ "==", "bridge", true ] ],
 			"paint": {
 				"line-color": "rgb(255,255,255)",
@@ -3325,7 +3316,7 @@
 			"source": "versatiles-shortbread",
 			"id": "bridge-street-track-bicycle",
 			"type": "line",
-			"source-layer": "public.streets",
+			"source-layer": "table.public.streets.geom",
 			"filter": [ "all", [ "==", "kind", "track" ], [ "==", "bicycle", "designated" ], [ "==", "bridge", true ] ],
 			"paint": {
 				"line-color": "rgb(255,255,255)"
@@ -3339,7 +3330,7 @@
 			"source": "versatiles-shortbread",
 			"id": "bridge-street-pedestrian-bicycle",
 			"type": "line",
-			"source-layer": "public.streets",
+			"source-layer": "table.public.streets.geom",
 			"filter": [ "all", [ "==", "kind", "pedestrian" ], [ "==", "bicycle", "designated" ], [ "==", "bridge", true ] ],
 			"paint": {
 				"line-color": "rgb(239,249,255)",
@@ -3355,7 +3346,7 @@
 			"source": "versatiles-shortbread",
 			"id": "bridge-street-service-bicycle",
 			"type": "line",
-			"source-layer": "public.streets",
+			"source-layer": "table.public.streets.geom",
 			"filter": [ "all", [ "==", "kind", "service" ], [ "==", "bicycle", "designated" ], [ "==", "bridge", true ] ],
 			"paint": {
 				"line-color": "rgb(255,255,255)"
@@ -3369,7 +3360,7 @@
 			"source": "versatiles-shortbread",
 			"id": "bridge-street-livingstreet-bicycle",
 			"type": "line",
-			"source-layer": "public.streets",
+			"source-layer": "table.public.streets.geom",
 			"filter": [ "all", [ "==", "kind", "living_street" ], [ "==", "bicycle", "designated" ], [ "==", "bridge", true ] ],
 			"paint": {
 				"line-color": "rgb(239,249,255)",
@@ -3385,7 +3376,7 @@
 			"source": "versatiles-shortbread",
 			"id": "bridge-street-residential-bicycle",
 			"type": "line",
-			"source-layer": "public.streets",
+			"source-layer": "table.public.streets.geom",
 			"filter": [ "all", [ "==", "kind", "residential" ], [ "==", "bicycle", "designated" ], [ "==", "bridge", true ] ],
 			"paint": {
 				"line-color": "rgb(239,249,255)",
@@ -3401,7 +3392,7 @@
 			"source": "versatiles-shortbread",
 			"id": "bridge-street-unclassified-bicycle",
 			"type": "line",
-			"source-layer": "public.streets",
+			"source-layer": "table.public.streets.geom",
 			"filter": [ "all", [ "==", "kind", "unclassified" ], [ "==", "bicycle", "designated" ], [ "==", "bridge", true ] ],
 			"paint": {
 				"line-color": "rgb(239,249,255)",
@@ -3417,7 +3408,7 @@
 			"source": "versatiles-shortbread",
 			"id": "bridge-street-tertiary-link",
 			"type": "line",
-			"source-layer": "public.streets",
+			"source-layer": "table.public.streets.geom",
 			"filter": [ "all", [ "==", "bridge", true ], [ "in", "kind", "tertiary" ], [ "==", "link", true ] ],
 			"paint": {
 				"line-color": "rgb(255,255,255)",
@@ -3433,7 +3424,7 @@
 			"source": "versatiles-shortbread",
 			"id": "bridge-street-secondary-link",
 			"type": "line",
-			"source-layer": "public.streets",
+			"source-layer": "table.public.streets.geom",
 			"filter": [ "all", [ "==", "bridge", true ], [ "in", "kind", "secondary" ], [ "==", "link", true ] ],
 			"paint": {
 				"line-color": "rgb(255,238,170)",
@@ -3449,7 +3440,7 @@
 			"source": "versatiles-shortbread",
 			"id": "bridge-street-primary-link",
 			"type": "line",
-			"source-layer": "public.streets",
+			"source-layer": "table.public.streets.geom",
 			"filter": [ "all", [ "==", "bridge", true ], [ "in", "kind", "primary" ], [ "==", "link", true ] ],
 			"paint": {
 				"line-color": "rgb(255,238,170)",
@@ -3465,7 +3456,7 @@
 			"source": "versatiles-shortbread",
 			"id": "bridge-street-trunk-link",
 			"type": "line",
-			"source-layer": "public.streets",
+			"source-layer": "table.public.streets.geom",
 			"filter": [ "all", [ "==", "bridge", true ], [ "in", "kind", "trunk" ], [ "==", "link", true ] ],
 			"paint": {
 				"line-color": "rgb(255,238,170)",
@@ -3481,7 +3472,7 @@
 			"source": "versatiles-shortbread",
 			"id": "bridge-street-motorway-link",
 			"type": "line",
-			"source-layer": "public.streets",
+			"source-layer": "table.public.streets.geom",
 			"filter": [ "all", [ "==", "bridge", true ], [ "in", "kind", "motorway" ], [ "==", "link", true ] ],
 			"paint": {
 				"line-color": "rgb(255,204,136)",
@@ -3497,7 +3488,7 @@
 			"source": "versatiles-shortbread",
 			"id": "bridge-street-tertiary",
 			"type": "line",
-			"source-layer": "public.streets",
+			"source-layer": "table.public.streets.geom",
 			"filter": [ "all", [ "==", "bridge", true ], [ "in", "kind", "tertiary" ], [ "!=", "link", true ] ],
 			"paint": {
 				"line-color": "rgb(255,255,255)",
@@ -3513,7 +3504,7 @@
 			"source": "versatiles-shortbread",
 			"id": "bridge-street-secondary",
 			"type": "line",
-			"source-layer": "public.streets",
+			"source-layer": "table.public.streets.geom",
 			"filter": [ "all", [ "==", "bridge", true ], [ "in", "kind", "secondary" ], [ "!=", "link", true ] ],
 			"paint": {
 				"line-color": "rgb(255,238,170)",
@@ -3529,7 +3520,7 @@
 			"source": "versatiles-shortbread",
 			"id": "bridge-street-primary",
 			"type": "line",
-			"source-layer": "public.streets",
+			"source-layer": "table.public.streets.geom",
 			"filter": [ "all", [ "==", "bridge", true ], [ "in", "kind", "primary" ], [ "!=", "link", true ] ],
 			"paint": {
 				"line-color": "rgb(255,238,170)",
@@ -3545,7 +3536,7 @@
 			"source": "versatiles-shortbread",
 			"id": "bridge-street-trunk",
 			"type": "line",
-			"source-layer": "public.streets",
+			"source-layer": "table.public.streets.geom",
 			"filter": [ "all", [ "==", "bridge", true ], [ "in", "kind", "trunk" ], [ "!=", "link", true ] ],
 			"paint": {
 				"line-color": "rgb(255,238,170)",
@@ -3561,7 +3552,7 @@
 			"source": "versatiles-shortbread",
 			"id": "bridge-street-motorway",
 			"type": "line",
-			"source-layer": "public.streets",
+			"source-layer": "table.public.streets.geom",
 			"filter": [ "all", [ "==", "bridge", true ], [ "in", "kind", "motorway" ], [ "!=", "link", true ] ],
 			"paint": {
 				"line-color": "rgb(255,204,136)",
@@ -3577,7 +3568,7 @@
 			"source": "versatiles-shortbread",
 			"id": "bridge-transport-tram:outline",
 			"type": "line",
-			"source-layer": "public.streets",
+			"source-layer": "table.public.streets.geom",
 			"filter": [ "all", [ "in", "kind", "tram" ], [ "!has", "service" ], [ "==", "bridge", true ] ],
 			"minzoom": 15,
 			"paint": {
@@ -3590,7 +3581,7 @@
 			"source": "versatiles-shortbread",
 			"id": "bridge-transport-narrowgauge:outline",
 			"type": "line",
-			"source-layer": "public.streets",
+			"source-layer": "table.public.streets.geom",
 			"filter": [ "all", [ "in", "kind", "narrow_gauge" ], [ "!has", "service" ], [ "==", "bridge", true ] ],
 			"minzoom": 15,
 			"paint": {
@@ -3603,7 +3594,7 @@
 			"source": "versatiles-shortbread",
 			"id": "bridge-transport-subway:outline",
 			"type": "line",
-			"source-layer": "public.streets",
+			"source-layer": "table.public.streets.geom",
 			"filter": [ "all", [ "in", "kind", "subway" ], [ "!has", "service" ], [ "==", "bridge", true ] ],
 			"paint": {
 				"line-color": "rgb(166,184,199)",
@@ -3615,7 +3606,7 @@
 			"source": "versatiles-shortbread",
 			"id": "bridge-transport-lightrail:outline",
 			"type": "line",
-			"source-layer": "public.streets",
+			"source-layer": "table.public.streets.geom",
 			"filter": [ "all", [ "in", "kind", "light_rail" ], [ "!has", "service" ], [ "==", "bridge", true ] ],
 			"paint": {
 				"line-color": "rgb(177,187,196)",
@@ -3628,7 +3619,7 @@
 			"source": "versatiles-shortbread",
 			"id": "bridge-transport-lightrail-service:outline",
 			"type": "line",
-			"source-layer": "public.streets",
+			"source-layer": "table.public.streets.geom",
 			"filter": [ "all", [ "in", "kind", "light_rail" ], [ "has", "service" ], [ "==", "bridge", true ] ],
 			"paint": {
 				"line-color": "rgb(177,187,196)",
@@ -3640,7 +3631,7 @@
 			"source": "versatiles-shortbread",
 			"id": "bridge-transport-rail:outline",
 			"type": "line",
-			"source-layer": "public.streets",
+			"source-layer": "table.public.streets.geom",
 			"filter": [ "all", [ "in", "kind", "rail" ], [ "!has", "service" ], [ "==", "bridge", true ] ],
 			"paint": {
 				"line-color": "rgb(177,187,196)",
@@ -3653,7 +3644,7 @@
 			"source": "versatiles-shortbread",
 			"id": "bridge-transport-rail-service:outline",
 			"type": "line",
-			"source-layer": "public.streets",
+			"source-layer": "table.public.streets.geom",
 			"filter": [ "all", [ "in", "kind", "rail" ], [ "has", "service" ], [ "==", "bridge", true ] ],
 			"paint": {
 				"line-color": "rgb(177,187,196)",
@@ -3665,7 +3656,7 @@
 			"source": "versatiles-shortbread",
 			"id": "bridge-transport-monorail:outline",
 			"type": "line",
-			"source-layer": "public.streets",
+			"source-layer": "table.public.streets.geom",
 			"filter": [ "all", [ "in", "kind", "monorail" ], [ "==", "bridge", true ] ],
 			"minzoom": 15,
 			"paint": {
@@ -3678,7 +3669,7 @@
 			"source": "versatiles-shortbread",
 			"id": "bridge-transport-funicular:outline",
 			"type": "line",
-			"source-layer": "public.streets",
+			"source-layer": "table.public.streets.geom",
 			"filter": [ "all", [ "in", "kind", "funicular" ], [ "==", "bridge", true ] ],
 			"minzoom": 15,
 			"paint": {
@@ -3691,7 +3682,7 @@
 			"source": "versatiles-shortbread",
 			"id": "bridge-transport-tram",
 			"type": "line",
-			"source-layer": "public.streets",
+			"source-layer": "table.public.streets.geom",
 			"filter": [ "all", [ "in", "kind", "tram" ], [ "!has", "service" ], [ "==", "bridge", true ] ],
 			"minzoom": 13,
 			"paint": {
@@ -3703,7 +3694,7 @@
 			"source": "versatiles-shortbread",
 			"id": "bridge-transport-narrowgauge",
 			"type": "line",
-			"source-layer": "public.streets",
+			"source-layer": "table.public.streets.geom",
 			"filter": [ "all", [ "in", "kind", "narrow_gauge" ], [ "!has", "service" ], [ "==", "bridge", true ] ],
 			"minzoom": 13,
 			"paint": {
@@ -3715,7 +3706,7 @@
 			"source": "versatiles-shortbread",
 			"id": "bridge-transport-subway",
 			"type": "line",
-			"source-layer": "public.streets",
+			"source-layer": "table.public.streets.geom",
 			"filter": [ "all", [ "in", "kind", "subway" ], [ "!has", "service" ], [ "==", "bridge", true ] ],
 			"paint": {
 				"line-color": "rgb(188,202,213)",
@@ -3728,7 +3719,7 @@
 			"source": "versatiles-shortbread",
 			"id": "bridge-transport-lightrail",
 			"type": "line",
-			"source-layer": "public.streets",
+			"source-layer": "table.public.streets.geom",
 			"filter": [ "all", [ "in", "kind", "light_rail" ], [ "!has", "service" ], [ "==", "bridge", true ] ],
 			"paint": {
 				"line-color": "rgb(197,204,211)",
@@ -3742,7 +3733,7 @@
 			"source": "versatiles-shortbread",
 			"id": "bridge-transport-lightrail-service",
 			"type": "line",
-			"source-layer": "public.streets",
+			"source-layer": "table.public.streets.geom",
 			"filter": [ "all", [ "in", "kind", "light_rail" ], [ "has", "service" ], [ "==", "bridge", true ] ],
 			"paint": {
 				"line-color": "rgb(197,204,211)",
@@ -3755,7 +3746,7 @@
 			"source": "versatiles-shortbread",
 			"id": "bridge-transport-rail",
 			"type": "line",
-			"source-layer": "public.streets",
+			"source-layer": "table.public.streets.geom",
 			"filter": [ "all", [ "in", "kind", "rail" ], [ "!has", "service" ], [ "==", "bridge", true ] ],
 			"paint": {
 				"line-color": "rgb(197,204,211)",
@@ -3769,7 +3760,7 @@
 			"source": "versatiles-shortbread",
 			"id": "bridge-transport-rail-service",
 			"type": "line",
-			"source-layer": "public.streets",
+			"source-layer": "table.public.streets.geom",
 			"filter": [ "all", [ "in", "kind", "rail" ], [ "has", "service" ], [ "==", "bridge", true ] ],
 			"paint": {
 				"line-color": "rgb(197,204,211)",
@@ -3782,7 +3773,7 @@
 			"source": "versatiles-shortbread",
 			"id": "bridge-transport-monorail",
 			"type": "line",
-			"source-layer": "public.streets",
+			"source-layer": "table.public.streets.geom",
 			"filter": [ "all", [ "in", "kind", "monorail" ], [ "==", "bridge", true ] ],
 			"minzoom": 13,
 			"paint": {
@@ -3794,7 +3785,7 @@
 			"source": "versatiles-shortbread",
 			"id": "bridge-transport-funicular",
 			"type": "line",
-			"source-layer": "public.streets",
+			"source-layer": "table.public.streets.geom",
 			"filter": [ "all", [ "in", "kind", "funicular" ], [ "==", "bridge", true ] ],
 			"minzoom": 13,
 			"paint": {
@@ -3806,7 +3797,7 @@
 			"source": "versatiles-shortbread",
 			"id": "poi-amenity",
 			"type": "symbol",
-			"source-layer": "public.pois",
+			"source-layer": "table.public.pois.geom",
 			"filter": [ "to-boolean", [ "get", "amenity" ] ],
 			"minzoom": 16,
 			"layout": {
@@ -3827,7 +3818,7 @@
 			"source": "versatiles-shortbread",
 			"id": "poi-leisure",
 			"type": "symbol",
-			"source-layer": "public.pois",
+			"source-layer": "table.public.pois.geom",
 			"filter": [ "to-boolean", [ "get", "leisure" ] ],
 			"minzoom": 16,
 			"layout": {
@@ -3848,7 +3839,7 @@
 			"source": "versatiles-shortbread",
 			"id": "poi-tourism",
 			"type": "symbol",
-			"source-layer": "public.pois",
+			"source-layer": "table.public.pois.geom",
 			"filter": [ "to-boolean", [ "get", "tourism" ] ],
 			"minzoom": 16,
 			"layout": {
@@ -3869,7 +3860,7 @@
 			"source": "versatiles-shortbread",
 			"id": "poi-shop",
 			"type": "symbol",
-			"source-layer": "public.pois",
+			"source-layer": "table.public.pois.geom",
 			"filter": [ "to-boolean", [ "get", "shop" ] ],
 			"minzoom": 16,
 			"layout": {
@@ -3890,7 +3881,7 @@
 			"source": "versatiles-shortbread",
 			"id": "poi-man_made",
 			"type": "symbol",
-			"source-layer": "public.pois",
+			"source-layer": "table.public.pois.geom",
 			"filter": [ "to-boolean", [ "get", "man_made" ] ],
 			"minzoom": 16,
 			"layout": {
@@ -3911,7 +3902,7 @@
 			"source": "versatiles-shortbread",
 			"id": "poi-historic",
 			"type": "symbol",
-			"source-layer": "public.pois",
+			"source-layer": "table.public.pois.geom",
 			"filter": [ "to-boolean", [ "get", "historic" ] ],
 			"minzoom": 16,
 			"layout": {
@@ -3932,7 +3923,7 @@
 			"source": "versatiles-shortbread",
 			"id": "poi-emergency",
 			"type": "symbol",
-			"source-layer": "public.pois",
+			"source-layer": "table.public.pois.geom",
 			"filter": [ "to-boolean", [ "get", "emergency" ] ],
 			"minzoom": 16,
 			"layout": {
@@ -3953,7 +3944,7 @@
 			"source": "versatiles-shortbread",
 			"id": "poi-highway",
 			"type": "symbol",
-			"source-layer": "public.pois",
+			"source-layer": "table.public.pois.geom",
 			"filter": [ "to-boolean", [ "get", "highway" ] ],
 			"minzoom": 16,
 			"layout": {
@@ -3973,7 +3964,7 @@
 			"source": "versatiles-shortbread",
 			"id": "poi-office",
 			"type": "symbol",
-			"source-layer": "public.pois",
+			"source-layer": "table.public.pois.geom",
 			"filter": [ "to-boolean", [ "get", "office" ] ],
 			"minzoom": 16,
 			"layout": {
@@ -3993,7 +3984,7 @@
 			"source": "versatiles-shortbread",
 			"id": "boundary-country:outline",
 			"type": "line",
-			"source-layer": "public.boundaries",
+			"source-layer": "table.public.boundaries.geom",
 			"filter": [ "all", [ "==", "admin_level", 2 ], [ "!=", "maritime", true ], [ "!=", "disputed", true ], [ "!=", "coastline", true ] ],
 			"paint": {
 				"line-color": "rgb(249,245,239)",
@@ -4010,7 +4001,7 @@
 			"source": "versatiles-shortbread",
 			"id": "boundary-country-disputed:outline",
 			"type": "line",
-			"source-layer": "public.boundaries",
+			"source-layer": "table.public.boundaries.geom",
 			"filter": [ "all", [ "==", "admin_level", 2 ], [ "==", "disputed", true ], [ "!=", "maritime", true ], [ "!=", "coastline", true ] ],
 			"paint": {
 				"line-width": { "stops": [ [ 2, 0 ], [ 3, 2 ], [ 10, 8 ] ] },
@@ -4022,7 +4013,7 @@
 			"source": "versatiles-shortbread",
 			"id": "boundary-state:outline",
 			"type": "line",
-			"source-layer": "public.boundaries",
+			"source-layer": "table.public.boundaries.geom",
 			"filter": [ "all", [ "==", "admin_level", 4 ], [ "!=", "maritime", true ], [ "!=", "disputed", true ], [ "!=", "coastline", true ] ],
 			"paint": {
 				"line-color": "rgb(250,245,240)",
@@ -4039,7 +4030,7 @@
 			"source": "versatiles-shortbread",
 			"id": "boundary-country",
 			"type": "line",
-			"source-layer": "public.boundaries",
+			"source-layer": "table.public.boundaries.geom",
 			"filter": [ "all", [ "==", "admin_level", 2 ], [ "!=", "maritime", true ], [ "!=", "disputed", true ], [ "!=", "coastline", true ] ],
 			"paint": {
 				"line-color": "rgb(166,166,200)",
@@ -4054,7 +4045,7 @@
 			"source": "versatiles-shortbread",
 			"id": "boundary-country-disputed",
 			"type": "line",
-			"source-layer": "public.boundaries",
+			"source-layer": "table.public.boundaries.geom",
 			"filter": [ "all", [ "==", "admin_level", 2 ], [ "==", "disputed", true ], [ "!=", "maritime", true ], [ "!=", "coastline", true ] ],
 			"paint": {
 				"line-width": { "stops": [ [ 2, 0 ], [ 3, 1 ], [ 10, 4 ] ] },
@@ -4069,7 +4060,7 @@
 			"source": "versatiles-shortbread",
 			"id": "boundary-state",
 			"type": "line",
-			"source-layer": "public.boundaries",
+			"source-layer": "table.public.boundaries.geom",
 			"filter": [ "all", [ "==", "admin_level", 4 ], [ "!=", "maritime", true ], [ "!=", "disputed", true ], [ "!=", "coastline", true ] ],
 			"paint": {
 				"line-color": "rgb(166,166,200)",
@@ -4084,7 +4075,7 @@
 			"source": "versatiles-shortbread",
 			"id": "label-address-housenumber",
 			"type": "symbol",
-			"source-layer": "public.addresses",
+			"source-layer": "table.public.addresses.geom",
 			"filter": [ "has", "housenumber" ],
 			"layout": {
 				"text-field": "{housenumber}",
@@ -4106,7 +4097,7 @@
 			"source": "versatiles-shortbread",
 			"id": "label-motorway-shield",
 			"type": "symbol",
-			"source-layer": "public.street_labels",
+			"source-layer": "table.public.street_labels.geom",
 			"filter": [ "==", "kind", "motorway" ],
 			"layout": {
 				"text-field": "{ref}",
@@ -4128,7 +4119,7 @@
 			"source": "versatiles-shortbread",
 			"id": "label-street-pedestrian",
 			"type": "symbol",
-			"source-layer": "public.street_labels",
+			"source-layer": "table.public.street_labels.geom",
 			"filter": [ "==", "kind", "pedestrian" ],
 			"layout": {
 				"text-field": "{name}",
@@ -4150,7 +4141,7 @@
 			"source": "versatiles-shortbread",
 			"id": "label-street-livingstreet",
 			"type": "symbol",
-			"source-layer": "public.street_labels",
+			"source-layer": "table.public.street_labels.geom",
 			"filter": [ "==", "kind", "living_street" ],
 			"layout": {
 				"text-field": "{name}",
@@ -4172,7 +4163,7 @@
 			"source": "versatiles-shortbread",
 			"id": "label-street-residential",
 			"type": "symbol",
-			"source-layer": "public.street_labels",
+			"source-layer": "table.public.street_labels.geom",
 			"filter": [ "==", "kind", "residential" ],
 			"layout": {
 				"text-field": "{name}",
@@ -4194,7 +4185,7 @@
 			"source": "versatiles-shortbread",
 			"id": "label-street-unclassified",
 			"type": "symbol",
-			"source-layer": "public.street_labels",
+			"source-layer": "table.public.street_labels.geom",
 			"filter": [ "==", "kind", "unclassified" ],
 			"layout": {
 				"text-field": "{name}",
@@ -4216,7 +4207,7 @@
 			"source": "versatiles-shortbread",
 			"id": "label-street-tertiary",
 			"type": "symbol",
-			"source-layer": "public.street_labels",
+			"source-layer": "table.public.street_labels.geom",
 			"filter": [ "==", "kind", "tertiary" ],
 			"layout": {
 				"text-field": "{name}",
@@ -4238,7 +4229,7 @@
 			"source": "versatiles-shortbread",
 			"id": "label-street-secondary",
 			"type": "symbol",
-			"source-layer": "public.street_labels",
+			"source-layer": "table.public.street_labels.geom",
 			"filter": [ "==", "kind", "secondary" ],
 			"layout": {
 				"text-field": "{name}",
@@ -4260,7 +4251,7 @@
 			"source": "versatiles-shortbread",
 			"id": "label-street-primary",
 			"type": "symbol",
-			"source-layer": "public.street_labels",
+			"source-layer": "table.public.street_labels.geom",
 			"filter": [ "==", "kind", "primary" ],
 			"layout": {
 				"text-field": "{name}",
@@ -4282,7 +4273,7 @@
 			"source": "versatiles-shortbread",
 			"id": "label-street-trunk",
 			"type": "symbol",
-			"source-layer": "public.street_labels",
+			"source-layer": "table.public.street_labels.geom",
 			"filter": [ "==", "kind", "trunk" ],
 			"layout": {
 				"text-field": "{name}",
@@ -4304,7 +4295,7 @@
 			"source": "versatiles-shortbread",
 			"id": "label-place-neighbourhood",
 			"type": "symbol",
-			"source-layer": "public.place_labels",
+			"source-layer": "table.public.place_labels.geom",
 			"filter": [ "==", "kind", "neighbourhood" ],
 			"layout": {
 				"text-field": "{name}",
@@ -4325,7 +4316,7 @@
 			"source": "versatiles-shortbread",
 			"id": "label-place-quarter",
 			"type": "symbol",
-			"source-layer": "public.place_labels",
+			"source-layer": "table.public.place_labels.geom",
 			"filter": [ "==", "kind", "quarter" ],
 			"layout": {
 				"text-field": "{name}",
@@ -4346,7 +4337,7 @@
 			"source": "versatiles-shortbread",
 			"id": "label-place-suburb",
 			"type": "symbol",
-			"source-layer": "public.place_labels",
+			"source-layer": "table.public.place_labels.geom",
 			"filter": [ "==", "kind", "suburb" ],
 			"layout": {
 				"text-field": "{name}",
@@ -4367,7 +4358,7 @@
 			"source": "versatiles-shortbread",
 			"id": "label-place-hamlet",
 			"type": "symbol",
-			"source-layer": "public.place_labels",
+			"source-layer": "table.public.place_labels.geom",
 			"filter": [ "==", "kind", "hamlet" ],
 			"layout": {
 				"text-field": "{name}",
@@ -4387,7 +4378,7 @@
 			"source": "versatiles-shortbread",
 			"id": "label-place-village",
 			"type": "symbol",
-			"source-layer": "public.place_labels",
+			"source-layer": "table.public.place_labels.geom",
 			"filter": [ "==", "kind", "village" ],
 			"layout": {
 				"text-field": "{name}",
@@ -4407,7 +4398,7 @@
 			"source": "versatiles-shortbread",
 			"id": "label-place-town",
 			"type": "symbol",
-			"source-layer": "public.place_labels",
+			"source-layer": "table.public.place_labels.geom",
 			"filter": [ "==", "kind", "town" ],
 			"layout": {
 				"text-field": "{name}",
@@ -4427,7 +4418,7 @@
 			"source": "versatiles-shortbread",
 			"id": "label-boundary-state",
 			"type": "symbol",
-			"source-layer": "public.boundary_labels",
+			"source-layer": "table.public.boundary_labels.geom",
 			"filter": [ "in", "admin_level", 4, "4" ],
 			"layout": {
 				"text-field": "{name}",
@@ -4452,7 +4443,7 @@
 			"source": "versatiles-shortbread",
 			"id": "label-place-city",
 			"type": "symbol",
-			"source-layer": "public.place_labels",
+			"source-layer": "table.public.place_labels.geom",
 			"filter": [ "==", "kind", "city" ],
 			"layout": {
 				"text-field": "{name}",
@@ -4472,7 +4463,7 @@
 			"source": "versatiles-shortbread",
 			"id": "label-place-statecapital",
 			"type": "symbol",
-			"source-layer": "public.place_labels",
+			"source-layer": "table.public.place_labels.geom",
 			"filter": [ "==", "kind", "state_capital" ],
 			"layout": {
 				"text-field": "{name}",
@@ -4492,7 +4483,7 @@
 			"source": "versatiles-shortbread",
 			"id": "label-place-capital",
 			"type": "symbol",
-			"source-layer": "public.place_labels",
+			"source-layer": "table.public.place_labels.geom",
 			"filter": [ "==", "kind", "capital" ],
 			"layout": {
 				"text-field": "{name}",
@@ -4512,7 +4503,7 @@
 			"source": "versatiles-shortbread",
 			"id": "label-boundary-country-small",
 			"type": "symbol",
-			"source-layer": "public.boundary_labels",
+			"source-layer": "table.public.boundary_labels.geom",
 			"filter": [ "all", [ "in", "admin_level", 2, "2" ], [ "<=", "way_area", 10000000 ] ],
 			"layout": {
 				"text-field": "{name}",
@@ -4537,7 +4528,7 @@
 			"source": "versatiles-shortbread",
 			"id": "label-boundary-country-medium",
 			"type": "symbol",
-			"source-layer": "public.boundary_labels",
+			"source-layer": "table.public.boundary_labels.geom",
 			"filter": [ "all", [ "in", "admin_level", 2, "2" ], [ "<", "way_area", 90000000 ], [ ">", "way_area", 10000000 ] ],
 			"layout": {
 				"text-field": "{name}",
@@ -4562,7 +4553,7 @@
 			"source": "versatiles-shortbread",
 			"id": "label-boundary-country-large",
 			"type": "symbol",
-			"source-layer": "public.boundary_labels",
+			"source-layer": "table.public.boundary_labels.geom",
 			"filter": [ "all", [ "in", "admin_level", 2, "2" ], [ ">=", "way_area", 90000000 ] ],
 			"layout": {
 				"text-field": "{name}",
@@ -4587,7 +4578,7 @@
 			"source": "versatiles-shortbread",
 			"id": "marking-oneway",
 			"type": "symbol",
-			"source-layer": "public.streets",
+			"source-layer": "table.public.streets.geom",
 			"filter": [ "all", [ "==", "oneway", true ], [ "in", "kind", "trunk", "primary", "secondary", "tertiary", "unclassified", "residential", "living_street" ] ],
 			"layout": {
 				"symbol-placement": "line",
@@ -4609,7 +4600,7 @@
 			"source": "versatiles-shortbread",
 			"id": "marking-oneway-reverse",
 			"type": "symbol",
-			"source-layer": "public.streets",
+			"source-layer": "table.public.streets.geom",
 			"filter": [ "all", [ "==", "oneway_reverse", true ], [ "in", "kind", "trunk", "primary", "secondary", "tertiary", "unclassified", "residential", "living_street" ] ],
 			"layout": {
 				"symbol-placement": "line",
@@ -4631,7 +4622,7 @@
 			"source": "versatiles-shortbread",
 			"id": "symbol-transit-bus",
 			"type": "symbol",
-			"source-layer": "public.public_transport",
+			"source-layer": "table.public.public_transport.geom",
 			"filter": [ "==", "kind", "bus_stop" ],
 			"layout": {
 				"text-field": "{name}",
@@ -4658,7 +4649,7 @@
 			"source": "versatiles-shortbread",
 			"id": "symbol-transit-tram",
 			"type": "symbol",
-			"source-layer": "public.public_transport",
+			"source-layer": "table.public.public_transport.geom",
 			"filter": [ "==", "kind", "tram_stop" ],
 			"layout": {
 				"text-field": "{name}",
@@ -4685,7 +4676,7 @@
 			"source": "versatiles-shortbread",
 			"id": "symbol-transit-subway",
 			"type": "symbol",
-			"source-layer": "public.public_transport",
+			"source-layer": "table.public.public_transport.geom",
 			"filter": [ "all", [ "in", "kind", "station", "halt" ], [ "==", "station", "subway" ] ],
 			"layout": {
 				"text-field": "{name}",
@@ -4712,7 +4703,7 @@
 			"source": "versatiles-shortbread",
 			"id": "symbol-transit-lightrail",
 			"type": "symbol",
-			"source-layer": "public.public_transport",
+			"source-layer": "table.public.public_transport.geom",
 			"filter": [ "all", [ "in", "kind", "station", "halt" ], [ "==", "station", "light_rail" ] ],
 			"layout": {
 				"text-field": "{name}",
@@ -4739,7 +4730,7 @@
 			"source": "versatiles-shortbread",
 			"id": "symbol-transit-station",
 			"type": "symbol",
-			"source-layer": "public.public_transport",
+			"source-layer": "table.public.public_transport.geom",
 			"filter": [ "all", [ "in", "kind", "station", "halt" ], [ "!in", "station", "light_rail", "subway" ] ],
 			"layout": {
 				"text-field": "{name}",
@@ -4766,7 +4757,7 @@
 			"source": "versatiles-shortbread",
 			"id": "symbol-transit-airfield",
 			"type": "symbol",
-			"source-layer": "public.public_transport",
+			"source-layer": "table.public.public_transport.geom",
 			"filter": [ "all", [ "==", "kind", "aerodrome" ], [ "!has", "iata" ] ],
 			"layout": {
 				"text-field": "{name}",
@@ -4793,7 +4784,7 @@
 			"source": "versatiles-shortbread",
 			"id": "symbol-transit-airport",
 			"type": "symbol",
-			"source-layer": "public.public_transport",
+			"source-layer": "table.public.public_transport.geom",
 			"filter": [ "all", [ "==", "kind", "aerodrome" ], [ "has", "iata" ] ],
 			"layout": {
 				"text-field": "{name}",
