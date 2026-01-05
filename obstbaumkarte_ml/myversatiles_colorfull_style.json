@@ -19,17 +19,17 @@
 	},
 	"baeume": {
 	    "type": "vector",
-	    "tiles": ["https://pgtiles.obstbaumkarte.de/public.trees/{z}/{x}/{y}.pbf"],
+	    "url": "https://sbtiles.obstbaumkarte.de/table.public.trees.geom",
 	    "minzoom": 16
 	},
 	"parzellen": {
 	    "type": "vector",
-	    "tiles": ["https://pgtiles.obstbaumkarte.de/public.parzellengrenzen_view/{z}/{x}/{y}.pbf"],
+	    "url": "https://sbtiles.obstbaumkarte.de/table.public.parzellengrenzen_view.way",
 	    "minzoom": 16
 	},
 	"parzellennummern": {
 	    "type": "vector",
-	    "tiles": ["https://pgtiles.obstbaumkarte.de/public.allotment_plot_numbers/{z}/{x}/{y}.pbf"],
+	    "url": "https://sbtiles.obstbaumkarte.de/table.public.allotment_plot_numbers.geom",
 	    "minzoom": 16
 	}
     },  
@@ -4811,7 +4811,7 @@
 	  "id": "public.trees_broadleaved_17",
 	  "type": "symbol",
 	  "source": "baeume",
-	  "source-layer": "public.trees",
+	  "source-layer": "table.public.trees.geom",
 		"filter": ["all", [ "in", "leaf_type", "broadleaved" ],["!in","denotation","agricultural"]],
 	  "minzoom": 16,
 	  "maxzoom": 19,
@@ -4824,7 +4824,7 @@
 	  "id": "public.trees_fruittrees_17",
 	  "type": "symbol",
 	  "source": "baeume",
-	  "source-layer": "public.trees",
+	  "source-layer": "table.public.trees.geom",
 		"filter": ["all", [ "in", "leaf_type", "broadleaved" ],["in","denotation","agricultural"]],
 	  "minzoom": 17,
 	  "maxzoom": 19,
@@ -4837,7 +4837,7 @@
 	  "id": "public.trees_coniferes_17",
 	  "type": "symbol",
 	  "source": "baeume",
-	  "source-layer": "public.trees",
+	  "source-layer": "table.public.trees.geom",
 		"filter": [ "in", "leaf_type", "needleleaved" ],
 	  "minzoom": 17,
 	  "maxzoom": 19,
@@ -4850,7 +4850,7 @@
 	  "id": "public.trees",
 	  "type": "symbol",
 	  "source": "baeume",
-	  "source-layer": "public.trees",
+	  "source-layer": "table.public.trees.geom",
 	  "minzoom": 19,
 	  "layout": {
 	      "icon-image": "obstbaum",
@@ -4869,7 +4869,7 @@
 	  "id": "public.parzellengrenzen_view",
 	  "type": "line",
 	  "source": "parzellen",
-	  "source-layer": "public.parzellengrenzen_view",
+	  "source-layer": "table.public.parzellengrenzen_view.way",
 	"minzoom": 16,
 	"layout": {
 	    "line-cap": "round",
@@ -4884,7 +4884,7 @@
 	  "id": "public.allotment_plot_numbers",
 	  "type": "symbol",
 	  "source": "parzellennummern",
-	  "source-layer": "public.allotment_plot_numbers",
+	  "source-layer": "table.public.allotment_plot_numbers.geom",
 	"minzoom": 16,
 	"layout": {
               "text-field": ["get", "ref"],
