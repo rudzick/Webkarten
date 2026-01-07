@@ -13,6 +13,7 @@ import VectorSource from 'ol/source/Vector';
 import {Icon, Style, Circle, Fill, Stroke} from 'ol/style';
 import VectorTileLayer from 'ol/layer/VectorTile.js';
 import VectorTileSource from 'ol/source/VectorTile.js';
+import TileJSON from 'ol/source/TileJSON.js';
 import {defaults as defaultControls, Attribution, ScaleLine, FullScreen, Control, Rotate} from 'ol/control';
 import {circular} from 'ol/geom/Polygon';
 import kompas from 'kompas';
@@ -172,7 +173,7 @@ var styleFunction = function(feature, resolution) {
 	ref = feature.get('ref').replace(/[^0-9a-zA-ZZäöüÄÖÜß]+/g,"").toLowerCase();
     }
    // console.log(plot_nr, ref );
-    if (feature.get('layer') === 'public.parzellengrenzen_view'
+    if (feature.get('layer') === 'parzgrview'
 	&& ref === plot_nr
 	&& (ref.length)) {
     return(plothighlightStyle);
@@ -216,11 +217,9 @@ const map = new Map({
 	new VectorTileLayer({
 	    name: 'parzellengrenzen',
 	    source: new VectorTileSource({
-	//	format: new MVT({layerName: 'layer', layers: ['parzellengrenzen']}),
-	//	url: 'https://vectortiles.obstbaumkarte.de/xyz/obstbaumkarte_vectorlayers/{z}/{x}/{y}.pbf',
 		format: new MVT(),
-//		url: 'https://pgtiles.obstbaumkarte.de/public.plots/{z}/{x}/{y}.pbf',
-		url: 'https://pgtiles.obstbaumkarte.de/public.parzellengrenzen_view/{z}/{x}/{y}.pbf',
+		url: 'https://sbtiles.obstbaumkarte.de/parzgrview/{z}/{x}/{y}',
+		crossOrigin: 'anonymous',
 	    }),
 	    minZoom: 14,
 	    maxZoom: 21,
@@ -230,7 +229,7 @@ const map = new Map({
 	    name: 'baeume',
 	    source: new VectorTileSource({
 		format: new MVT(),
-		url: 'https://pgtiles.obstbaumkarte.de/public.trees/{z}/{x}/{y}.pbf',
+		url: 'https://sbtiles.obstbaumkarte.de/trees/{z}/{x}/{y}',
 	    }),
 	    minZoom: 18,
 	    style: baum,
@@ -239,7 +238,7 @@ const map = new Map({
 	    name: 'straeucher',
 	    source: new VectorTileSource({
 		format: new MVT(),
-		url: 'https://pgtiles.obstbaumkarte.de/public.shrubs/{z}/{x}/{y}.pbf',
+		url: 'https://sbtiles.obstbaumkarte.de/shrubs/{z}/{x}/{y}',
 	    }),
 	    minZoom: 20,
 	    style: strauch,
@@ -248,7 +247,7 @@ const map = new Map({
 	    name: 'hecken',
 	    source: new VectorTileSource({
 		format: new MVT(),
-		url: 'https://pgtiles.obstbaumkarte.de/public.hedges/{z}/{x}/{y}.pbf',
+		url: 'https://sbtiles.obstbaumkarte.de/hedges/{z}/{x}/{y}',
 	    }),
 	    minZoom: 18,
 	    style: hecke,
