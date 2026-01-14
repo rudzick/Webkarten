@@ -1,6 +1,14 @@
 import './style.css'
 import maplibregl from 'maplibre-gl';
 import 'maplibre-gl/dist/maplibre-gl.css';
+import {
+		MaplibreExportControl,
+		Size,
+		PageOrientation,
+		Format,
+		DPI
+	} from '@watergis/maplibre-gl-export';
+	import '@watergis/maplibre-gl-export/dist/maplibre-gl-export.css';
 
 const map = new maplibregl.Map({
     container: 'map', // container id
@@ -72,3 +80,15 @@ const map = new maplibregl.Map({
     		document.getElementById('features')!.style.background = 'rgba(255, 255, 255, 0.0)';
 	      }
     });
+
+    const exportControl = new MaplibreExportControl({
+		PageSize: Size.A3,
+		PageOrientation: PageOrientation.Portrait,
+		Format: Format.SVG,
+		DPI: DPI[96],
+		Crosshair: true,
+		PrintableArea: true,
+		Local: 'de',
+		
+	});
+	map.addControl(exportControl, 'top-right');
