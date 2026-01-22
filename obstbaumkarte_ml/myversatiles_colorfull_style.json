@@ -15,7 +15,7 @@
 	"versatiles-shortbread": {
 	    "type": "vector",
 	    "attribution": "© <a href=\"https://www.openstreetmap.org/copyright\">OpenStreetMap</a> contributors",
-	    "url": "https://sbtiles.obstbaumkarte.de/table.public.streets_med.geom,table.public.streets_labels_points.geom,table.public.streets_low.geom,table.public.water_lines_labels.geom,table.public.street_polygons.geom,table.public.ferries.geom,table.public.boundaries.geom,table.public.water_polygons_labels.geom,table.public.street_labels.geom,table.public.water_lines.geom,table.public.pier_polygons.geom,table.public.dam_lines.geom,table.public.land.geom,table.public.public_transport.geom,table.public.addresses.geom,table.public.boundary_labels.geom,table.public.streets_polygons_labels.geom,table.public.aerialways.geom,table.public.sites.geom,table.public.pois.geom,table.public.buildings.geom,table.public.streets.geom,table.public.bridges.geom,table.public.place_labels.geom,table.public.water_polygons.geom,table.public.dam_polygons.geom,table.public.pier_lines.geom,table.public.allotment_plot_number.geom"
+	    "url": "https://sbtiles.obstbaumkarte.de/table.public.streets_med.geom,table.public.streets_labels_points.geom,table.public.streets_low.geom,table.public.water_lines_labels.geom,table.public.street_polygons.geom,table.public.ferries.geom,table.public.boundaries.geom,table.public.water_polygons_labels.geom,table.public.street_labels.geom,table.public.water_lines.geom,table.public.pier_polygons.geom,table.public.dam_lines.geom,table.public.land.geom,table.public.public_transport.geom,table.public.addresses.geom,table.public.boundary_labels.geom,table.public.streets_polygons_labels.geom,table.public.aerialways.geom,table.public.sites.geom,table.public.pois.geom,table.public.buildings.geom,table.public.streets.geom,table.public.bridges.geom,table.public.place_labels.geom,table.public.water_polygons.geom,table.public.dam_polygons.geom,table.public.pier_lines.geom,table.public.allotment_plot_number.geom,table.public.allotment_garden_name.geom"
 	},
 	"baeume": {
 	    "type": "vector",
@@ -31,6 +31,11 @@
 	    "type": "vector",
 	    "url": "https://sbtiles.obstbaumkarte.de/table.public.allotment_plot_number.geom",
 	    "minzoom": 16
+	},
+	"kolonienamen": {
+	    "type": "vector",
+	    "url": "https://sbtiles.obstbaumkarte.de/table.public.allotment_garden_name.geom",
+	    "minzoom": 15
 	}
     },  
 "layers": [
@@ -4885,7 +4890,7 @@
 	  "type": "symbol",
 	  "source": "parzellennummern",
 	  "source-layer": "table.public.allotment_plot_number.geom",
-	"minzoom": 16,
+	"minzoom": 19,
 	"layout": {
               "text-field": ["get", "ref"],
               "text-font": ["Open Sans"],
@@ -4895,7 +4900,43 @@
               "text-halo-width": 1,
               "text-halo-color": "rgba(255, 255, 255, 1)"
 	  }
+    },
+    {
+	  "id": "public.allotment_plot_number_tail",
+	  "type": "symbol",
+	  "source": "parzellennummern",
+	  "source-layer": "table.public.allotment_plot_number.geom",
+	"minzoom": 16,
+	"maxzoom": 19,
+	"layout": {
+              "text-field": ["get", "reftail"],
+              "text-font": ["Open Sans"],
+            "text-size": { "stops": [ [ 16, 3 ], [ 18, 11 ],[ 22, 20 ] ] },
+	    "text-overlap": "always"
+	},
+	"paint": {
+              "text-halo-width": 1,
+              "text-halo-color": "rgba(255, 255, 255, 1)"
+	  }
+    },
+    {
+	  "id": "public.allotment_garden_name",
+	  "type": "symbol",
+	  "source": "kolonienamen",
+	  "source-layer": "table.public.allotment_garden_name.geom",
+	"minzoom": 15,
+	"maxzoom": 19,
+	"layout": {
+              "text-field": ["get", "name"],
+              "text-font": ["Open Sans Bold"],
+            "text-size": { "stops": [ [ 15, 12 ], [ 17, 18 ] , [ 19, 20 ] ] },
+	    "text-overlap": "always"
+	},
+	"paint": {
+	    "text-color": "rgb(0,55,0,0.4)",
+              "text-halo-width": 1,
+              "text-halo-color": "rgba(255, 255, 255, 0.4)"
+	  }
       }
-
 	]
 }
