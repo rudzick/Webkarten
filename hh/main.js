@@ -144,7 +144,7 @@ var plothighlightStyle = new Style({
 });
 
 var styleFunction = function(feature, resolution) {
-    if (feature.get('layer') == 'public.gebaeude_hh_view'
+    if (feature.get('layer') == 'gebaeude_hh_view'
 	&&  ( feature.get('ref') == geb_nr || feature.get('ref') == 'haus' + geb_nr || feature.get('name') == geb_nr )){
     return(plothighlightStyle);
   }
@@ -185,7 +185,7 @@ const map = new Map({
 //		format: new MVT({layerName: 'layer', layers: ['gebaeude']}),
 //		url: 'https://vectortiles.obstbaumkarte.de/xyz/hh/{z}/{x}/{y}.pbf',
 		format: new MVT(),
-		url: 'https://pgtiles.obstbaumkarte.de/public.gebaeude_hh_view/{z}/{x}/{y}.pbf',
+		url: 'https://sbtiles.obstbaumkarte.de/gebaeude_hh_view/{z}/{x}/{y}',
 	    }),
 	    minZoom: 13,
 	    maxZoom: 21,
