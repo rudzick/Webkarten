@@ -24,7 +24,7 @@
 	},
 	"parzellen": {
 	    "type": "vector",
-	    "url": "https://sbtiles.obstbaumkarte.de/parzgrview",
+	    "url": "https://sbtiles.obstbaumkarte.de/table.public.allotment_plots.geom",
 	    "minzoom": 16
 	},
 	"parzellennummern": {
@@ -4232,6 +4232,28 @@
 		},
 		{
 			"source": "versatiles-shortbread",
+			"id": "label-street-path",
+			"type": "symbol",
+			"source-layer": "table.public.street_labels.geom",
+		    "filter": [ "any", [ "==", "kind", "path" ], [ "==", "kind", "footway"] ] ,
+			"layout": {
+				"text-field": "{name}",
+				"text-font": [ "noto_sans_regular" ],
+				"symbol-placement": "line",
+				"text-anchor": "center",
+				"text-size": { "stops": [ [ 16, 8 ], [ 17, 10 ], [ 19, 12 ] ] }
+			},
+			"paint": {
+				"icon-color": "rgb(51,51,68)",
+				"text-color": "rgb(51,51,68)",
+				"text-halo-color": "rgba(255,255,255,0.8)",
+				"text-halo-width": 2,
+				"text-halo-blur": 1
+			},
+			"minzoom": 16
+		},
+		{
+			"source": "versatiles-shortbread",
 			"id": "label-street-secondary",
 			"type": "symbol",
 			"source-layer": "table.public.street_labels.geom",
@@ -4874,7 +4896,7 @@
 	  "id": "public.parzellengrenzen_view",
 	  "type": "line",
 	  "source": "parzellen",
-	  "source-layer": "parzgrview",
+	  "source-layer": "table.public.allotment_plots.geom",
 	"minzoom": 16,
 	"layout": {
 	    "line-cap": "round",
