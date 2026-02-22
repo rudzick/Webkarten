@@ -7,8 +7,16 @@
 	"glyphs": "https://tiles.versatiles.org/assets/glyphs/{fontstack}/{range}.pbf",
 	"sprite": [
 		{
+			"id": "osm-bright-gl-style",
+			"url": "https://demotiles.maplibre.org/styles/osm-bright-gl-style/sprite"
+		},
+		{
 			"id": "basics",
-			"url": "https://obstbaumkarte.de/ml/basics/sprites"
+			"url": "https://sbtiles.obstbaumkarte.de/sprites/basics"
+		},
+		{
+			"id": "marker",
+			"url": "https://obstbaumkarte.de/ml/marker/"
 		}
 	],
     "sources": {
@@ -30,6 +38,11 @@
 	"parzellennummern": {
 	    "type": "vector",
 	    "url": "https://sbtiles.obstbaumkarte.de/table.public.allotment_plot_number.geom",
+	    "minzoom": 16
+	},
+	"parzelleneingaenge": {
+	    "type": "vector",
+	    "url": "https://sbtiles.obstbaumkarte.de/table.public.allotment_plot_entrances.geom",
 	    "minzoom": 16
 	},
 	"kolonienamen": {
@@ -4959,6 +4972,21 @@
               "text-halo-width": 1,
               "text-halo-color": "rgba(255, 255, 255, 0.4)"
 	  }
-      }
+    },
+    	    {
+	  "id": "parzelleneingaenge",
+	  "type": "symbol",
+	  "source": "parzelleneingaenge",
+	  "source-layer": "table.public.allotment_plot_entrances.geom",
+	  "minzoom": 17,
+	  "layout": {
+	      "icon-image": "osm-bright-gl-style:entrance_11",
+               "icon-size": 1
+	  },
+	  "paint": {
+              "text-halo-width": 1,
+              "text-halo-color": "rgba(255, 255, 255, 1)"
+	  }
+	    }
 	]
 }
