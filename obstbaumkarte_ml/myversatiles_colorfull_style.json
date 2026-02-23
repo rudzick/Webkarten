@@ -17,6 +17,14 @@
 		{
 			"id": "versatiles_icons",
 			"url": "https://sbtiles.obstbaumkarte.de/sprite/versatiles_icons"
+		},
+		{
+			"id": "carto_sympbols_amenity",
+			"url": "https://sbtiles.obstbaumkarte.de/sprite/carto_sympbols_amenity"
+		},
+		{
+			"id": "carto_sympbols_barrier",
+			"url": "https://sbtiles.obstbaumkarte.de/sprite/carto_sympbols_barrier"
 		}
 	],
     "sources": {
@@ -43,6 +51,11 @@
 	"parzelleneingaenge": {
 	    "type": "vector",
 	    "url": "https://sbtiles.obstbaumkarte.de/table.public.allotment_plot_entrances.geom",
+	    "minzoom": 16
+	},
+	"barriers": {
+	    "type": "vector",
+	    "url": "https://sbtiles.obstbaumkarte.de/table.public.barriers.geom",
 	    "minzoom": 16
 	},
 	"kolonienamen": {
@@ -4980,14 +4993,35 @@
 	  "source-layer": "table.public.allotment_plot_entrances.geom",
 	  "minzoom": 17,
 	  "layout": {
-	      "icon-image": "versatiles_icons:entrance1",
-              "icon-size":  { "stops": [ [ 17, 0.2 ], [ 20, 1 ] ] }
+	      "icon-image": "carto_sympbols_amenity:entrance",
+              "icon-size":  { "stops": [ [ 17, 0.2 ], [ 21, 1 ] ] }
 	  },
 	  "paint": {
 	      "icon-opacity": 0.7,
               "text-halo-width": 1,
               "text-halo-color": "rgba(255, 255, 255, 1)"
 	  }
-	    }
+	    },
+    		{
+			"source": "barriers",
+			"id": "barriers",
+			"type": "symbol",
+			"source-layer": "table.public.barriers.geom",
+			"filter": [ "to-boolean", [ "get", "barrier" ] ],
+			"minzoom": 16,
+			"layout": {
+				"icon-size": { "stops": [ [ 18, 1 ], [ 19, 1.5 ], [ 20, 2 ] ] },
+				"symbol-placement": "point",
+				"icon-optional": true,
+				"text-font": [ "noto_sans_regular" ],
+			    "icon-image": [ "match", [ "get", "barrier" ], "cattle_grid", "carto_sympbols_barrier:cattle_grid", "cycle_barrier","carto_sympbols_barrier:cycle_barrier", "full-height_turnstile","carto_sympbols_barrier:full-height_turnstile" , "gate","carto_sympbols_barrier:gate" , "kissing_gate","carto_sympbols_barrier:kissing_gate" , "level_crossing","carto_sympbols_barrier:level_crossing" , "lift_gate","carto_sympbols_barrier:lift_gate" , "motorcycle_barrier","carto_sympbols_barrier:motorcycle_barrier" , "stile","carto_sympbols_barrier:stile" , "toll_booth","carto_sympbols_barrier:toll_booth" , ""]
+			},
+			"paint": {
+				"icon-opacity": { "stops": [ [ 16, 0 ], [ 17, 0.4 ] ] },
+				"text-opacity": { "stops": [ [ 16, 0 ], [ 17, 0.4 ] ] },
+				"icon-color": "rgb(85,85,85)",
+				"text-color": "rgb(85,85,85)"
+			}
+		}
 	]
 }
