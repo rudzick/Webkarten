@@ -12,11 +12,11 @@
 		},
 		{
 			"id": "basics",
-			"url": "https://sbtiles.obstbaumkarte.de/sprites/basics"
+			"url": "https://obstbaumkarte.de/ml/basics/sprites"
 		},
 		{
-			"id": "marker",
-			"url": "https://obstbaumkarte.de/ml/marker/"
+			"id": "versatiles_icons",
+			"url": "https://sbtiles.obstbaumkarte.de/sprite/versatiles_icons"
 		}
 	],
     "sources": {
@@ -4980,10 +4980,11 @@
 	  "source-layer": "table.public.allotment_plot_entrances.geom",
 	  "minzoom": 17,
 	  "layout": {
-	      "icon-image": "osm-bright-gl-style:entrance_11",
-               "icon-size": 1
+	      "icon-image": "versatiles_icons:entrance1",
+              "icon-size":  { "stops": [ [ 17, 0.2 ], [ 20, 1 ] ] }
 	  },
 	  "paint": {
+	      "icon-opacity": 0.7,
               "text-halo-width": 1,
               "text-halo-color": "rgba(255, 255, 255, 1)"
 	  }
