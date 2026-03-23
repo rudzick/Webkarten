@@ -169,10 +169,22 @@
 			"type": "fill",
 			"source-layer": "table.public.land.geom",
 			"filter": [ "all", [ "in", "kind", "allotments" ] ],
-			"paint": {
+		    "paint": {
 			    "fill-color": "#c9e1bf",
 			    "fill-opacity": { "stops": [ [ 11, 0 ], [ 12, 1 ] ] }
-			}
+		    }
+		},
+   		{
+			"source": "versatiles-shortbread",
+			"id": "land-allotments-boundaries",
+			"type": "line",
+		    "source-layer": "table.public.land.geom",
+		    "minzoom":  13,
+		    "maxzoom":  15,
+			"filter": [ "all", [ "in", "kind", "allotments" ] ],
+		    "paint": {
+			    "line-color": "rgb(0,55,0,0.4)"
+		    }
 		},
 		{
 			"source": "versatiles-shortbread",
@@ -5022,12 +5034,12 @@
 	  "type": "symbol",
 	  "source": "kolonienamen",
 	  "source-layer": "table.public.allotment_garden_name.geom",
-	"minzoom": 15,
+	"minzoom": 13,
 	"maxzoom": 19,
 	"layout": {
               "text-field": ["get", "name"],
               "text-font": ["Open Sans Bold"],
-            "text-size": { "stops": [ [ 15, 12 ], [ 17, 18 ] , [ 19, 20 ] ] },
+            "text-size": { "stops": [ [ 13, 8], [ 15, 12 ], [ 17, 18 ] , [ 19, 20 ] ] },
 	    "text-overlap": "always"
 	},
 	"paint": {
