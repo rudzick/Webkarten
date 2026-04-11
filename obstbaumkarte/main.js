@@ -252,6 +252,17 @@ const map = new Map({
 	    minZoom: 18,
 	    style: hecke,
 	}),
+	// Vektortiles für Geldautomaten
+	new VectorTileLayer({
+	    name: 'geldautomaten',
+	    source: new VectorTileSource({
+		format: new MVT(),
+		url: 'https://sbtiles.obstbaumkarte.de/table.public.atm.geom/{z}/{x}/{y}',
+	    }),
+	    minZoom: 18,
+	    style: baum,
+	}),
+
     ],
     view: new View({
 	projection: 'EPSG:3857',
@@ -267,7 +278,7 @@ map.on('pointermove', showInfo);
 
 const info = document.getElementById('info');
 function layerFilter(layerCandidate) {
-    if (layerCandidate.get('name') == 'baeume' ||  layerCandidate.get('name') == 'straeucher'  ||  layerCandidate.get('name') == 'hecken'  ) {
+    if (layerCandidate.get('name') == 'baeume' ||  layerCandidate.get('name') == 'straeucher'  ||  layerCandidate.get('name') == 'hecken'  ||  layerCandidate.get('name') == 'geldautomaten'   ) {
 	return(true);
     }
     return(false);
