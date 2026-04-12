@@ -44,7 +44,9 @@ const map = new maplibregl.Map({
     // Set an interval to update the url hash in a map overlay
     const urlHash = document.getElementById('urlHash');
     setInterval(() => {
+      if (urlHash !== null ) {
         urlHash.textContent = `URL hash: ${window.location.hash}`;
+	}
     }, 100);
 
 // Show tags of OSM objects in the lower left corner on hover:
