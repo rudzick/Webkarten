@@ -12,6 +12,7 @@ import {
 
 const map = new maplibregl.Map({
     container: 'map', // container id
+    hash: true, // <- Enable hash routing
 //    style: 'map_style.json', // style URL
     style: 'myversatiles_colorfull_style.json', // style URL
     center: [13.31233, 52.47416], // starting position [lng, lat]
@@ -40,6 +41,11 @@ const map = new maplibregl.Map({
     //	maxWidth: 100,
     	unit: 'metric'
     }));
+    // Set an interval to update the url hash in a map overlay
+    const urlHash = document.getElementById('urlHash');
+    setInterval(() => {
+        urlHash.textContent = `URL hash: ${window.location.hash}`;
+    }, 100);
 
 // Show tags of OSM objects in the lower left corner on hover:
 
