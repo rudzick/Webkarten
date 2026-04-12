@@ -66,6 +66,11 @@
 	    "type": "vector",
 	    "url": "https://sbtiles.obstbaumkarte.de/table.public.allotment_garden_name.geom",
 	    "minzoom": 15
+	},
+	"geldautomaten": {
+	    "type": "vector",
+	    "url": "https://sbtiles.obstbaumkarte.de/table.public.alle_geldautomaten.geom",
+	    "minzoom": 12
 	}
     },  
 "layers": [
@@ -5084,6 +5089,22 @@
 				"icon-color": "rgb(85,85,85)",
 				"text-color": "rgb(85,85,85)"
 			}
-		}
+		},
+       	    {
+	  "id": "geldautomaten",
+	  "type": "symbol",
+	  "source": "geldautomaten",
+	  "source-layer": "table.public.alle_geldautomaten.geom",
+	  "minzoom": 12,
+	  "layout": {
+	      "icon-image": "carto_sympbols_amenity:atm",
+              "icon-size":  { "stops": [ [ 12, 0.4 ], [ 21, 1 ] ] }
+	  },
+	  "paint": {
+	      "icon-opacity": 0.7,
+              "text-halo-width": 1,
+              "text-halo-color": "rgba(255, 255, 255, 1)"
+	  }
+	    }
 	]
 }

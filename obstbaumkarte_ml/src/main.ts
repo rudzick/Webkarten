@@ -45,7 +45,7 @@ const map = new maplibregl.Map({
 
     map.on('mousemove', (e : any) => {const features = map.queryRenderedFeatures(
 			e.point,
-		{ layers: [ 'public.trees','public.trees_fruittrees_17','public.trees_broadleaved_17','public.trees_coniferes_17'] }
+		{ layers: [ 'public.trees','public.trees_fruittrees_17','public.trees_broadleaved_17','public.trees_coniferes_17','geldautomaten'] }
 	);		
 
         // Limit the number of properties we're displaying for
