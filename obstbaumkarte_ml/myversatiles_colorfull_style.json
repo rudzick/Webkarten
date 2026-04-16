@@ -71,6 +71,11 @@
 	    "type": "vector",
 	    "url": "https://sbtiles.obstbaumkarte.de/table.public.alle_geldautomaten.geom",
 	    "minzoom": 9
+	},
+	"cash_withdrawal": {
+	    "type": "vector",
+	    "url": "https://sbtiles.obstbaumkarte.de/table.public.alle_cash_withdrawal.geom",
+	    "minzoom": 9
 	}
     },  
 "layers": [
@@ -5039,7 +5044,7 @@
 	  "type": "symbol",
 	  "source": "kolonienamen",
 	  "source-layer": "table.public.allotment_garden_name.geom",
-	"minzoom": 13,
+	"minzoom": 14,
 	"maxzoom": 19,
 	"layout": {
               "text-field": ["get", "name"],
@@ -5098,13 +5103,34 @@
 	  "minzoom": 9,
 	  "layout": {
 	      "icon-image": "carto_sympbols_amenity:atm",
-              "icon-size":  { "stops": [ [ 9, 0.8 ],[ 12, 0.7],[ 14, 0.6 ],[15, 0.6 ], [ 21, 1 ] ] }
+              "icon-size":  { "stops": [ [ 9, 0.8 ],[ 12, 0.7],[ 14, 0.6 ],[15, 0.6 ], [ 21, 1 ] ] },
+	      "icon-overlap": "always",
+	      "icon-ignore-placement": true
 	  },
 	  "paint": {
 	      "icon-opacity": 0.7,
               "text-halo-width": 1,
               "text-halo-color": "rgba(255, 255, 255, 1)"
 	  }
-	    }
+	    },
+          {
+	  "id": "cash_withdrawal",
+	  "type": "symbol",
+	  "source": "cash_withdrawal",
+	  "source-layer": "table.public.alle_cash_withdrawal.geom",
+	  "minzoom": 9,
+	  "layout": {
+	      "text-field": "€",
+	      "text-font": ["Open Sans Bold"],
+              "text-size":  { "stops": [ [ 9, 16 ],[ 12, 14],[ 14, 12 ],[15, 16 ], [ 21, 20 ] ] },
+	      "text-overlap": "always",
+	      "text-ignore-placement": true
+	  },
+	  "paint": {
+	      "text-color": "rgb(125,0,0)",
+              "text-halo-width": 1,
+              "text-halo-color": "rgba(255, 255, 255, 0.4)"
+	  }
+	    }  
 	]
 }
