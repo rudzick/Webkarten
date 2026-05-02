@@ -173,7 +173,7 @@ var styleFunction = function(feature, resolution) {
 	ref = feature.get('ref').replace(/[^0-9a-zA-ZZäöüÄÖÜß]+/g,"").toLowerCase();
     }
    // console.log(plot_nr, ref );
-    if (feature.get('layer') === 'parzgrview'
+    if (feature.get('layer') === 'table.public.allotment_plots.geom'
 	&& ref === plot_nr
 	&& (ref.length)) {
     return(plothighlightStyle);
@@ -218,7 +218,7 @@ const map = new Map({
 	    name: 'parzellengrenzen',
 	    source: new VectorTileSource({
 		format: new MVT(),
-		url: 'https://sbtiles.obstbaumkarte.de/parzgrview/{z}/{x}/{y}',
+		url: 'https://sbtiles.obstbaumkarte.de/table.public.allotment_plots.geom/{z}/{x}/{y}',
 		crossOrigin: 'anonymous',
 	    }),
 	    minZoom: 14,
