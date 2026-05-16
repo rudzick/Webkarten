@@ -49,15 +49,14 @@ class FindAllotmentPlots extends Control {
   }
 
   handleFindAllotmentPlots() {
-//      plot_nr = (document.getElementById("allotment_number_field").value).replace(/\s+/g,"").toLowerCase();
-      plot_nr = (document.getElementById("allotment_number_field").value).replace(/[^0-9a-zA-ZZäöüÄÖÜß]+/g,"").toLowerCase();
-  //    console.log(plot_nr);
+      plot_nrs = (document.getElementById("allotment_number_field").value).replace(/[^+0-9a-zA-ZZäöüÄÖÜß]+/g,"").toLowerCase().split("+");
+  //    console.log(plot_nrs);
       this.getMap().getLayers().getArray().find(layer => layer.get('name') == 'parzellengrenzen').setStyle(styleFunction);
       updatePermalink();
   };
 }
 
-var plot_nr = ' ';
+var plot_nrs = [' '];
 
 var mapMinZoom = 1;
 var mapMaxZoom = 24;
@@ -104,8 +103,8 @@ if (window.location.hash !== '') {
 	];
 	rotation = parseFloat(parts[3]);
 	marker = parseInt(parts[4]);
-	plot_nr = parts[5];
-	allotment_number_field.value = plot_nr;	
+	plot_nrs = parts[5].split('+');
+	allotment_number_field.value = plot_nrs.join("+");	
     }
 }
 
@@ -172,9 +171,9 @@ var styleFunction = function(feature, resolution) {
     if(feature.get('ref')) {
 	ref = feature.get('ref').replace(/[^0-9a-zA-ZZäöüÄÖÜß]+/g,"").toLowerCase();
     }
-   // console.log(plot_nr, ref );
+    console.log(plot_nrs, ref );
     if (feature.get('layer') === 'table.public.allotment_plots.geom'
-	&& ref === plot_nr
+	&& (plot_nrs.includes(ref))
 	&& (ref.length)) {
     return(plothighlightStyle);
   }
@@ -327,8 +326,8 @@ var updatePermalink = function() {
       Math.round(center[0] * 100) / 100 + '/' +
       Math.round(center[1] * 100) / 100 + '/' +
       view.getRotation();
-   if ( plot_nr != ' ') {
-	hash = hash + '/0/' +  plot_nr;
+   if ( plot_nrs!= [' ']) {
+       hash = hash + '/0/' +  plot_nrs.join("+");
    } 
   var state = {
     zoom: view.getZoom(),
