@@ -171,7 +171,7 @@ var styleFunction = function(feature, resolution) {
     if(feature.get('ref')) {
 	ref = feature.get('ref').replace(/[^0-9a-zA-ZZäöüÄÖÜß]+/g,"").toLowerCase();
     }
-    console.log(plot_nrs, ref );
+//    console.log(plot_nrs, ref );
     if (feature.get('layer') === 'table.public.allotment_plots.geom'
 	&& (plot_nrs.includes(ref))
 	&& (ref.length)) {
