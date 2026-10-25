@@ -16,6 +16,7 @@ import VectorTileSource from 'ol/source/VectorTile.js';
 import {defaults as defaultControls, Attribution, ScaleLine, FullScreen, Control} from 'ol/control';
 import {circular} from 'ol/geom/Polygon';
 import kompas from 'kompas';
+import {addRouting} from './routing.js';
 
 const building_number_field = document.createElement('input');
 building_number_field.className = 'ol-control button';
@@ -210,6 +211,8 @@ const map = new Map({
     controls: defaultControls({attribution: false}).extend([attribution,massstab,new FullScreen(),new FindBuildingRef()]),
     //   controls: defaultControls({attribution: true}).extend([attribution,massstab,new FullScreen()]),
 });
+
+addRouting(map);
 
 map.on('pointermove', showInfo);
 
