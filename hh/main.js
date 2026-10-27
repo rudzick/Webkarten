@@ -58,6 +58,16 @@ class FindBuildingRef extends Control {
 
 var geb_nr = ' ';
 
+function formatLatLon(lonLat) {
+    return lonLat[1].toFixed(5) + ',' + lonLat[0].toFixed(5);
+}
+
+// "52.47412,13.31233" -> [13.31233, 52.47412]
+function parseLatLon(text) {
+    const m = (text || '').match(/^\s*(-?\d+(?:\.\d+)?)\s*,\s*(-?\d+(?:\.\d+)?)\s*$/);
+    return m ? [parseFloat(m[2]), parseFloat(m[1])] : null;
+}
+
 var mapMinZoom = 1;
 var mapMaxZoom = 24;
 var mapExtent = getProjection('EPSG:3857').getExtent();
@@ -75,10 +85,21 @@ var zoom = 16;
 var center = [783997.86,6568490.79];
 var rotation = 0;
 var marker = 0;
+// Routenpunkte aus dem Permalink (&start=…&via=…&ziel=…&profil=…)
+var routeParams = new URLSearchParams();
 
 if (window.location.hash !== '') {
     // try to restore center, zoom-level and rotation from the URL
     var hash = window.location.hash.replace('#map=', '');
+     var amp = hash.indexOf('&');
+    if (amp >= 0) {
+	routeParams = new URLSearchParams(hash.slice(amp + 1));
+	hash = hash.slice(0, amp);
+    }
+    // weitergeleitete Links enthalten oft %2B (+) oder %2F (/)
+    try {
+	hash = decodeURIComponent(hash);
+    } catch (e) {}
     var parts = hash.split('/');
     if (parts.length === 4) {
 	zoom = parseInt(parts[0], 10);
@@ -212,7 +233,7 @@ const map = new Map({
     //   controls: defaultControls({attribution: true}).extend([attribution,massstab,new FullScreen()]),
 });
 
-addRouting(map);
+const routing = addRouting(map, {onChange: () => updatePermalink()});
 
 map.on('pointermove', showInfo);
 
@@ -269,7 +290,15 @@ var updatePermalink = function() {
       view.getRotation();
    if ( geb_nr != ' ') {
 	hash = hash + '/0/' +  geb_nr;
-   } 
+   }
+    // nur die gesetzten Routenpunkte
+  var route = routing.getPermalinkState();
+  var routeParts = [['start', route.start], ['via', route.via], ['ziel', route.end]]
+      .filter(([, lonLat]) => lonLat)
+      .map(([key, lonLat]) => key + '=' + formatLatLon(lonLat));
+  if (routeParts.length) {
+      hash = hash + '&' + routeParts.join('&') + '&profil=' + route.profile;
+  }
   var state = {
     zoom: view.getZoom(),
     center: view.getCenter(),
@@ -279,6 +308,15 @@ var updatePermalink = function() {
 };
 
 map.on('moveend', updatePermalink);
+
+if (['start', 'via', 'ziel'].some(key => routeParams.has(key))) {
+    routing.setPermalinkState({
+	profile: routeParams.get('profil'),
+	start: parseLatLon(routeParams.get('start')),
+	via: parseLatLon(routeParams.get('via')),
+	end: parseLatLon(routeParams.get('ziel')),
+    });
+}
 
 // restore the view state when navigating through the history, see
 // https://developer.mozilla.org/en-US/docs/Web/API/WindowEventHandlers/onpopstate
