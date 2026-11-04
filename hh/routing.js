@@ -12,19 +12,25 @@ import {boundingExtent} from 'ol/extent';
 import './routing.css';
 
 // im Dev-Server per Proxy auf localhost:8989 umgeleitet, siehe vite.config.js
-const GRAPHHOPPER_URL = import.meta.env.VITE_GRAPHHOPPER_URL || '/graphhopper';
+export const GRAPHHOPPER_URL = import.meta.env.VITE_GRAPHHOPPER_URL || '/graphhopper';
 const NOMINATIM_URL = 'https://nominatim.openstreetmap.org/search';
 
-const PROFILES = [
+export const PROFILES = [
     ['foot', 'Zu Fuß'],
     ['bike', 'Fahrrad'],
     ['wheelchair', 'Rollstuhl / Kinderwagen'],
     ['car', 'Auto'],
 ];
 
+const routeCasingStyle = new Style({stroke: new Stroke({color: 'rgba(255,255,255,0.9)', width: 8})});
 const routeStyle = [
-    new Style({stroke: new Stroke({color: 'rgba(255,255,255,0.9)', width: 8})}),
+    routeCasingStyle,
     new Style({stroke: new Stroke({color: '#0b62d6', width: 5})}),
+];
+// Abschnitte über Wege, die im Routing-Graphen mit hazmat=no markiert sind (private Wege, Sperrgebiete)
+const privateRouteStyle = [
+    routeCasingStyle,
+    new Style({stroke: new Stroke({color: '#0b62d6', width: 5, lineCap: 'butt', lineDash: [10, 8]})}),
 ];
 
 function markerStyle(color) {
@@ -39,9 +45,11 @@ function markerStyle(color) {
 }
 // Reihenfolge der Punkte in der Route; via ist optional
 const ROLES = ['start', 'via', 'end'];
+// Was das Zielfeld sucht; eine Zahl allein kann Hausnummer oder Parzelle sein
+const END_PLACEHOLDERS = {place: 'Ziel (Ort oder Klick)', plot: 'Ziel: Parzellennummer'};
 const markerStyles = {start: markerStyle('#2a9d3a'), via: markerStyle('#f08c00'), end: markerStyle('#d62828')};
 
-function formatDistance(m) {
+export function formatDistance(m) {
     if (m < 1000) return Math.round(m) + ' m';
     return (m / 1000).toLocaleString('de-DE', {maximumFractionDigits: 1}) + ' km';
 }
@@ -56,11 +64,24 @@ function formatLonLat(lonLat) {
     return lonLat[1].toFixed(5) + ', ' + lonLat[0].toFixed(5);
 }
 
+// Zahlen und Parzellennummern (20, 23b, II/133, II 133, 12/3) findet die Ortssuche irgendwo in
+// Deutschland. Nicht dazu zählen Postleitzahlen und Straßen wie A 100, B 96 oder L 12.
+function looksLikeNumberOnly(text) {
+    const t = text.trim();
+    return !/^\d{5}$/.test(t)
+	&& (/^\d+\s*[a-z]?$/i.test(t)
+	    || /^[ivx]+[\s.\-]*\d+\s*[a-z]?$/i.test(t)
+	    || /^[\p{L}\d]{1,4}\s*\/\s*\d+\s*[a-z]?$/iu.test(t));
+}
+
 // "52.47, 13.31" -> [13.31, 52.47], sonst Ortssuche über Nominatim
 // Sucht zuerst im aktuellen Kartenausschnitt, danach in ganz Deutschland
 async function geocode(text, extent) {
     const m = text.match(/^\s*(-?\d+(?:\.\d+)?)\s*[,;\s]\s*(-?\d+(?:\.\d+)?)\s*$/);
     if (m) return [parseFloat(m[2]), parseFloat(m[1])];
+    if (looksLikeNumberOnly(text)) {
+	throw new Error('„' + text + '“ allein ist kein Ort. Bitte mit Straße eingeben; für eine Parzelle im Zielfeld unter ☰ „Parzellennummer“ wählen.');
+    }
     const viewbox = transformExtent(extent, 'EPSG:3857', 'EPSG:4326').join(',');
     for (const area of [{viewbox: viewbox, bounded: '1'}, {}]) {
 	const params = new URLSearchParams({
@@ -97,7 +118,14 @@ class RoutingPanel extends Control {
 	        <button type="button" class="routing-clear" data-role="via" title="Zwischenziel entfernen">×</button>
 	      </div>
 	      <div class="routing-point-row">
-	        <input type="text" class="routing-end" placeholder="Ziel (Ort oder Klick in die Karte)">
+	        <input type="text" class="routing-end" placeholder="${END_PLACEHOLDERS.place}">
+	        <label class="routing-mode" title="Was wird als Ziel gesucht?">
+	          <span aria-hidden="true">☰</span>
+	          <select class="routing-end-mode" aria-label="Ziel suchen als">
+	            <option value="place">Ort oder Adresse</option>
+	            <option value="plot">Parzellennummer</option>
+	          </select>
+	        </label>
 	        <button type="button" class="routing-clear" data-role="end" title="Ziel entfernen">×</button>
 	      </div>
 	    </div>
@@ -110,6 +138,7 @@ class RoutingPanel extends Control {
 
 	this.profileSelect = element.querySelector('.routing-profile');
 	this.inputs = Object.fromEntries(ROLES.map((role) => [role, element.querySelector('.routing-' + role)]));
+	this.endMode = element.querySelector('.routing-end-mode');
 	this.status = element.querySelector('.routing-status');
 	this.instructionList = element.querySelector('.routing-instructions');
 
@@ -118,6 +147,13 @@ class RoutingPanel extends Control {
 	this.activeRole = null;
 	// wird bei jeder Änderung der Route aufgerufen (Permalink), siehe addRouting
 	this.onChange = () => {};
+	// wird aufgerufen, wenn das Panel aufgeht, siehe addRouting
+	this.onOpen = () => {};
+	// sucht ein Ziel zu einer Parzellennummer, siehe addRouting
+	this.findPlot = async () => null;
+	// eingegebene Parzellennummer des Ziels; wird hervorgehoben, siehe addRouting
+	this.endPlot = null;
+	this.onEndPlotChange = () => {};
 	this.routeSource = new VectorSource();
 	this.layer = new VectorLayer({
 	    source: this.routeSource,
@@ -131,7 +167,10 @@ class RoutingPanel extends Control {
 	    filter: (feature) => feature.get('role') !== undefined,
 	});
 	this.translate.on('translateend', (event) => {
-	    event.features.forEach((feature) => this.updateInputFromMarker(feature.get('role')));
+	    event.features.forEach((feature) => {
+		this.updateInputFromMarker(feature.get('role'));
+		if (feature.get('role') === 'end') this.setEndPlot(null);
+	    });
 	    this.calculateRoute();
 	});
 	this.abortController = null;
@@ -143,6 +182,7 @@ class RoutingPanel extends Control {
 	    button.addEventListener('click', () => this.clearPoint(button.dataset.role));
 	});
 	this.profileSelect.addEventListener('change', () => this.calculateRoute());
+	this.endMode.addEventListener('change', () => this.onEndModeChange());
 	Object.entries(this.inputs).forEach(([role, input]) => {
 	    input.addEventListener('focus', () => { this.activeRole = role; });
 	    input.addEventListener('keydown', (event) => {
@@ -169,16 +209,24 @@ class RoutingPanel extends Control {
     // Punkte für den Permalink, jeweils [lon, lat] oder null
     getPermalinkState() {
 	const lonLat = (role) => this.markers[role] ? toLonLat(this.markers[role].getGeometry().getCoordinates()) : null;
-	return {profile: this.profileSelect.value, start: lonLat('start'), via: lonLat('via'), end: lonLat('end')};
+	return {profile: this.profileSelect.value, start: lonLat('start'), via: lonLat('via'), end: lonLat('end'), endPlot: this.endPlot};
     }
 
     // Route aus dem Permalink wiederherstellen; fehlt Start oder Ziel, wird danach gefragt
     setPermalinkState(state) {
+	this.onOpen();
 	this.element.hidden = false;
 	if (PROFILES.some(([id]) => id === state.profile)) this.profileSelect.value = state.profile;
 	ROLES.forEach((role) => {
 	    if (state[role]) this.setMarker(role, fromLonLat(state[role]));
 	});
+	if (state.end && state.endPlot) {
+	    this.endMode.value = 'plot';
+	    this.updateEndMode();
+	    this.inputs.end.value = state.endPlot;
+	    this.inputs.end.dataset.resolved = state.endPlot;
+	    this.setEndPlot(state.endPlot);
+	}
 	if (!state.start) {
 	    this.inputs.start.focus();
 	} else if (!state.end) {
@@ -189,6 +237,7 @@ class RoutingPanel extends Control {
 
     toggle() {
 	if (this.element.hidden) {
+	    this.onOpen();
 	    this.element.hidden = false;
 	    this.inputs.start.focus();
 	} else {
@@ -206,7 +255,25 @@ class RoutingPanel extends Control {
 	});
 	this.activeRole = null;
 	this.status.textContent = '';
+	this.endMode.value = 'place';
+	this.updateEndMode();
 	this.onChange();
+    }
+
+    updateEndMode() {
+	this.inputs.end.placeholder = END_PLACEHOLDERS[this.endMode.value];
+	this.endMode.parentElement.classList.toggle('routing-mode-plot', this.endMode.value === 'plot');
+    }
+
+    onEndModeChange() {
+	this.updateEndMode();
+	// ein getippter Text muss neu gesucht werden, ein Punkt aus der Karte bleibt gültig
+	const input = this.inputs.end;
+	const marker = this.markers.end;
+	if (!marker || input.value !== formatLonLat(toLonLat(marker.getGeometry().getCoordinates()))) {
+	    delete input.dataset.resolved;
+	}
+	input.focus();
     }
 
     clearPoint(role) {
@@ -215,7 +282,14 @@ class RoutingPanel extends Control {
 	this.calculateRoute();
     }
 
+    setEndPlot(text) {
+	if (text === this.endPlot) return;
+	this.endPlot = text;
+	this.onEndPlotChange(text);
+    }
+
     setMarker(role, coordinate) {
+	if (role === 'end') this.setEndPlot(null);
 	if (this.markers[role]) {
 	    this.markers[role].getGeometry().setCoordinates(coordinate);
 	} else {
@@ -228,6 +302,7 @@ class RoutingPanel extends Control {
     }
 
     removeMarker(role) {
+	if (role === 'end') this.setEndPlot(null);
 	const feature = this.markers[role];
 	if (!feature) return;
 	this.routeSource.removeFeature(feature);
@@ -267,16 +342,28 @@ class RoutingPanel extends Control {
 		}
 		if (this.markers[role] && input.dataset.resolved === input.value) continue;
 		this.status.textContent = 'Suche „' + text + '“ …';
-		const lonLat = await geocode(text, this.getMap().getView().calculateExtent());
-		this.setMarker(role, fromLonLat(lonLat));
+		this.setMarker(role, await this.locate(role, text));
 		input.value = text;
 		input.dataset.resolved = text;
+		if (role === 'end' && this.endMode.value === 'plot') this.setEndPlot(text);
 	    }
 	} catch (error) {
 	    this.status.textContent = error.message;
 	    return;
 	}
 	this.calculateRoute(true);
+    }
+
+    // Kartenkoordinate zu einem eingegebenen Text
+    async locate(role, text) {
+	if (role === 'end' && this.endMode.value === 'plot') {
+	    const plotPoint = await this.findPlot(text);
+	    if (!plotPoint) {
+		throw new Error('Parzelle „' + text + '“ wurde hier nicht gefunden. Karte näher an die Kolonie heranzoomen.');
+	    }
+	    return plotPoint;
+	}
+	return fromLonLat(await geocode(text, this.getMap().getView().calculateExtent()));
     }
 
     clearRoute() {
@@ -306,6 +393,7 @@ class RoutingPanel extends Control {
 	    points_encoded: 'false',
 	    locale: 'de',
 	    instructions: 'true',
+	    details: 'hazmat',
 	});
 	ROLES.filter((role) => this.markers[role]).forEach((role) => {
 	    const lonLat = toLonLat(this.markers[role].getGeometry().getCoordinates());
@@ -330,9 +418,15 @@ class RoutingPanel extends Control {
     showRoute(path, fit) {
 	this.clearRoute();
 	const coordinates = path.points.coordinates.map((c) => fromLonLat(c));
-	const route = new Feature(new LineString(coordinates));
-	route.setStyle(routeStyle);
-	this.routeSource.addFeature(route);
+	const routeGeometry = new LineString(coordinates);
+	// je Abschnitt [von, bis, Wert]; ohne Angabe die ganze Route durchgehend zeichnen
+	const sections = path.details && path.details.hazmat && path.details.hazmat.length
+	    ? path.details.hazmat : [[0, coordinates.length - 1, 'yes']];
+	sections.forEach(([from, to, hazmat]) => {
+	    const section = new Feature(new LineString(coordinates.slice(from, to + 1)));
+	    section.setStyle(hazmat === 'no' ? privateRouteStyle : routeStyle);
+	    this.routeSource.addFeature(section);
+	});
 	this.status.textContent = formatDistance(path.distance) + ' · ' + formatTime(path.time);
 
 	path.instructions.forEach((instruction) => {
@@ -354,7 +448,7 @@ class RoutingPanel extends Control {
 	});
 
 	if (fit) {
-	    this.getMap().getView().fit(route.getGeometry(), {duration: 300, padding: [40, 40, 40, 40]});
+	    this.getMap().getView().fit(routeGeometry, {duration: 300, padding: [40, 40, 40, 40]});
 	}
     }
 }
@@ -362,6 +456,9 @@ class RoutingPanel extends Control {
 export function addRouting(map, options = {}) {
     const panel = new RoutingPanel();
     if (options.onChange) panel.onChange = options.onChange;
+    if (options.onOpen) panel.onOpen = options.onOpen;
+    if (options.findPlot) panel.findPlot = options.findPlot;
+    if (options.onEndPlotChange) panel.onEndPlotChange = options.onEndPlotChange;
 
     const button = document.createElement('button');
     button.type = 'button';
